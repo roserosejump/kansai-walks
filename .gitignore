@@ -7,3 +7,5 @@ private/
 .DS_Store
 # Claude Code 個人設定
 .claude/
+# Playwright MCP 測試產物
+.playwright-mcp/

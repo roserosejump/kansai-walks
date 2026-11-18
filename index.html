@@ -4,11 +4,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="icon" href="icon.png?v=106">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="Our Seoul">
+  <meta name="apple-mobile-web-app-title" content="Kansai 2026">
   <meta name="theme-color" content="#f7f1e8">
-  <title>🧳 首爾旅行時光</title>
+  <title>🍁 關西賞楓之旅 2026</title>
   <link rel="manifest" href="manifest.json">
   <link rel="apple-touch-icon" href="icon.png?v=106">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1472,13 +1474,13 @@
 <body>
   <div id="topbar">
     <div id="tbl"></div>
-    <div class="tb-title" id="tbt">🧳 首爾旅行時光</div>
+    <div class="tb-title" id="tbt">🍁 關西賞楓之旅 2026</div>
     <div class="tb-r" id="tbr"></div>
   </div>
   <div id="scroll">
     <div class="page active" id="pg-home">
       <div class="h-hero">
-        <div class="h-greet">首爾，<em>旅程開始</em>🧳</div>
+        <div class="h-greet">關西，<em>旅程開始</em>🍁</div>
         <div class="h-eyerow">
           <div class="h-eye" id="h-eye">LOADING...</div>
           <div class="h-clock" id="h-clk">--:--</div>
@@ -1488,7 +1490,7 @@
       <div id="today-wrap"></div>
       <div class="search-sec">
         <div class="sec-lb">> 搜尋 SEARCH</div>
-        <input class="search-inp" id="search-inp" type="text" placeholder="搜尋行程（例如：解放村、豬肉湯飯）" oninput="onSearchInput()">
+        <input class="search-inp" id="search-inp" type="text" placeholder="搜尋行程（例如：嵐山、湯豆腐）" oninput="onSearchInput()">
         <div class="search-results" id="search-results"></div>
       </div>
       <div class="days-sec">
@@ -1570,12 +1572,15 @@
     let CONFIG = {};
     let CITIES = {};
     const SHOP_KEY = 'jp-shop';
-    const SW_CACHE_NAME = 'seoul-walks-v1'; // 要跟 sw.js 裡的 CACHE_NAME 保持一致
+    const SW_CACHE_NAME = 'kansai-walks-v1'; // 要跟 sw.js 裡的 CACHE_NAME 保持一致
 
     async function loadData() {
-      const dayFiles = Array.from({ length: 4 }, (_, i) => `data/day${i + 1}.json`);
+      // 天數放在 config.json 的 days，不寫死在程式裡；先抓 config 才知道要抓幾天
+      const configRes = await fetch('data/config.json');
+      const dayCount = (await configRes.clone().json()).days;
+      const dayFiles = Array.from({ length: dayCount }, (_, i) => `data/day${i + 1}.json`);
       const dataFiles = [...dayFiles, 'data/checklist.json', 'data/config.json'];
-      const responses = await Promise.all(dataFiles.map(f => fetch(f)));
+      const responses = await Promise.all(dataFiles.map(f => f === 'data/config.json' ? configRes : fetch(f)));
       // clone 要在讀取 body 之前、同步做完，不然會跟下面的 r.json() 搶讀同一個 body 而出錯
       const cacheClones = responses.map(res => res.clone());
       // 直接把行程資料寫進 Service Worker 的快取，離線時才拿得到；
@@ -1584,9 +1589,9 @@
         caches.open(SW_CACHE_NAME).then(cache => cacheClones.forEach((res, i) => cache.put(dataFiles[i], res)));
       }
       const jsons = await Promise.all(responses.map(r => r.json()));
-      const days = jsons.slice(0, 4);
-      const checklist = jsons[4];
-      const config = jsons[5];
+      const days = jsons.slice(0, dayCount);
+      const checklist = jsons.at(-2);
+      const config = jsons.at(-1);
       DAYS = days;
       GTASKS = checklist.GTASKS;
       SHOP_DEF = checklist.SHOP_DEF;
@@ -1645,14 +1650,18 @@
 
     // ── CLOCK ─────────────────────────────────────────────────────────────────────
     function jst() {
-      try { return new Date(new Date().toLocaleString('en-US', { timeZone: 'Asia/Seoul' })) }
-      catch (e) { const n = new Date(); return new Date(n.getTime() + 9 * 3600000); }
+      // 回傳一個「本地欄位 = 日本當地時間」的 Date，其他程式用 getHours() 等就是日本時間。
+      // 用 Intl 直接取各欄位，比 toLocaleString 再 parse 穩定（Safari 也一致）
+      const p = {};
+      new Intl.DateTimeFormat('en-US', { timeZone: 'Asia/Tokyo', hourCycle: 'h23', year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' })
+        .formatToParts(new Date()).forEach(x => { p[x.type] = +x.value; });
+      return new Date(p.year, p.month - 1, p.day, p.hour, p.minute, p.second);
     }
     function tripDay() { const n = jst(), s = new Date(CONFIG.tripStartDate + 'T00:00:00'), d = Math.floor((n - s) / 86400000); return (d >= 0 && d < DAYS.length) ? d + 1 : null }
     function tick() {
       const n = jst(), hh = String(n.getHours()).padStart(2, '0'), mm = String(n.getMinutes()).padStart(2, '0');
       const ce = document.getElementById('h-clk'); if (ce) ce.textContent = hh + ':' + mm;
-      const r = document.getElementById('tbr'); if (r && curPage === 'home') r.textContent = hh + ':' + mm + '\nKST';
+      const r = document.getElementById('tbr'); if (r && curPage === 'home') r.textContent = hh + ':' + mm + '\nJST';
     }
 
     // ── NAV ───────────────────────────────────────────────────────────────────────
@@ -1752,7 +1761,6 @@
           item.tasks ||
           item.reservation ||
           item.mapUrl ||
-          item.naverQuery ||
           (item.trs && item.trs.length > 40)
         );
         if (item.area && item.area !== lastArea) { html += `<div class="city-sep">> ${item.area}</div>`; lastArea = item.area; }
@@ -1787,10 +1795,8 @@
               if (typeof m === 'string') return `<div class="memo-item"><div class="memo-item-text">${X(m)}</div></div>`;
               const name = m.name || m.title || '';
               const detail = m.text || m.desc || '';
-              const naverBtn = m.naverQuery
-                ? `<a class="mi-map" href="https://map.naver.com/p/search/${encodeURIComponent(m.naverQuery)}" target="_blank" rel="noopener">NAVER ↗</a>`
-                : (m.mapUrl ? `<a class="mi-map" href="${m.mapUrl}" target="_blank" rel="noopener">導航 ↗</a>` : '');
-              return `<div class="memo-item"><div class="memo-item-head"><span class="memo-item-name">${X(name)}</span>${naverBtn}</div>${detail ? `<div class="memo-item-text">${X(detail)}</div>` : ''}</div>`;
+              const mapBtn = m.mapUrl ? `<a class="mi-map" href="${m.mapUrl}" target="_blank" rel="noopener">導航 ↗</a>` : '';
+              return `<div class="memo-item"><div class="memo-item-head"><span class="memo-item-name">${X(name)}</span>${mapBtn}</div>${detail ? `<div class="memo-item-text">${X(detail)}</div>` : ''}</div>`;
             }).join('');
           } else {
             memoContent = X(item.memo);
@@ -1805,8 +1811,7 @@
         if (item.mustEat && item.mustEat.length) body += `<div class="blk"><div class="blk-lb">必吃推薦</div><div class="must-list" style="margin-top:4px">${item.mustEat.map(miHtml).join('')}</div></div>`;
         if (item.reservation) { const r = item.reservation; const tcHref = r.tcUrl || 'https://www.tablecheck.com/zh-TW/account/reservations/upcoming'; body += `<div class="blk bl"><div class="blk-lb">訂位資訊</div><div class="rg"><div class="rc"><div class="rc-lb">ID</div><div class="rc-vl">${X(r.id)}</div></div>${r.time ? `<div class="rc"><div class="rc-lb">時間</div><div class="rc-vl">${X(r.time)}</div></div>` : ''} ${r.menu ? `<div class="rc" style="grid-column:1/-1"><div class="rc-lb">內容</div><div class="rc-vl">${X(r.menu)}</div></div>` : ''}</div><a class="tc-btn" href="${tcHref}" target="_blank"><span>📋 TableCheck 查看訂位</span></a></div>`; }
         if (item.tasks && item.tasks.length) { const tRows = item.tasks.map(t => { const tid = item.id + '-' + btoa(encodeURIComponent(t)).slice(0, 8); const dn = tasks[tid] ? 'done' : ''; const tHtml = X(t).replace(/\(([^)]+)\)/g, (_, h) => `<span class="ic-hours">${h}</span>`); return `<div class="tr ${dn}" onclick="togTask('${tid}',this)"><div class="tcb"></div><div class="t-text">${tHtml}</div></div>`; }).join(''); body += `<div class="blk"><div class="blk-lb">tasks</div><div class="task-list">${tRows}</div></div>`; }
-        if (item.naverQuery) body += `<a class="map-btn" href="https://map.naver.com/p/search/${encodeURIComponent(item.naverQuery)}" target="_blank" rel="noopener"><span>🧭 開啟 NAVER MAP 導航 ↗</span></a>`;
-        if (item.mapUrl) body += `<a class="map-btn" href="${item.mapUrl}" target="_blank"><span>📍 Google Maps 導航</span></a>`;
+        if (item.mapUrl) body += `<a class="map-btn" href="${item.mapUrl}" target="_blank" rel="noopener"><span>📍 Google Maps 導航</span></a>`;
         html += `<div class="ic" id="ic-${item.id}" style="animation-delay:${Math.min(i * .04, .3)}s"><div class="ic-top" onclick="togCard('${item.id}',${hasBody})"><div class="ic-r1"><div class="ic-time">${item.time || ''}</div>${hasBody ? `<div class="ic-arr${isOpen ? ' open' : ''}" id="arr-${item.id}">▼</div>` : ''}</div><div class="ic-tr"><span class="ic-title">${item.icon} ${item.title}</span>${item.hours ? `<span class="ic-hours">${X(item.hours)}</span>` : ''}${item.area ? `<div class="atag"><span>${item.area}</span></div>` : ''}</div>${item.trs && item.trs.length <= 40 ? `<div class="ic-trs">${trsHtml(item.trs)}</div>` : ''}${badges ? `<div class="bdg-row">${badges}</div>` : ''}</div>${hasBody ? `<div class="ic-body${isOpen ? '' : ' hidden'}" id="ib-${item.id}">${body}</div>` : ''}</div>`;
       });
       document.getElementById('items-wrap').innerHTML = html;
@@ -1939,7 +1944,7 @@
       el.innerHTML = '<div class="w-msg dl"><span>.</span><span>.</span><span>.</span></div>';
       try {
         const { lat, lon } = CITIES[city];
-        const r = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=weathercode,temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=Asia/Seoul&start_date=${CONFIG.tripStartDate}&end_date=${CONFIG.tripEndDate}`);
+        const r = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=weathercode,temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=Asia/Tokyo&start_date=${CONFIG.tripStartDate}&end_date=${CONFIG.tripEndDate}`);
         const data = await r.json();
         if (data.error) { el.innerHTML = '<div class="w-msg">天氣預報還查不到這幾天<br>通常出發前7天內才查得到，請晚點再回來看</div>'; return; }
         wxCache[city] = data; renderWx(data, CITIES[city].days);

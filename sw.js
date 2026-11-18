@@ -2,7 +2,7 @@
 // 沒網路時走快取（回上一次成功載入過的版本），才是真的離線可用
 // 想強制使用者更新快取（例如大幅改了行程資料結構），把版本號 +1 即可
 // 這個版本號要跟 index.html 裡的 SW_CACHE_NAME 保持一致
-const CACHE_NAME = 'seoul-walks-v1';
+const CACHE_NAME = 'kansai-walks-v1';
 // 只放固定不太會變的外殼檔案；data/*.json 是由 index.html 的 loadData() 直接寫入快取，不用在這裡列
 const APP_SHELL = ['index.html', 'manifest.json'];
 

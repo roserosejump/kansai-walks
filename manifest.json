@@ -1,7 +1,7 @@
 {
-  "name": "Our Seoul Trip 2026",
-  "short_name": "Our Seoul",
-  "start_url": "/seoul-walks/",
+  "name": "關西賞楓之旅 2026",
+  "short_name": "Kansai 2026",
+  "start_url": "/kansai-walks/",
   "display": "standalone",
   "background_color": "#f7f1e8",
   "theme_color": "#f7f1e8",
