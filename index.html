@@ -3,1465 +3,20 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <link rel="icon" href="icon.png?v=106">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="Kansai 2026">
-  <meta name="theme-color" content="#f7f1e8">
+  <meta name="theme-color" content="#B3261E">
   <title>🍁 關西賞楓之旅 2026</title>
   <link rel="manifest" href="manifest.json">
   <link rel="apple-touch-icon" href="icon.png?v=106">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Space+Mono:wght@400;700&display=swap"
-    rel="stylesheet">
-  <style>
-    :root {
-      --bg: #0a0910;
-      --bg2: #0f0e1a;
-      --bg3: #13112a;
-      --bg4: #1a1830;
-      --bd: #2a2540;
-      --bd2: #3a3560;
-      --text: #c8daf6;
-      --t2: #88bbff;
-      --t3: #6f90c0;
-      --t4: #3b5080;
-      --pink: #f4a8c8;
-      --pink2: #e8789a;
-      --blue: #9ec5f5;
-      --amber: #f0dba0;
-      --overlay: rgba(10, 9, 16, .96);
-      --blk-bg: #170f1e;
-      --blk-bl-bg: #0f1520;
-      --panel-bd: #1a3045;
-      --badge-bg: #0d1e28;
-      --accent-panel-bg: #1a0f24;
-      --accent-panel-bg-active: #2a1f34;
-      --tc-btn-bg: #0d1e35;
-      --tc-btn-bg-active: #1a2e48;
-      --on-accent: #0a0910;
-      --cr-date-bd: rgba(240, 219, 160, .25);
-      --cr-area-bd: rgba(184, 160, 224, .25);
-      --px: 'DotGothic16', monospace;
-      --mono: 'Space Mono', monospace;
-    }
-
-    /* 主題色：由 data/config.json 的 "theme" 欄位切換，或在「工具」頁點選（見 loadData / applyTheme） */
-    :root[data-theme="pink"] {
-      --bg: #0a0910;
-      --bg2: #0f0e1a;
-      --bg3: #13112a;
-      --bg4: #1a1830;
-      --bd: #2a2540;
-      --bd2: #3a3560;
-      --text: #c8daf6;
-      --t2: #88bbff;
-      --t3: #6f90c0;
-      --t4: #3b5080;
-      --pink: #f4a8c8;
-      --pink2: #e8789a;
-      --blue: #9ec5f5;
-      --amber: #f0dba0;
-      --overlay: rgba(10, 9, 16, .96);
-      --blk-bg: #170f1e;
-      --blk-bl-bg: #0f1520;
-      --panel-bd: #1a3045;
-      --badge-bg: #0d1e28;
-      --accent-panel-bg: #1a0f24;
-      --accent-panel-bg-active: #2a1f34;
-      --tc-btn-bg: #0d1e35;
-      --tc-btn-bg-active: #1a2e48;
-      --on-accent: #0a0910;
-      --cr-date-bd: rgba(240, 219, 160, .25);
-      --cr-area-bd: rgba(184, 160, 224, .25);
-    }
-
-    /* 奶茶：淺色系，米白＋咖啡棕，卡布奇諾感 */
-    :root[data-theme="latte"] {
-      --bg: #f7f1e8;
-      --bg2: #f0e8da;
-      --bg3: #e8dcc8;
-      --bg4: #ddccae;
-      --bd: #d4c3a3;
-      --bd2: #c2ab7e;
-      --text: #4a3728;
-      --t2: #7a5c3e;
-      --t3: #96805f;
-      --t4: #b5a180;
-      --pink: #b5651d;
-      --pink2: #8f4f16;
-      --blue: #6b7d5e;
-      --amber: #a67c2e;
-      --overlay: rgba(247, 241, 232, .92);
-      --blk-bg: #efe2cc;
-      --blk-bl-bg: #e2e8d8;
-      --panel-bd: #c9d4b8;
-      --badge-bg: #e8dcc8;
-      --accent-panel-bg: #f0ddc4;
-      --accent-panel-bg-active: #e6cba0;
-      --tc-btn-bg: #dde6d0;
-      --tc-btn-bg-active: #cddcc0;
-      --on-accent: #fdf8f0;
-      --cr-date-bd: rgba(166, 124, 46, .35);
-      --cr-area-bd: rgba(107, 125, 94, .35);
-    }
-
-    /* 霧灰：淺色系，冷調灰白＋梅紫／松綠，跟奶茶的暖色調做區隔 */
-    :root[data-theme="mist"] {
-      --bg: #f4f5f7;
-      --bg2: #ecedf0;
-      --bg3: #e2e4e9;
-      --bg4: #d3d6de;
-      --bd: #c7cbd6;
-      --bd2: #b0b5c4;
-      --text: #2c303a;
-      --t2: #565b6b;
-      --t3: #757b8c;
-      --t4: #9a9fb0;
-      --pink: #8a6a8f;
-      --pink2: #6d4f72;
-      --blue: #4a7a6e;
-      --amber: #b8863f;
-      --overlay: rgba(244, 245, 247, .92);
-      --blk-bg: #e8e4ea;
-      --blk-bl-bg: #e0e8e5;
-      --panel-bd: #c3d3cd;
-      --badge-bg: #e2e4e9;
-      --accent-panel-bg: #ece4ed;
-      --accent-panel-bg-active: #ddd0df;
-      --tc-btn-bg: #dde8e4;
-      --tc-btn-bg-active: #cbdcd5;
-      --on-accent: #fbfaf9;
-      --cr-date-bd: rgba(184, 134, 63, .35);
-      --cr-area-bd: rgba(74, 122, 110, .35);
-    }
-
-    /* 墨石：低調冷灰＋香檳金，質感深色系 */
-    :root[data-theme="charcoal"] {
-      --bg: #121212;
-      --bg2: #181818;
-      --bg3: #1f1f1f;
-      --bg4: #282828;
-      --bd: #333333;
-      --bd2: #444444;
-      --text: #e8e6e2;
-      --t2: #b8b4ac;
-      --t3: #8a867e;
-      --t4: #5c584f;
-      --pink: #c9a961;
-      --pink2: #a8874a;
-      --blue: #9ab8c4;
-      --amber: #d4b06a;
-      --overlay: rgba(18, 18, 18, .94);
-      --blk-bg: #1c1a14;
-      --blk-bl-bg: #161c1e;
-      --panel-bd: #2a3538;
-      --badge-bg: #1a2224;
-      --accent-panel-bg: #241f10;
-      --accent-panel-bg-active: #332b16;
-      --tc-btn-bg: #161f22;
-      --tc-btn-bg-active: #1e2a2d;
-      --on-accent: #121212;
-      --cr-date-bd: rgba(201, 169, 97, .3);
-      --cr-area-bd: rgba(154, 184, 196, .3);
-    }
-
-    /* 靛藍：深海軍藍＋香檳金，沉穩質感 */
-    :root[data-theme="indigo"] {
-      --bg: #0a0f1a;
-      --bg2: #0f1624;
-      --bg3: #16202f;
-      --bg4: #1e2c40;
-      --bd: #2c3f5c;
-      --bd2: #3c5578;
-      --text: #dbe6f5;
-      --t2: #a8c0e0;
-      --t3: #7a94b8;
-      --t4: #48597a;
-      --pink: #8fb8e8;
-      --pink2: #6a95c8;
-      --blue: #c9a961;
-      --amber: #d4b06a;
-      --overlay: rgba(10, 15, 26, .94);
-      --blk-bg: #141c2c;
-      --blk-bl-bg: #241f10;
-      --panel-bd: #3a3020;
-      --badge-bg: #1a2436;
-      --accent-panel-bg: #16202f;
-      --accent-panel-bg-active: #223349;
-      --tc-btn-bg: #241f10;
-      --tc-btn-bg-active: #332b16;
-      --on-accent: #0a0f1a;
-      --cr-date-bd: rgba(212, 176, 106, .3);
-      --cr-area-bd: rgba(143, 184, 232, .3);
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      -webkit-tap-highlight-color: transparent
-    }
-
-    html,
-    body {
-      height: 100%;
-      overflow: hidden
-    }
-
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: var(--px);
-      font-size: 17px;
-      display: flex;
-      flex-direction: column
-    }
-
-    /* TOPBAR */
-    #topbar {
-      background: var(--overlay);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--bd);
-      padding: 12px 16px 10px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-shrink: 0;
-      min-height: 48px
-    }
-
-    .tb-title {
-      font-size: 17px;
-      color: var(--pink);
-      letter-spacing: .08em
-    }
-
-    .tb-r {
-      font-size: 14px;
-      color: var(--t3);
-      text-align: right;
-      line-height: 1.4;
-      font-family: var(--mono);
-      white-space: pre
-    }
-
-    .tb-back {
-      font-size: 16px;
-      color: var(--pink);
-      cursor: pointer;
-      letter-spacing: .04em;
-      padding: 2px 0
-    }
-
-    /* SCROLL */
-    #scroll {
-      flex: 1;
-      overflow-y: auto;
-      overflow-x: hidden;
-      -webkit-overflow-scrolling: touch
-    }
-
-    #scroll::-webkit-scrollbar {
-      display: none
-    }
-
-    /* BOTTOM NAV */
-    #bnav {
-      background: var(--overlay);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-top: 1px solid var(--bd);
-      display: flex;
-      flex-shrink: 0;
-      padding-bottom: env(safe-area-inset-bottom)
-    }
-
-    .ni {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 3px;
-      padding: 10px 0 8px;
-      cursor: pointer;
-      color: var(--t4);
-      transition: color .15s
-    }
-
-    .ni.active {
-      color: var(--pink)
-    }
-
-    .ni-icon {
-      font-size: 22px;
-      line-height: 1
-    }
-
-    .ni-lb {
-      font-size: 13px;
-      letter-spacing: .06em
-    }
-
-    /* PAGES */
-    .page {
-      display: none;
-      padding-bottom: 8px
-    }
-
-    .page.active {
-      display: block
-    }
-
-    /* ── HOME ── */
-    .h-hero {
-      padding: 20px 16px 16px;
-      border-bottom: 1px solid var(--bd)
-    }
-
-    .h-greet {
-      font-size: 26px;
-      color: var(--text);
-      line-height: 1.2;
-      margin-bottom: 4px
-    }
-
-    .h-greet em {
-      color: var(--pink);
-      font-style: normal
-    }
-
-    .h-eyerow {
-      display: flex;
-      align-items: baseline;
-      gap: 8px;
-      margin-top: 18px;
-      margin-bottom: 2px
-    }
-
-    .h-eye {
-      font-size: 13px;
-      color: var(--t3);
-      letter-spacing: .1em;
-      font-family: var(--mono)
-    }
-
-    .h-clock {
-      font-family: var(--mono);
-      font-size: 13px;
-      color: var(--t3);
-      letter-spacing: .06em
-    }
-
-    .h-hi {
-      font-size: 18px;
-      color: var(--amber);
-      margin: 4px 0 0;
-      letter-spacing: .02em
-    }
-
-    .today-btn {
-      margin: 16px;
-      background: var(--bg3);
-      border: 1px solid var(--pink);
-      border-radius: 6px;
-      padding: 14px 16px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      transition: background .15s
-    }
-
-    .today-btn:active {
-      background: var(--bg4)
-    }
-
-    .tb-label {
-      font-size: 13px;
-      color: var(--pink);
-      letter-spacing: .15em;
-      text-transform: uppercase;
-      margin-bottom: 4px;
-      font-family: var(--mono)
-    }
-
-    .tb-t {
-      font-size: 17px;
-      color: var(--text)
-    }
-
-    .tb-m {
-      font-size: 13px;
-      color: var(--t3);
-      margin-top: 3px;
-      font-family: var(--mono)
-    }
-
-    .tb-arr {
-      font-size: 20px;
-      color: var(--pink)
-    }
-
-    .search-sec {
-      padding: 0 16px
-    }
-
-    .search-inp {
-      width: 100%;
-      background: var(--bg3);
-      border: 1px solid var(--bd);
-      border-radius: 6px;
-      padding: 10px 12px;
-      color: var(--text);
-      font-family: var(--px);
-      font-size: 15px;
-      outline: none
-    }
-
-    .search-inp::placeholder {
-      color: var(--t4)
-    }
-
-    .search-inp:focus {
-      border-color: var(--pink)
-    }
-
-    .search-results {
-      display: none;
-      flex-direction: column;
-      gap: 4px;
-      margin-top: 8px;
-      max-height: 320px;
-      overflow-y: auto
-    }
-
-    .search-results.active {
-      display: flex
-    }
-
-    .sr-item {
-      background: var(--bg2);
-      border: 1px solid var(--bd);
-      border-radius: 5px;
-      padding: 8px 10px;
-      cursor: pointer;
-      transition: border-color .15s
-    }
-
-    .sr-item:active {
-      border-color: var(--pink)
-    }
-
-    .sr-day {
-      font-size: 11px;
-      color: var(--t3);
-      font-family: var(--mono);
-      margin-bottom: 2px
-    }
-
-    .sr-title {
-      font-size: 14px;
-      color: var(--text)
-    }
-
-    .days-sec {
-      padding: 0 16px 32px
-    }
-
-    .sec-lb {
-      font-size: 13px;
-      color: var(--t4);
-      letter-spacing: .15em;
-      text-transform: uppercase;
-      padding: 16px 0 10px;
-      font-family: var(--mono)
-    }
-
-    .days-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px
-    }
-
-    .dc {
-      background: var(--bg2);
-      border: 1px solid var(--bd);
-      border-radius: 6px;
-      padding: 12px;
-      cursor: pointer;
-      transition: border-color .15s, transform .1s
-    }
-
-    .dc:active {
-      transform: scale(.97)
-    }
-
-    .dc.today {
-      border-color: var(--pink);
-      background: var(--bg3)
-    }
-
-    .dc-top {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      margin-bottom: 5px;
-      flex-wrap: wrap
-    }
-
-    .dc-n {
-      font-size: 11px;
-      color: var(--pink);
-      letter-spacing: .08em;
-      font-family: var(--mono);
-      border: 1px solid var(--pink);
-      border-radius: 3px;
-      padding: 1px 6px;
-      flex-shrink: 0
-    }
-
-    .dc.today .dc-n {
-      background: var(--pink);
-      color: var(--on-accent)
-    }
-
-    .dc-theme {
-      font-size: 16px;
-      color: var(--text);
-      line-height: 1.3
-    }
-
-    .dc-d {
-      font-size: 13px;
-      color: var(--t3);
-      margin-bottom: 4px
-    }
-
-    .dc-c {
-      font-size: 13px;
-      color: var(--t3);
-      line-height: 1.6
-    }
-
-    .dc-cnt {
-      font-size: 12px;
-      color: var(--t4);
-      margin-top: 6px;
-      font-family: var(--mono)
-    }
-
-    /* ── DAY ── */
-    .day-hdr {
-      padding: 14px 16px 12px;
-      border-bottom: 1px solid var(--bd)
-    }
-
-    .dh-t {
-      font-size: 20px;
-      color: var(--text);
-      margin-bottom: 4px
-    }
-
-    .dh-h {
-      font-size: 14px;
-      color: var(--t3)
-    }
-
-    .dh-top {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      margin-bottom: 4px;
-      flex-wrap: wrap
-    }
-
-    .dh-daytag {
-      font-size: 12px;
-      color: var(--pink);
-      letter-spacing: .05em;
-      font-family: var(--mono);
-      border: 1px solid var(--pink);
-      border-radius: 3px;
-      padding: 1px 7px;
-      flex-shrink: 0
-    }
-
-    .dh-theme {
-      font-size: 18px;
-      color: var(--text);
-      line-height: 1.3
-    }
-
-    .dh-sub {
-      font-size: 13px;
-      color: var(--t3);
-      margin-bottom: 8px
-    }
-
-    .items-wrap {
-      padding: 10px 12px 32px;
-      display: flex;
-      flex-direction: column;
-      gap: 6px
-    }
-
-    .city-sep {
-      font-size: 12px;
-      color: var(--pink);
-      letter-spacing: .2em;
-      padding: 6px 2px 2px;
-      opacity: .5;
-      font-family: var(--mono)
-    }
-
-    /* ITEM CARD */
-    .ic {
-      background: var(--bg2);
-      border: 1px solid var(--bd);
-      border-radius: 6px;
-      overflow: hidden;
-      animation: fadeUp .25s ease both
-    }
-
-    @keyframes fadeUp {
-      from {
-        opacity: 0;
-        transform: translateY(5px)
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0)
-      }
-    }
-
-    .ic-top {
-      padding: 9px 11px 8px;
-      background: var(--bg3);
-      cursor: pointer
-    }
-
-    .ic-r1 {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 4px
-    }
-
-    .ic-time {
-      font-size: 13px;
-      color: var(--blue);
-      letter-spacing: .06em;
-      font-family: var(--mono)
-    }
-
-    .ic-arr {
-      font-size: 15px;
-      color: var(--t4);
-      transition: transform .2s;
-      line-height: 1
-    }
-
-    .ic-arr.open {
-      transform: rotate(180deg);
-      color: var(--pink)
-    }
-
-    .ic-tr {
-      display: flex;
-      align-items: baseline;
-      flex-wrap: wrap;
-      gap: 5px;
-      margin-bottom: 3px
-    }
-
-    .ic-title {
-      font-size: 15px;
-      color: var(--text);
-      line-height: 1.35
-    }
-
-    .ic-hours {
-      font-size: 11px;
-      color: var(--t3);
-      border: 1px solid var(--bd2);
-      border-radius: 3px;
-      padding: 1px 4px;
-      font-family: var(--mono);
-      flex-shrink: 0;
-      letter-spacing: .02em;
-      align-self: center
-    }
-
-    .atag {
-      display: inline-flex;
-      background: var(--bg4);
-      border: 1px solid var(--bd2);
-      border-radius: 3px;
-      padding: 1px 5px;
-      flex-shrink: 0
-    }
-
-    .atag span {
-      font-size: 11px;
-      color: var(--t3);
-      letter-spacing: .06em
-    }
-
-    .ic-trs {
-      font-size: 13px;
-      color: var(--t3)
-    }
-
-    .trs-route {
-      display: inline-block;
-      padding-left: 1.2em;
-    }
-
-    .trs-dur {
-      font-size: 11px;
-      color: var(--blue);
-      border: 1px solid var(--panel-bd);
-      border-radius: 3px;
-      padding: 1px 4px;
-      font-family: var(--mono);
-      letter-spacing: .02em;
-      display: inline-block;
-      vertical-align: middle
-    }
-
-    .bdg-row {
-      display: flex;
-      gap: 4px;
-      flex-wrap: wrap;
-      margin-top: 5px
-    }
-
-    .bdg {
-      font-size: 11px;
-      padding: 2px 6px;
-      border-radius: 3px;
-      letter-spacing: .04em
-    }
-
-    .bdg-r {
-      background: var(--badge-bg);
-      color: var(--blue);
-      border: 1px solid var(--panel-bd)
-    }
-
-    .bdg-t {
-      background: var(--badge-bg);
-      color: var(--blue);
-      border: 1px solid var(--panel-bd)
-    }
-
-    /* CARD BODY */
-    .ic-body {
-      padding: 8px 10px 10px;
-      display: flex;
-      flex-direction: column;
-      gap: 5px
-    }
-
-    .ic-body.hidden {
-      display: none
-    }
-
-    .blk {
-      border-left: 2px solid var(--pink);
-      padding: 4px 8px;
-      background: var(--blk-bg);
-      border-radius: 0 3px 3px 0
-    }
-
-    .blk.bl {
-      border-color: var(--blue);
-      background: var(--blk-bl-bg)
-    }
-
-    .blk.pu {
-      border-color: var(--blue);
-      background: var(--blk-bl-bg)
-    }
-
-    .blk-lb {
-      font-size: 11px;
-      color: var(--t4);
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      margin-bottom: 2px;
-      font-family: var(--mono)
-    }
-
-    .blk-vl {
-      font-size: 13px;
-      color: var(--t2);
-      line-height: 1.7;
-      white-space: pre-wrap;
-      word-break: break-word
-    }
-
-    .rg {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 4px;
-      margin-top: 4px
-    }
-
-    .rc {
-      background: var(--blk-bl-bg);
-      border: 1px solid var(--panel-bd);
-      border-radius: 4px;
-      padding: 5px 7px
-    }
-
-    .rc-lb {
-      font-size: 11px;
-      color: var(--t4);
-      letter-spacing: .08em;
-      text-transform: uppercase;
-      margin-bottom: 2px;
-      font-family: var(--mono)
-    }
-
-    .rc-vl {
-      font-size: 14px;
-      color: var(--blue);
-      letter-spacing: .04em
-    }
-
-    .map-btn {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      background: var(--accent-panel-bg);
-      border: 1px solid var(--pink);
-      border-radius: 4px;
-      padding: 7px 10px;
-      margin-top: 2px;
-      text-decoration: none;
-      transition: background .15s
-    }
-
-    .map-btn:active {
-      background: var(--accent-panel-bg-active)
-    }
-
-    .map-btn span {
-      font-size: 13px;
-      color: var(--pink)
-    }
-
-    .must-list {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-      margin-top: 3px
-    }
-
-    .mi {
-      font-size: 13px;
-      color: var(--t2);
-      line-height: 1.6;
-      padding-left: 10px;
-      position: relative;
-      display: flex;
-      align-items: baseline;
-      gap: 6px
-    }
-
-    .mi::before {
-      content: '›';
-      position: absolute;
-      left: 0;
-      color: var(--pink)
-    }
-
-    .mi-name {
-      flex: none
-    }
-
-    .mi-hours {
-      font-size: 11px;
-      color: var(--t3);
-      border: 1px solid var(--bd2);
-      border-radius: 3px;
-      padding: 1px 4px;
-      font-family: var(--mono);
-      flex-shrink: 0;
-      letter-spacing: .02em
-    }
-
-    .mi-map {
-      font-size: 12px;
-      color: var(--pink);
-      text-decoration: none;
-      flex-shrink: 0;
-      opacity: .7;
-      margin-left: auto
-    }
-
-    .mi-map:active {
-      opacity: 1
-    }
-
-    .memo-item {
-      padding: 4px 0 8px;
-    }
-
-    .memo-item + .memo-item {
-      border-top: 1px solid var(--bd);
-      padding-top: 9px;
-    }
-
-    .memo-item-head {
-      display: flex;
-      align-items: baseline;
-      gap: 8px;
-    }
-
-    .memo-item-name {
-      flex: 1;
-      min-width: 0;
-      color: var(--t2);
-      line-height: 1.55;
-    }
-
-    .memo-item-text {
-      margin-top: 2px;
-      white-space: pre-wrap;
-      word-break: break-word;
-    }
-
-    .tc-btn {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      background: var(--tc-btn-bg);
-      border: 1px solid var(--panel-bd);
-      border-radius: 4px;
-      padding: 7px 10px;
-      margin-top: 6px;
-      text-decoration: none;
-      transition: background .15s
-    }
-
-    .tc-btn:active {
-      background: var(--tc-btn-bg-active)
-    }
-
-    .tc-btn span {
-      font-size: 13px;
-      color: var(--blue)
-    }
-
-    .task-list {
-      display: flex;
-      flex-direction: column
-    }
-
-    .tr {
-      display: flex;
-      align-items: flex-start;
-      gap: 8px;
-      padding: 5px 0;
-      border-bottom: 1px solid var(--bd);
-      cursor: pointer
-    }
-
-    .tr:last-child {
-      border-bottom: none
-    }
-
-    .tcb {
-      width: 12px;
-      height: 12px;
-      border: 1px solid var(--bd2);
-      border-radius: 2px;
-      flex-shrink: 0;
-      margin-top: 3px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all .15s
-    }
-
-    .tr.done .tcb {
-      background: var(--pink);
-      border-color: var(--pink)
-    }
-
-    .tr.done .tcb::after {
-      content: '✓';
-      font-size: 12px;
-      color: var(--on-accent);
-      font-weight: 700
-    }
-
-    .t-text {
-      font-size: 13px;
-      color: var(--t2);
-      line-height: 1.5;
-      flex: 1
-    }
-
-    .tr.done .t-text {
-      text-decoration: line-through;
-      color: var(--t4)
-    }
-
-    /* ── CHECKLIST ── */
-    .chk-page {
-      padding: 12px 16px 32px
-    }
-
-    .chk-sec {
-      margin-bottom: 20px
-    }
-
-    .chk-sec-t {
-      font-size: 14px;
-      color: var(--pink);
-      letter-spacing: .12em;
-      padding-bottom: 8px;
-      border-bottom: 1px solid var(--bd);
-      margin-bottom: 8px;
-      font-family: var(--mono)
-    }
-
-    .cr {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      padding: 8px 0;
-      border-bottom: 1px solid var(--bd);
-      cursor: pointer
-    }
-
-    .cr:last-child {
-      border-bottom: none
-    }
-
-    .ccb {
-      width: 14px;
-      height: 14px;
-      border: 1px solid var(--bd2);
-      border-radius: 3px;
-      flex-shrink: 0;
-      margin-top: 4px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all .15s
-    }
-
-    .cr.done .ccb {
-      background: var(--pink);
-      border-color: var(--pink)
-    }
-
-    .cr.done .ccb::after {
-      content: '✓';
-      font-size: 13px;
-      color: var(--on-accent);
-      font-weight: 700
-    }
-
-    .cr-body {
-      flex: 1;
-      min-width: 0;
-      display: flex;
-      flex-wrap: wrap;
-      align-items: flex-start;
-      gap: 6px 8px
-    }
-
-    .cr-text {
-      font-size: 15px;
-      color: var(--t2);
-      line-height: 1.5;
-      flex: 1 1 180px;
-      min-width: 180px
-    }
-
-    .cr.done .cr-text {
-      text-decoration: line-through;
-      color: var(--t4)
-    }
-
-    .cr-date {
-      font-size: 11px;
-      color: var(--amber);
-      border: 1px solid var(--cr-date-bd);
-      border-radius: 3px;
-      padding: 1px 5px;
-      font-family: var(--mono);
-      letter-spacing: .04em;
-      flex-shrink: 0;
-      margin-top: 2px;
-      max-width: 100%;
-      white-space: nowrap
-    }
-
-    .cr-area {
-      font-size: 11px;
-      color: var(--t3);
-      border: 1px solid var(--cr-area-bd);
-      border-radius: 3px;
-      padding: 1px 5px;
-      font-family: var(--mono);
-      letter-spacing: .04em;
-      flex-shrink: 1;
-      margin-top: 2px;
-      max-width: 100%;
-      white-space: normal;
-      overflow-wrap: break-word;
-      word-break: break-word
-    }
-
-    .cr.done .cr-date,
-    .cr.done .cr-area {
-      opacity: .35
-    }
-
-    .add-row {
-      display: flex;
-      gap: 8px;
-      margin-top: 10px
-    }
-
-    .add-inp {
-      flex: 1;
-      background: var(--bg3);
-      border: 1px solid var(--bd2);
-      border-radius: 4px;
-      padding: 8px 10px;
-      color: var(--text);
-      font-family: var(--px);
-      font-size: 15px;
-      outline: none
-    }
-
-    .add-inp::placeholder {
-      color: var(--t4)
-    }
-
-    .add-inp:focus {
-      border-color: var(--pink)
-    }
-
-    .add-btn {
-      background: var(--bg3);
-      border: 1px solid var(--pink);
-      border-radius: 4px;
-      padding: 8px 12px;
-      color: var(--pink);
-      font-family: var(--px);
-      font-size: 15px;
-      cursor: pointer;
-      transition: background .15s
-    }
-
-    .add-btn:active {
-      background: var(--bg4)
-    }
-
-    /* ── TOOLS ── */
-    .tools-page {
-      padding: 14px 16px 32px;
-      display: flex;
-      flex-direction: column;
-      gap: 16px
-    }
-
-    .tool-card {
-      background: var(--bg2);
-      border: 1px solid var(--bd);
-      border-radius: 6px;
-      overflow: hidden
-    }
-
-    .tool-hdr {
-      background: var(--bg3);
-      padding: 10px 14px;
-      font-size: 14px;
-      color: var(--pink);
-      letter-spacing: .12em;
-      font-family: var(--mono)
-    }
-
-    .w-inner {
-      padding: 12px 14px
-    }
-
-    .wcity-tabs {
-      display: flex;
-      gap: 6px;
-      margin-bottom: 12px;
-      flex-wrap: wrap
-    }
-
-    .wct {
-      background: var(--bg4);
-      border: 1px solid var(--bd);
-      border-radius: 4px;
-      padding: 4px 10px;
-      font-size: 13px;
-      color: var(--t3);
-      cursor: pointer;
-      transition: all .15s;
-      font-family: var(--mono)
-    }
-
-    .wct.active {
-      background: var(--accent-panel-bg);
-      border-color: var(--pink);
-      color: var(--pink)
-    }
-
-    .theme-inner {
-      padding: 12px 14px;
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap
-    }
-
-    .currency-picker {
-      display: flex;
-      gap: 6px;
-      flex-wrap: wrap
-    }
-
-    .theme-sw {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      background: var(--bg4);
-      border: 1px solid var(--bd);
-      border-radius: 4px;
-      padding: 6px 10px;
-      font-size: 13px;
-      color: var(--t3);
-      cursor: pointer;
-      transition: all .15s;
-      font-family: var(--mono)
-    }
-
-    .theme-sw.active {
-      border-color: var(--pink);
-      color: var(--pink)
-    }
-
-    .theme-dots {
-      display: flex;
-      gap: 2px
-    }
-
-    .theme-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      border: 1px solid rgba(255, 255, 255, .2)
-    }
-
-    .w-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 7px
-    }
-
-    .wc {
-      background: var(--bg3);
-      border: 1px solid var(--bd);
-      border-radius: 5px;
-      padding: 10px 10px 8px;
-      display: flex;
-      flex-direction: column;
-      align-items: center
-    }
-
-    .wc-day {
-      font-size: 11px;
-      color: var(--t3);
-      margin-bottom: 6px;
-      font-family: var(--mono);
-      align-self: flex-start
-    }
-
-    .wc-icon {
-      font-size: 30px;
-      margin-bottom: 6px
-    }
-
-    .wc-temp {
-      font-size: 16px;
-      color: var(--text);
-      font-family: var(--mono);
-      font-weight: 700;
-      margin-bottom: 2px
-    }
-
-    .wc-desc {
-      font-size: 11px;
-      color: var(--t3);
-      margin-bottom: 8px
-    }
-
-    .wc-divider {
-      width: 100%;
-      height: 1px;
-      background: var(--bd);
-      margin-bottom: 7px
-    }
-
-    .wc-rain {
-      display: flex;
-      align-items: center;
-      gap: 5px
-    }
-
-    .wc-rain-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--blue);
-      flex-shrink: 0
-    }
-
-    .wc-rain-pct {
-      font-size: 12px;
-      color: var(--blue);
-      font-family: var(--mono)
-    }
-
-    .wc-rain-label {
-      font-size: 10px;
-      color: var(--t4);
-      font-family: var(--mono)
-    }
-
-    .w-msg {
-      font-size: 14px;
-      color: var(--t3);
-      text-align: center;
-      padding: 20px 0;
-      font-family: var(--mono)
-    }
-
-    .fx-inner {
-      padding: 12px 14px
-    }
-
-    .fx-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 8px
-    }
-
-    .fx-lb {
-      font-size: 13px;
-      color: var(--t3);
-      font-family: var(--mono);
-      min-width: 32px
-    }
-
-    .fx-inp {
-      flex: 1;
-      background: var(--bg3);
-      border: 1px solid var(--bd2);
-      border-radius: 4px;
-      padding: 8px 10px;
-      color: var(--text);
-      font-family: var(--mono);
-      font-size: 18px;
-      outline: none;
-      text-align: right
-    }
-
-    .fx-inp:focus {
-      border-color: var(--pink)
-    }
-
-    .fx-arr {
-      font-size: 13px;
-      color: var(--t3);
-      text-align: center;
-      padding: 2px 0
-    }
-
-    .fx-rate {
-      font-size: 13px;
-      color: var(--t4);
-      text-align: center;
-      font-family: var(--mono);
-      line-height: 1.6;
-      margin-top: 4px
-    }
-
-    .qg {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 6px;
-      margin-top: 10px
-    }
-
-    .qc {
-      background: var(--bg3);
-      border: 1px solid var(--bd);
-      border-radius: 4px;
-      padding: 8px;
-      cursor: pointer;
-      transition: border-color .15s;
-      text-align: center
-    }
-
-    .qc:active {
-      border-color: var(--pink)
-    }
-
-    .qc-j {
-      font-size: 15px;
-      color: var(--t2);
-      font-family: var(--mono)
-    }
-
-    .qc-t {
-      font-size: 15px;
-      color: var(--pink);
-      font-family: var(--mono);
-      margin-top: 2px
-    }
-
-    @keyframes blink {
-
-      0%,
-      100% {
-        opacity: .2
-      }
-
-      50% {
-        opacity: 1
-      }
-    }
-
-    .dl span {
-      animation: blink 1.2s ease-in-out infinite
-    }
-
-    .dl span:nth-child(2) {
-      animation-delay: .2s
-    }
-
-    .dl span:nth-child(3) {
-      animation-delay: .4s
-    }
-  </style>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Huninn&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 
   <link rel="manifest" href="manifest.json">
   <script>
@@ -1472,6 +27,9 @@
 </head>
 
 <body>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <symbol id="leaf" viewBox="0 0 100 100"><path d="M50 6l8 20 16-8-4 22 22-4-12 18 14 8-26 4 4 16-18-8-2 22h-4l-2-22-18 8 4-16-26-4 14-8L8 36l22 4-4-22 16 8z" /></symbol>
+  </svg>
   <div id="topbar">
     <div id="tbl"></div>
     <div class="tb-title" id="tbt">🍁 關西賞楓之旅 2026</div>
@@ -1480,23 +38,61 @@
   <div id="scroll">
     <div class="page active" id="pg-home">
       <div class="h-hero">
-        <div class="h-greet">關西，<em>旅程開始</em>🍁</div>
-        <div class="h-eyerow">
-          <div class="h-eye" id="h-eye">LOADING...</div>
-          <div class="h-clock" id="h-clk">--:--</div>
+        <svg class="h-art" viewBox="0 0 360 170" role="img" aria-label="紅葉與清水寺舞台的插畫">
+          <rect class="a-sky" width="360" height="170" />
+          <circle class="a-sun s" cx="292" cy="40" r="20" />
+          <path class="a-hill2 s" d="M0 118Q60 78 125 104T250 96T360 88V170H0Z" />
+          <path class="a-hill s" d="M0 148Q80 116 170 126L360 116V170H0Z" />
+          <!-- 左側楓樹 -->
+          <rect class="a-wood s" x="48" y="112" width="7" height="44" />
+          <circle class="a-maple s" cx="42" cy="100" r="26" />
+          <circle class="a-shu s" cx="68" cy="92" r="21" />
+          <circle class="a-ginkgo s" cx="28" cy="122" r="17" />
+          <!-- 右側楓樹 -->
+          <rect class="a-wood s" x="318" y="110" width="7" height="46" />
+          <circle class="a-maple s" cx="322" cy="96" r="27" />
+          <circle class="a-shu s" cx="296" cy="108" r="19" />
+          <circle class="a-ginkgo s" cx="340" cy="122" r="17" />
+          <!-- 清水舞台：懸造的木柱與橫樑 -->
+          <g class="a-wood s">
+            <rect x="116" y="108" width="6" height="46" /><rect x="136" y="108" width="6" height="46" />
+            <rect x="156" y="108" width="6" height="46" /><rect x="176" y="108" width="6" height="46" />
+            <rect x="196" y="108" width="6" height="46" /><rect x="216" y="108" width="6" height="46" />
+            <rect x="236" y="108" width="6" height="46" />
+          </g>
+          <path class="s nofill" d="M112 126H250M112 142H250" />
+          <rect class="a-wood s" x="104" y="100" width="154" height="9" rx="2" />
+          <!-- 本堂與檜皮葺屋頂 -->
+          <rect class="a-paper s" x="126" y="66" width="110" height="34" />
+          <path class="s nofill" d="M148 66V100M181 66V100M214 66V100" />
+          <path class="a-roof s" d="M106 70C138 64 158 46 181 36C204 46 224 64 256 70C226 69 204 63 181 58C158 63 136 69 106 70Z" />
+          <!-- 飄落的楓葉 -->
+          <use href="#leaf" class="lf lf-a" x="86" y="30" width="20" height="20" transform="rotate(-20 96 40)" />
+          <use href="#leaf" class="lf lf-b" x="250" y="18" width="18" height="18" transform="rotate(30 259 27)" />
+          <use href="#leaf" class="lf lf-c" x="150" y="12" width="16" height="16" transform="rotate(12 158 20)" />
+          <use href="#leaf" class="lf lf-a" x="272" y="82" width="16" height="16" transform="rotate(-35 280 90)" />
+          <use href="#leaf" class="lf lf-b" x="14" y="52" width="16" height="16" transform="rotate(40 22 60)" />
+        </svg>
+        <div class="h-body">
+          <div class="h-greet">關西，<em>賞楓出發</em></div>
+          <div class="h-eyerow">
+            <div class="h-eye" id="h-eye"></div>
+            <div class="h-clock" id="h-clk">--:--</div>
+          </div>
+          <div class="countdown" id="countdown" hidden></div>
+          <div class="h-hi" id="h-hi"></div>
         </div>
-        <div class="h-hi" id="h-hi"></div>
       </div>
       <div id="today-wrap"></div>
       <div class="search-sec">
-        <div class="sec-lb">> 搜尋 SEARCH</div>
+        <div class="sec-lb">搜尋行程</div>
         <input class="search-inp" id="search-inp" type="text" placeholder="搜尋行程（例如：嵐山、湯豆腐）" oninput="onSearchInput()">
         <div class="search-results" id="search-results"></div>
       </div>
       <div class="days-sec">
-        <div class="sec-lb">> ALL DAYS</div>
+        <div class="sec-lb">8 天行程</div>
         <div class="days-grid" id="days-grid">
-          <div style="grid-column:1/-1;text-align:center;padding:20px;color:var(--t4);font-size:12px" class="dl">
+          <div style="grid-column:1/-1" class="dl">
             <span>.</span><span>.</span><span>.</span>
           </div>
         </div>
@@ -1512,7 +108,7 @@
     <div class="page" id="pg-tools">
       <div class="tools-page">
         <div class="tool-card">
-          <div class="tool-hdr">> 天氣 WEATHER</div>
+          <div class="tool-hdr">天氣</div>
           <div class="w-inner">
             <div class="wcity-tabs" id="wcity-tabs"></div>
             <div id="w-disp">
@@ -1521,9 +117,9 @@
           </div>
         </div>
         <div class="tool-card">
-          <div class="tool-hdr" id="fx-hdr">> 匯率換算</div>
+          <div class="tool-hdr" id="fx-hdr">匯率換算</div>
           <div class="fx-inner">
-            <div class="sec-lb" style="padding:0 0 8px">> 目的地幣別</div>
+            <div class="sec-lb" style="margin-top:0">目的地幣別</div>
             <div class="currency-picker" id="currency-picker"></div>
             <div class="fx-row" style="margin-top:12px">
               <div class="fx-lb" id="fx-lb-from">-</div><input class="fx-inp" id="fx-j" type="number" placeholder="0"
@@ -1535,13 +131,9 @@
                 oninput="calcFx('t')">
             </div>
             <div class="fx-rate" id="fx-rate">匯率抓取中...</div>
-            <div class="sec-lb" style="padding:12px 0 8px">> 快速換算</div>
+            <div class="sec-lb">快速換算</div>
             <div class="qg" id="qg"></div>
           </div>
-        </div>
-        <div class="tool-card">
-          <div class="tool-hdr">> 主題色 THEME</div>
-          <div class="theme-inner" id="theme-swatches"></div>
         </div>
       </div>
     </div>
@@ -1597,8 +189,6 @@
       SHOP_DEF = checklist.SHOP_DEF;
       CONFIG = config;
       CITIES = config.cities;
-      applyTheme(load(THEME_KEY, null) || CONFIG.theme || 'pink');
-      renderThemeSwatches();
       document.title = CONFIG.title;
       document.getElementById('tbt').textContent = CONFIG.title;
       const appTitleMeta = document.querySelector('meta[name="apple-mobile-web-app-title"]');
@@ -1626,28 +216,6 @@
     function getShop() { return load(SHOP_KEY, SHOP_DEF.map(i => ({ ...i, done: false }))) }
     function saveShop(l) { store(SHOP_KEY, l) }
 
-    // ── THEME ─────────────────────────────────────────────────────────────────────
-    const THEME_KEY = 'jp-theme';
-    const THEMES = [
-      { key: 'pink', label: '粉櫻', c1: '#f4a8c8', c2: '#88bbff' },
-      { key: 'latte', label: '奶茶', c1: '#b5651d', c2: '#6b7d5e' },
-      { key: 'mist', label: '霧灰', c1: '#8a6a8f', c2: '#4a7a6e' },
-      { key: 'charcoal', label: '墨石', c1: '#c9a961', c2: '#9ab8c4' },
-      { key: 'indigo', label: '靛藍', c1: '#8fb8e8', c2: '#c9a961' },
-    ];
-    function applyTheme(name) {
-      document.documentElement.setAttribute('data-theme', name);
-      const themeColorMeta = document.querySelector('meta[name="theme-color"]');
-      if (themeColorMeta) themeColorMeta.setAttribute('content', getComputedStyle(document.documentElement).getPropertyValue('--bg').trim());
-      document.querySelectorAll('.theme-sw').forEach(el => el.classList.toggle('active', el.dataset.theme === name));
-    }
-    function setTheme(name) { store(THEME_KEY, name); applyTheme(name); }
-    function renderThemeSwatches() {
-      const el = document.getElementById('theme-swatches'); if (!el) return;
-      const current = document.documentElement.getAttribute('data-theme');
-      el.innerHTML = THEMES.map(t => `<div class="theme-sw${t.key === current ? ' active' : ''}" data-theme="${t.key}" onclick="setTheme('${t.key}')"><div class="theme-dots"><span class="theme-dot" style="background:${t.c1}"></span><span class="theme-dot" style="background:${t.c2}"></span></div>${t.label}</div>`).join('');
-    }
-
     // ── CLOCK ─────────────────────────────────────────────────────────────────────
     function jst() {
       // 回傳一個「本地欄位 = 日本當地時間」的 Date，其他程式用 getHours() 等就是日本時間。
@@ -1658,9 +226,21 @@
       return new Date(p.year, p.month - 1, p.day, p.hour, p.minute, p.second);
     }
     function tripDay() { const n = jst(), s = new Date(CONFIG.tripStartDate + 'T00:00:00'), d = Math.floor((n - s) / 86400000); return (d >= 0 && d < DAYS.length) ? d + 1 : null }
+    // 起飛時間：台灣 2026/11/29 09:00。用帶時區偏移的 ISO 字串，得到的是絕對時間點，
+    // 不管手機在哪個時區算出來都一樣（不要用 new Date(y, m, d) 這種吃本地時區的寫法）
+    const DEPART_AT = new Date('2026-11-29T09:00:00+08:00');
+    function renderCountdown() {
+      const el = document.getElementById('countdown'); if (!el) return;
+      const ms = DEPART_AT - Date.now();
+      if (ms <= 0) { el.hidden = true; return; }
+      const d = Math.floor(ms / 86400000), h = Math.floor(ms % 86400000 / 3600000), m = Math.floor(ms % 3600000 / 60000);
+      el.hidden = false;
+      el.innerHTML = `<div class="cd-label">距離起飛（台灣 11/29 09:00）</div><div class="cd-num"><b>${d}</b><span>天</span><b>${String(h).padStart(2, '0')}</b><span>時</span><b>${String(m).padStart(2, '0')}</b><span>分</span></div>`;
+    }
     function tick() {
       const n = jst(), hh = String(n.getHours()).padStart(2, '0'), mm = String(n.getMinutes()).padStart(2, '0');
-      const ce = document.getElementById('h-clk'); if (ce) ce.textContent = hh + ':' + mm;
+      const ce = document.getElementById('h-clk'); if (ce) ce.textContent = '日本 ' + hh + ':' + mm;
+      if (curPage === 'home') renderCountdown();
       const r = document.getElementById('tbr'); if (r && curPage === 'home') r.textContent = hh + ':' + mm + '\nJST';
     }
 
@@ -1676,9 +256,9 @@
       document.getElementById(nim[name]).classList.add('active');
       const tl = document.getElementById('tbl'), tt = document.getElementById('tbt'), tr = document.getElementById('tbr');
       if (name === 'home') { tl.innerHTML = ''; tt.textContent = CONFIG.title; tr.textContent = ''; tick(); renderHome(); }
-      else if (name === 'day') { const d = DAYS[curDay - 1]; tl.innerHTML = '<div class="tb-back" onclick="goPg(\'home\')">‹ Back </div>'; tt.textContent = 'DAY ' + d.day + ' · ' + d.date; tr.textContent = ''; renderDay(); }
-      else if (name === 'chk') { tl.innerHTML = ''; tt.textContent = '待 辦 清 單'; tr.textContent = ''; renderChk(); }
-      else if (name === 'tools') { tl.innerHTML = ''; tt.textContent = '小 工 具'; tr.textContent = ''; renderQFx(); fetchRate(); loadWx(Object.keys(CITIES)[0]); }
+      else if (name === 'day') { const d = DAYS[curDay - 1]; tl.innerHTML = '<div class="tb-back" onclick="goPg(\'home\')">‹ 返回</div>'; tt.textContent = 'DAY ' + d.day + ' · ' + d.date; tr.textContent = ''; renderDay(); }
+      else if (name === 'chk') { tl.innerHTML = ''; tt.textContent = '待辦清單'; tr.textContent = ''; renderChk(); }
+      else if (name === 'tools') { tl.innerHTML = ''; tt.textContent = '小工具'; tr.textContent = ''; renderQFx(); fetchRate(); loadWx(Object.keys(CITIES)[0]); }
     }
     function openDay(n) { curDay = n; goPg('day'); }
 
@@ -1687,16 +267,19 @@
       const td = tripDay();
       const eye = document.getElementById('h-eye');
       const hi = document.getElementById('h-hi');
+      eye.textContent = fmtDateRange(CONFIG.tripStartDate, CONFIG.tripEndDate);
+      renderCountdown();
+      const todayWrap = document.getElementById('today-wrap');
       if (td) {
-        const d = DAYS[td - 1]; eye.textContent = '> DAY ' + td + ' · ' + d.date + ' ' + d.wd; if (hi) hi.textContent = d.highlight || '';
-        document.getElementById('today-wrap').innerHTML = `<div class="today-btn" onclick="openDay(${td})"><div><div class="tb-label">> TODAY</div><div class="tb-t">${d.date} ${d.wd} · ${d.cities.join(' → ')}</div><div class="tb-m">${d.items.length} 個行程項目</div></div><div class="tb-arr">›</div></div>`;
+        const d = DAYS[td - 1];
+        hi.textContent = d.highlight || '';
+        todayWrap.innerHTML = `<div class="today-btn" onclick="openDay(${td})"><div><div class="tb-label">今天 · DAY ${td}</div><div class="tb-t">${X(d.date)} ${X(d.wd)} · ${X(d.cities.join(' → '))}</div><div class="tb-m">${d.items.length} 個行程項目</div></div><div class="tb-arr">›</div></div>`;
       } else {
-        const n = jst(), s = new Date(CONFIG.tripStartDate + 'T00:00:00'), diff = Math.ceil((s - n) / 86400000);
-        eye.textContent = '> ' + fmtDateRange(CONFIG.tripStartDate, CONFIG.tripEndDate);
-        if (hi) hi.textContent = diff > 0 ? '🗓 出發倒數 ' + diff + ' 天 ' : (diff === 0 ? '今天出發！旅途平安！✈️' : '旅途結束，下次見 🗼');
-        document.getElementById('today-wrap').innerHTML = '';
+        const ended = jst() > new Date(CONFIG.tripEndDate + 'T23:59:59');
+        hi.textContent = ended ? '旅途結束，下次見 🍁' : '';
+        todayWrap.innerHTML = '';
       }
-      document.getElementById('days-grid').innerHTML = DAYS.map(d => `<div class="dc${td === d.day ? ' today' : ''}" onclick="openDay(${d.day})"><div class="dc-top"><span class="dc-n">DAY ${d.day}</span>${d.highlight ? `<span class="dc-theme">${d.highlight}</span>` : ''}</div><div class="dc-d">${d.date} ${d.wd}</div><div class="dc-c">${d.cities.join('\n')}</div><div class="dc-cnt">${d.items.length} items</div></div>`).join('');
+      document.getElementById('days-grid').innerHTML = DAYS.map(d => `<div class="dc${td === d.day ? ' today' : ''}" onclick="openDay(${d.day})"><div class="dc-top"><span class="dc-n">DAY ${d.day}</span></div>${d.highlight ? `<div class="dc-theme">${X(d.highlight)}</div>` : ''}<div class="dc-d">${X(d.date)} ${X(d.wd)}</div><div class="dc-c">${X(d.cities.join('\n'))}</div><div class="dc-cnt">${d.items.length} 個行程</div></div>`).join('');
     }
 
     // ── SEARCH ────────────────────────────────────────────────────────────────────
@@ -1741,11 +324,24 @@
     }
 
     // ── DAY ───────────────────────────────────────────────────────────────────────
+    // 交通工具 → 固定色票（顏色定義在 style.css 的 .tag-*）
+    const TAG_CLASS = {
+      '步行': 'walk', 'JR': 'jr', '地鐵': 'metro', '巴士': 'bus', '京阪': 'keihan', '阪急': 'hankyu',
+      '近鐵': 'kintetsu', '南海': 'nankai', 'HARUKA': 'haruka', '✈️ 飛機': 'plane', '計程車': 'taxi',
+      '纜車': 'cable', '嵯峨野小火車': 'sagano', '開車': 'car',
+    };
+    // status → 徽章文字；none 不顯示
+    const STATUS_BADGE = { booked: '✅ 已預約', todo: '⏳ 待預約', buyOnSite: '🎫 現場購票', queue: '🚶 現場排隊', unconfirmed: '❓ 待確認' };
+    function chipsHtml(item) {
+      const tags = (item.tags || []).map(t => `<span class="tag tag-${TAG_CLASS[t] || 'other'}">${X(t)}</span>`).join('');
+      const st = STATUS_BADGE[item.status] ? `<span class="st st-${item.status}">${STATUS_BADGE[item.status]}</span>` : '';
+      return tags || st ? `<div class="chip-row">${tags}${st}</div>` : '';
+    }
     function renderDay() {
       const d = DAYS[curDay - 1];
-      document.getElementById('day-hdr').innerHTML = `<div class="dh-top"><span class="dh-daytag">> DAY ${d.day}</span>${d.highlight ? `<span class="dh-theme">${d.highlight}</span>` : ''}</div><div class="dh-sub">${d.date} ${d.wd}</div><div class="dh-t">${d.cities.join(' → ')}</div><div class="dh-h">🏨 ${d.hotel}</div>`;
+      document.getElementById('day-hdr').innerHTML = `<div class="dh-top"><span class="dh-daytag">DAY ${d.day}</span>${d.highlight ? `<span class="dh-theme">${d.highlight}</span>` : ''}</div><div class="dh-sub">${d.date} ${d.wd}</div><div class="dh-t">${d.cities.join(' → ')}</div><div class="dh-h">🏨 ${d.hotel}</div>`;
       const tasks = getTasks();
-      let html = '', lastArea = '';
+      let html = '';
       const trsHtml = s => {
         const dur = t => t.replace(/\[(\d+(?:-\d+)?(?:min|hr))\]/g, '<span class="trs-dur">$1</span>');
         const nl = s.indexOf('\n');
@@ -1763,10 +359,6 @@
           item.mapUrl ||
           (item.trs && item.trs.length > 40)
         );
-        if (item.area && item.area !== lastArea) { html += `<div class="city-sep">> ${item.area}</div>`; lastArea = item.area; }
-        let badges = '';
-        if (item.isReserved) badges += `<span class="bdg bdg-r">✓ 已訂位</span>`;
-        if (item.isTicket) badges += `<span class="bdg bdg-t">🎫 已購票</span>`;
         let body = '';
         if (item.trs && item.trs.length > 40) body += `<div class="blk bl"><div class="blk-lb">交通</div><div class="blk-vl">${trsHtml(item.trs)}</div></div>`;
         const miHtml = m => { if (typeof m === 'string') return `<div class="mi"><span class="mi-name">${X(m)}</span></div>`; const hb = m.hours ? `<span class="mi-hours">${X(m.hours)}</span>` : ''; const mb = m.mapUrl ? `<a class="mi-map" href="${m.mapUrl}" target="_blank">導航</a>` : ''; const nm = m.name || m.text || ''; return `<div class="mi"><span class="mi-name">${X(nm)}</span>${hb}${mb}</div>`; };
@@ -1812,7 +404,9 @@
         if (item.reservation) { const r = item.reservation; const tcHref = r.tcUrl || 'https://www.tablecheck.com/zh-TW/account/reservations/upcoming'; body += `<div class="blk bl"><div class="blk-lb">訂位資訊</div><div class="rg"><div class="rc"><div class="rc-lb">ID</div><div class="rc-vl">${X(r.id)}</div></div>${r.time ? `<div class="rc"><div class="rc-lb">時間</div><div class="rc-vl">${X(r.time)}</div></div>` : ''} ${r.menu ? `<div class="rc" style="grid-column:1/-1"><div class="rc-lb">內容</div><div class="rc-vl">${X(r.menu)}</div></div>` : ''}</div><a class="tc-btn" href="${tcHref}" target="_blank"><span>📋 TableCheck 查看訂位</span></a></div>`; }
         if (item.tasks && item.tasks.length) { const tRows = item.tasks.map(t => { const tid = item.id + '-' + btoa(encodeURIComponent(t)).slice(0, 8); const dn = tasks[tid] ? 'done' : ''; const tHtml = X(t).replace(/\(([^)]+)\)/g, (_, h) => `<span class="ic-hours">${h}</span>`); return `<div class="tr ${dn}" onclick="togTask('${tid}',this)"><div class="tcb"></div><div class="t-text">${tHtml}</div></div>`; }).join(''); body += `<div class="blk"><div class="blk-lb">tasks</div><div class="task-list">${tRows}</div></div>`; }
         if (item.mapUrl) body += `<a class="map-btn" href="${item.mapUrl}" target="_blank" rel="noopener"><span>📍 Google Maps 導航</span></a>`;
-        html += `<div class="ic" id="ic-${item.id}" style="animation-delay:${Math.min(i * .04, .3)}s"><div class="ic-top" onclick="togCard('${item.id}',${hasBody})"><div class="ic-r1"><div class="ic-time">${item.time || ''}</div>${hasBody ? `<div class="ic-arr${isOpen ? ' open' : ''}" id="arr-${item.id}">▼</div>` : ''}</div><div class="ic-tr"><span class="ic-title">${item.icon} ${item.title}</span>${item.hours ? `<span class="ic-hours">${X(item.hours)}</span>` : ''}${item.area ? `<div class="atag"><span>${item.area}</span></div>` : ''}</div>${item.trs && item.trs.length <= 40 ? `<div class="ic-trs">${trsHtml(item.trs)}</div>` : ''}${badges ? `<div class="bdg-row">${badges}</div>` : ''}</div>${hasBody ? `<div class="ic-body${isOpen ? '' : ' hidden'}" id="ib-${item.id}">${body}</div>` : ''}</div>`;
+        // 有 tags 就用彩色標籤，不再重複顯示 trs 文字；沒有 tags 才退回顯示 trs
+        const shortTrs = !item.tags && item.trs && item.trs.length <= 40 ? `<div class="ic-trs">${trsHtml(item.trs)}</div>` : '';
+        html += `<div class="ic${item.optional ? ' optional' : ''}" id="ic-${item.id}" data-type="${X(item.type || '')}" style="animation-delay:${Math.min(i * .04, .3)}s"><div class="ic-top" onclick="togCard('${item.id}',${hasBody})"><div class="ic-r1"><div class="ic-time">${X(item.time || '')}</div>${hasBody ? `<div class="ic-arr${isOpen ? ' open' : ''}" id="arr-${item.id}">▼</div>` : ''}</div><div class="ic-tr"><span class="ic-title">${item.icon || ''} ${X(item.title)}${item.optional ? '<span class="opt-chip">選配</span>' : ''}</span>${item.hours ? `<span class="ic-hours">${X(item.hours)}</span>` : ''}${item.area ? `<div class="atag">${X(item.area)}</div>` : ''}</div>${shortTrs}${chipsHtml(item)}</div>${hasBody ? `<div class="ic-body${isOpen ? '' : ' hidden'}" id="ib-${item.id}">${body}</div>` : ''}</div>`;
       });
       document.getElementById('items-wrap').innerHTML = html;
     }
@@ -1823,12 +417,12 @@
     function renderChk() {
       const tasks = getTasks(); let html = '';
       Object.entries(GTASKS).forEach(([cat, items]) => {
-        html += `<div class="chk-sec"><div class="chk-sec-t">> ${cat}</div>`;
+        html += `<div class="chk-sec"><div class="chk-sec-t">${X(cat)}</div>`;
         items.forEach(item => { const dn = tasks[item.id] ? 'done' : ''; const dateBadge = item.date ? `<div class="cr-date">${item.date}</div>` : ''; const am = item.text.match(/^\[([^\]]+)\]\s*/); const area = am ? am[1] : ''; const txt = am ? item.text.slice(am[0].length) : item.text; const areaBadge = area ? `<div class="cr-area">${X(area)}</div>` : ''; html += `<div class="cr ${dn}" onclick="togChk('${item.id}',this)"><div class="ccb"></div><div class="cr-body">${dateBadge}${areaBadge}<div class="cr-text">${X(txt)}</div></div></div>`; });
         html += '</div>';
       });
       const shop = getShop();
-      html += `<div class="chk-sec"><div class="chk-sec-t">> 購物清單</div>`;
+      html += `<div class="chk-sec"><div class="chk-sec-t">購物清單</div>`;
       shop.forEach((item, i) => { html += `<div class="cr ${item.done ? 'done' : ''}" onclick="togShop(${i},this)"><div class="ccb"></div><div class="cr-text">${X(item.text)}</div></div>`; });
       html += `<div class="add-row"><input class="add-inp" id="si" placeholder="新增購物項目..." onkeydown="if(event.key==='Enter')addShop()"><div class="add-btn" onclick="addShop()">＋</div></div></div>`;
       document.getElementById('chk-page').innerHTML = html;
@@ -1966,7 +560,7 @@
         const max = Math.round(daily.temperature_2m_max[i]), min = Math.round(daily.temperature_2m_min[i]);
         const rainVal = daily.precipitation_probability_max ? (daily.precipitation_probability_max[i] ?? null) : null;
         const hi = rainVal !== null && rainVal >= 50;
-        const rainHtml = rainVal !== null ? `<div class="wc-rain"><div class="wc-rain-pct" style="${hi ? 'color:#88bbff' : ''}">${rainVal}%</div><div class="wc-rain-label">降雨</div></div>` : `<div class="wc-rain"><div class="wc-rain-label">— 降雨</div></div>`;
+        const rainHtml = rainVal !== null ? `<div class="wc-rain"><div class="wc-rain-pct${hi ? ' hi' : ''}">${rainVal}%</div><div class="wc-rain-label">降雨</div></div>` : `<div class="wc-rain"><div class="wc-rain-label">— 降雨</div></div>`;
         html += `<div class="wc"><div class="wc-day">${wxLabel(dateStr)}</div><div class="wc-icon">${icon}</div><div class="wc-temp">${max}° / ${min}°</div><div class="wc-desc">${desc}</div><div class="wc-divider"></div>${rainHtml}</div>`;
       });
       el.innerHTML = html + '</div>';
@@ -1988,7 +582,7 @@
       const eye = document.getElementById('h-eye');
       if (eye) eye.textContent = '';
       const grid = document.getElementById('days-grid');
-      if (grid) grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:24px 16px;color:var(--pink2);font-size:14px;line-height:1.8">${msg}</div>`;
+      if (grid) grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:24px 16px;color:var(--maple);line-height:1.8">${msg}</div>`;
     }
     document.addEventListener("DOMContentLoaded", async function () {
       tick(); setInterval(tick, 15000);

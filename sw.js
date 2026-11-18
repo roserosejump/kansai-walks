@@ -1,10 +1,17 @@
-// 有網路時走 network-first（永遠拿最新版本，同時偷偷更新快取）
-// 沒網路時走快取（回上一次成功載入過的版本），才是真的離線可用
-// 想強制使用者更新快取（例如大幅改了行程資料結構），把版本號 +1 即可
-// 這個版本號要跟 index.html 裡的 SW_CACHE_NAME 保持一致
+// 策略：
+//  1. 同網域檔案（頁面、CSS、data/*.json）→ network-first，但最多等 3 秒。
+//     日本的訊號不穩時，與其讓畫面一直轉圈，不如先拿上次成功的快取；網路回來的結果仍會偷偷更新快取。
+//  2. 字型（fonts.googleapis.com / fonts.gstatic.com）→ stale-while-revalidate，存在獨立的字型快取。
+//     字型檔不會變，先用快取最快；離線時才不會跑版。
+// 想強制所有人更新（例如大幅改了資料結構），把 CACHE_NAME 的版本號 +1 即可。
+// CACHE_NAME 要跟 index.html 裡的 SW_CACHE_NAME 保持一致
 const CACHE_NAME = 'kansai-walks-v1';
-// 只放固定不太會變的外殼檔案；data/*.json 是由 index.html 的 loadData() 直接寫入快取，不用在這裡列
-const APP_SHELL = ['index.html', 'manifest.json'];
+const FONT_CACHE = 'kansai-fonts-v1';
+const NETWORK_TIMEOUT_MS = 3000;
+// 只放固定不太會變的外殼；data/*.json 由 index.html 的 loadData() 直接寫入快取
+// （第一次造訪時 Service Worker 還沒接管頁面，這些請求不會經過 fetch 事件，所以要頁面自己存）
+const APP_SHELL = ['index.html', 'style.css', 'manifest.json', 'icon.png?v=106'];
+const FONT_HOSTS = ['fonts.googleapis.com', 'fonts.gstatic.com'];
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
@@ -15,30 +22,73 @@ self.addEventListener('install', (event) => {
 });
 
 self.addEventListener('activate', (event) => {
+  const keep = [CACHE_NAME, FONT_CACHE];
   event.waitUntil(
     caches.keys()
-      .then((keys) => Promise.all(keys.filter((k) => k !== CACHE_NAME).map((k) => caches.delete(k))))
+      .then((keys) => Promise.all(keys.filter((k) => !keep.includes(k)).map((k) => caches.delete(k))))
       .then(() => self.clients.claim())
   );
 });
 
-self.addEventListener('fetch', (event) => {
-  const url = new URL(event.request.url);
-  // 只快取同網域的 GET 請求。天氣／匯率這類外部 API 不快取，
-  // 離線時交給 index.html 裡既有的 try/catch 顯示參考值
-  if (event.request.method !== 'GET' || url.origin !== self.location.origin) return;
-
-  event.respondWith(
-    fetch(event.request)
-      .then((res) => {
-        const resClone = res.clone();
-        caches.open(CACHE_NAME).then((cache) => cache.put(event.request, resClone));
-        return res;
-      })
-      .catch(() =>
-        caches.match(event.request).then((cached) =>
-          cached || (event.request.mode === 'navigate' ? caches.match('index.html') : undefined)
-        )
-      )
+// 離線又沒有該檔的快取時：頁面導航退回 index.html，其他請求就讓它失敗
+function offlineFallback(request) {
+  return caches.match(request).then((cached) =>
+    cached || (request.mode === 'navigate' ? caches.match('index.html') : Response.error())
   );
+}
+
+function networkFirstWithTimeout(request) {
+  return new Promise((resolve) => {
+    let settled = false;
+    const done = (res) => { if (!settled) { settled = true; resolve(res); } };
+
+    // 超過時間還沒回應 → 先給快取（若有）；fetch 繼續跑，回來後只更新快取
+    const timer = setTimeout(() => {
+      caches.match(request).then((cached) => { if (cached) done(cached); });
+    }, NETWORK_TIMEOUT_MS);
+
+    fetch(request)
+      .then((res) => {
+        clearTimeout(timer);
+        if (res.ok) {
+          const copy = res.clone();
+          caches.open(CACHE_NAME).then((cache) => cache.put(request, copy));
+        }
+        done(res);
+      })
+      .catch(() => {
+        clearTimeout(timer);
+        offlineFallback(request).then(done);
+      });
+  });
+}
+
+function staleWhileRevalidate(request) {
+  return caches.open(FONT_CACHE).then((cache) =>
+    cache.match(request).then((cached) => {
+      const refresh = fetch(request)
+        .then((res) => {
+          // opaque（no-cors 的跨網域回應）看不到 status，但仍然可以存來離線使用
+          if (res.ok || res.type === 'opaque') cache.put(request, res.clone());
+          return res;
+        })
+        .catch(() => cached || Response.error());
+      return cached || refresh;
+    })
+  );
+}
+
+self.addEventListener('fetch', (event) => {
+  const { request } = event;
+  if (request.method !== 'GET') return;
+  const url = new URL(request.url);
+
+  if (FONT_HOSTS.includes(url.hostname)) {
+    event.respondWith(staleWhileRevalidate(request));
+    return;
+  }
+  // 其他跨網域（天氣／匯率 API）不快取，離線時交給 index.html 裡既有的 try/catch 顯示參考值
+  if (url.origin !== self.location.origin) return;
+
+  event.respondWith(networkFirstWithTimeout(request));
 });
