@@ -1,0 +1,175 @@
+{
+  "day": 4,
+  "date": "12/2",
+  "isoDate": "2026-12-02",
+  "wd": "週三",
+  "cities": [
+    "京都",
+    "大阪"
+  ],
+  "hotel": "Hiyori Hotel Osaka Shinsekai",
+  "highlight": "京都→大阪",
+  "route": "（選配）清晨清水寺 → 退房寄行李 → 伊勢丹買抹茶粉 → 祇園川上懷石午餐 → 茶寮都路里 → 移動大阪 → 通天閣夕陽＋滑梯 → 千成屋綜合果汁 → 達摩串炸",
+  "items": [
+    {
+      "id": "4-1",
+      "time": "06:30–08:00",
+      "icon": "⛩️",
+      "title": "清晨清水寺・二三年坂（Rose 自己去）",
+      "area": "東山",
+      "type": "sight",
+      "status": "buyOnSite",
+      "optional": true,
+      "desc": "1. 清水寺 6:00 開門，拍空無一人的街景\n2. 媽媽在飯店休息\n3. 計程車來回約 15 分\n4. 早餐備案（看體力，給媽媽決定）：08:00 回飯店後一起去純喫茶みなみ（京都アバンティ 1F，八条口走 3 分，07:45–18:30，週四公休，電話 075-661-3968），09:15 前回飯店退房",
+      "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E6%B8%85%E6%99%A8%E6%B8%85%E6%B0%B4%E5%AF%BA%E3%83%BB%E4%BA%8C%E4%B8%89%E5%B9%B4%E5%9D%82%20%E6%9D%B1%E5%B1%B1"
+    },
+    {
+      "id": "4-2",
+      "time": "09:30–09:45",
+      "icon": "🏨",
+      "title": "退房，行李寄放飯店櫃檯",
+      "area": "飯店",
+      "type": "hotel",
+      "status": "none",
+      "desc": "吃完川上再回來拿"
+    },
+    {
+      "id": "4-3",
+      "time": "10:00–11:00",
+      "icon": "🛍️",
+      "title": "JR 京都伊勢丹 買抹茶粉：丸久小山園（B1F）＋中村藤吉＋伴手禮",
+      "area": "京都站",
+      "type": "shopping",
+      "status": "none",
+      "desc": "1. 同一間百貨買，金額可合併退稅（帶護照）\n2. 從飯店步行約 7 分\n3. 小山園西洞院店（茶房元庵）週三公休，這次不去\n4. 🛍 伴手禮：Malebranche「茶の菓」（京都限定濃茶貓舌餅乾，保存約 2–3 週）",
+      "mapUrl": "https://www.google.com/maps/search/?api=1&query=JR%20%E4%BA%AC%E9%83%BD%E4%BC%8A%E5%8B%A2%E4%B8%B9%20%E8%B2%B7%E6%8A%B9%E8%8C%B6%E7%B2%89%EF%BC%9A%E4%B8%B8%E4%B9%85%E5%B0%8F%E5%B1%B1%E5%9C%92%20%E4%BA%AC%E9%83%BD%E7%AB%99"
+    },
+    {
+      "id": "4-4",
+      "time": "11:00–11:30",
+      "icon": "🚃",
+      "title": "JR 奈良線 → 東福寺（1 站）→ 轉京阪 → 祇園四条 → 步行到川上",
+      "area": "京都站→祇園",
+      "type": "transport",
+      "status": "none",
+      "trs": "JR・京阪・步行",
+      "tags": [
+        "JR",
+        "京阪",
+        "步行"
+      ],
+      "desc": "1. 約 25 分，可用西瓜卡\n2. 東福寺站內直接轉京阪（同 D2 路線）\n3. 祇園四条站步行約 5–10 分，早到可在白川散步\n4. 回程搭計程車直接回飯店拿行李"
+    },
+    {
+      "id": "4-5",
+      "time": "12:00–13:30",
+      "icon": "🍜",
+      "title": "祇園 川上 お昼の懐石コース（吧台）",
+      "area": "祇園",
+      "type": "food",
+      "status": "booked",
+      "payment": "paid",
+      "cost": 14520,
+      "booking": "TableCheck 預約 ID ●●●",
+      "desc": "1. ¥6,600×2＋服務費 10% 已預付\n2. 電話 075-561-2420\n3. 前一天、當天取消收 100%，要取消請在 11/29 前\n4. ✅ 已通知店家不吃茄子、苦瓜、甜椒",
+      "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E7%A5%87%E5%9C%92%20%E5%B7%9D%E4%B8%8A%20%E3%81%8A%E6%98%BC%E3%81%AE%E6%87%90%E7%9F%B3%E3%82%B3%E3%83%BC%E3%82%B9%20%E7%A5%87%E5%9C%92",
+      "isReserved": true
+    },
+    {
+      "id": "4-6",
+      "time": "13:30–14:15",
+      "icon": "🍡",
+      "title": "茶寮都路里 祇園本店（抹茶甜點）",
+      "area": "祇園",
+      "type": "food",
+      "status": "queue",
+      "hours": "10:30-21",
+      "desc": "1. 祇園町南側 573-3，川上同一條街走 1–2 分\n2. 名物：特選都路里抹茶聖代、抹茶霜淇淋、白玉善哉\n3. 約 ¥1,000–2,000／人\n4. 楓葉季可能排 30–60 分；排太久就在 1F 祇園辻利買抹茶霜淇淋",
+      "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E8%8C%B6%E5%AF%AE%E9%83%BD%E8%B7%AF%E9%87%8C%20%E7%A5%87%E5%9C%92%E6%9C%AC%E5%BA%97%20%E7%A5%87%E5%9C%92"
+    },
+    {
+      "id": "4-7",
+      "time": "14:15–14:45",
+      "icon": "🚕",
+      "title": "計程車回飯店拿行李",
+      "area": "祇園→飯店",
+      "type": "transport",
+      "status": "none",
+      "trs": "計程車",
+      "tags": [
+        "計程車"
+      ],
+      "desc": "約 15 分"
+    },
+    {
+      "id": "4-8",
+      "time": "14:45–16:00",
+      "icon": "🚃",
+      "title": "京都站 → 天王寺 → JR 環狀線 → 新今宮 → 步行到飯店入住",
+      "area": "京都→大阪",
+      "type": "transport",
+      "status": "none",
+      "trs": "JR・步行",
+      "tags": [
+        "JR",
+        "步行"
+      ],
+      "desc": "1. HARUKA 或 JR 新快速\n2. 新今宮東口步行約 3 分"
+    },
+    {
+      "id": "4-9",
+      "time": "16:00–16:30",
+      "icon": "🏨",
+      "title": "飯店休息",
+      "area": "飯店",
+      "type": "hotel",
+      "status": "none",
+      "desc": "讓媽媽休息"
+    },
+    {
+      "id": "4-10",
+      "time": "16:30–17:45",
+      "icon": "🗼",
+      "title": "通天閣（夕陽＋夜景）＋TOWER SLIDER",
+      "area": "新世界",
+      "type": "sight",
+      "status": "buyOnSite",
+      "hours": "展望台 9-22／滑梯 10-20",
+      "desc": "1. 16:50 左右日落，看完夕陽接著看夜景\n2. 摸比利肯的腳底招好運\n3. TOWER SLIDER 19:30 停止受理，最後溜下來\n4. 展望台約 ¥1,200–1,500，滑梯費用看官網",
+      "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E9%80%9A%E5%A4%A9%E9%96%A3%20%E6%96%B0%E4%B8%96%E7%95%8C"
+    },
+    {
+      "id": "4-11",
+      "time": "17:45–18:15",
+      "icon": "☕",
+      "title": "千成屋珈琲（綜合果汁發源店）[平日 11:30-19] → ジャンジャン橫丁散步",
+      "area": "新世界",
+      "type": "food",
+      "status": "none",
+      "desc": "1. 平日 19:00 打烊，所以排在晚餐前\n2. 名物ミックスジュース（蘋果、香蕉、桃子、橘子）\n3. ジャンジャン橫丁：昭和風老商店街",
+      "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E5%8D%83%E6%88%90%E5%B1%8B%E7%8F%88%E7%90%B2%20%E6%96%B0%E4%B8%96%E7%95%8C"
+    },
+    {
+      "id": "4-12",
+      "time": "18:15–19:30",
+      "icon": "🍢",
+      "title": "元祖串かつ だるま 新世界總本店",
+      "area": "新世界",
+      "type": "food",
+      "status": "queue",
+      "hours": "11-22:30",
+      "desc": "1. 新世界最有名的串炸，昇和 4 年創業\n2. 無休，不能預約\n3. 醬汁不能沾兩次\n4. 中午吃懷石，晚餐輕鬆吃",
+      "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E5%85%83%E7%A5%96%E4%B8%B2%E3%81%8B%E3%81%A4%20%E3%81%A0%E3%82%8B%E3%81%BE%20%E6%96%B0%E4%B8%96%E7%95%8C%E7%B8%BD%E6%9C%AC%E5%BA%97%20%E6%96%B0%E4%B8%96%E7%95%8C"
+    },
+    {
+      "id": "4-13",
+      "time": "19:30",
+      "icon": "🏨",
+      "title": "走回飯店、回房間",
+      "area": "飯店",
+      "type": "hotel",
+      "status": "none",
+      "desc": "飯店就在新世界旁"
+    }
+  ]
+}

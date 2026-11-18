@@ -1,0 +1,70 @@
+{
+  "day": 1,
+  "date": "1/1",
+  "wd": "週四",
+  "cities": ["城市A", "城市B"],
+  "hotel": "填入今晚住宿名稱",
+  "highlight": "填入這天的亮點文案，會顯示在首頁",
+  "items": [
+
+    {
+      "id": "1-1",
+      "time": "09:00–10:00",
+      "icon": "✈️",
+      "title": "最基本的行程項目：時間＋圖示＋標題",
+      "area": "城市A",
+      "trs": "交通方式，例如：JR山手線 [15min]",
+      "desc": "詳細說明文字第一行\n可以用「反斜線+n」換行寫第二行"
+    },
+
+    {
+      "id": "1-2",
+      "time": "10:30",
+      "icon": "🧳",
+      "title": "帶待辦任務的行程項目",
+      "area": "城市A",
+      "tasks": ["要辦的事情 1", "要辦的事情 2"]
+    },
+
+    {
+      "id": "1-3",
+      "time": "12:00",
+      "icon": "🍜",
+      "title": "帶「必吃推薦」清單的行程項目",
+      "area": "城市A",
+      "hours": "11:00-20:00",
+      "mustEat": [
+        { "name": "推薦美食 1", "hours": "10-18", "mapUrl": "https://maps.app.goo.gl/替換成你的地圖連結" },
+        { "name": "推薦美食 2", "hours": "09-17", "mapUrl": "https://maps.app.goo.gl/替換成你的地圖連結" }
+      ],
+      "mapUrl": "https://maps.app.goo.gl/替換成你的地圖連結"
+    },
+
+    {
+      "id": "1-4",
+      "time": "18:30",
+      "icon": "🍽️",
+      "title": "帶「訂位資訊」的行程項目",
+      "area": "城市A",
+      "desc": "已經訂好位的餐廳，畫面上會多顯示「✓ 已訂位」標籤",
+      "reservation": {
+        "id": "訂位確認碼",
+        "time": "18:30",
+        "menu": "訂位的方案／人數",
+        "tcUrl": "https://www.tablecheck.com/zh-TW/account/reservations/upcoming"
+      },
+      "isReserved": true
+    },
+
+    {
+      "id": "1-5",
+      "time": "20:00",
+      "icon": "🎫",
+      "title": "已經買好票的行程項目",
+      "area": "城市A",
+      "desc": "畫面上會多顯示「🎫 已購票」標籤",
+      "isTicket": true
+    }
+
+  ]
+}

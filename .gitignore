@@ -1,0 +1,9 @@
+# Sheet 匯出的原始資料，裡面有預約編號 → 不要 commit
+sheet-export/
+# 轉換時拆出來的敏感資料 → 不要 commit
+private/
+
+# Mac 系統檔
+.DS_Store
+# Claude Code 個人設定
+.claude/

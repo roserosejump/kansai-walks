@@ -1,0 +1,154 @@
+{
+  "day": 2,
+  "date": "11/30",
+  "isoDate": "2026-11-30",
+  "wd": "週一",
+  "cities": [
+    "東福寺",
+    "東山"
+  ],
+  "hotel": "Tune Stay Kyoto",
+  "highlight": "東福寺・東山",
+  "route": "超商早餐 → 東福寺 08:30 開門 → 麗 和服 → 花見小路・白川 → 菊川 鰻魚飯 → 八坂神社・二三年坂（松栄堂）→ 清水寺夕陽 → ❓壽喜燒晚餐 → 高台寺夜楓",
+  "items": [
+    {
+      "id": "2-1",
+      "time": "07:45–08:05",
+      "icon": "🥐",
+      "title": "飯店出發 → 便利商店／京都站麵包店買早餐",
+      "area": "飯店→京都站",
+      "type": "food",
+      "status": "none",
+      "desc": "1. 不坐下來吃，多睡一點（D1 約 23:00 才回飯店）\n2. 伏見稻荷已取消，專心賞楓東福寺",
+      "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E9%A3%AF%E5%BA%97%E5%87%BA%E7%99%BC%20%E9%A3%AF%E5%BA%97%E2%86%92%E4%BA%AC%E9%83%BD%E7%AB%99"
+    },
+    {
+      "id": "2-2",
+      "time": "08:05–08:30",
+      "icon": "🚃",
+      "title": "JR 奈良線 京都 → 東福寺",
+      "area": "京都站→東福寺",
+      "type": "transport",
+      "status": "none",
+      "trs": "JR",
+      "tags": [
+        "JR"
+      ],
+      "desc": "1. 1 站約 2 分，下車走約 10 分到通天橋\n2. 早餐在月台或路上吃完"
+    },
+    {
+      "id": "2-3",
+      "time": "08:30–09:45",
+      "icon": "⛩️",
+      "title": "東福寺 通天橋",
+      "area": "東福寺",
+      "type": "sight",
+      "status": "buyOnSite",
+      "payment": "onSite",
+      "cost": 2000,
+      "desc": "1. 08:30 開門就進去，人最少\n2. 秋季通天橋大人 ¥1,000\n3. 09:45 前離開，趕 10:15 和服",
+      "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E6%9D%B1%E7%A6%8F%E5%AF%BA%20%E9%80%9A%E5%A4%A9%E6%A9%8B%20%E6%9D%B1%E7%A6%8F%E5%AF%BA"
+    },
+    {
+      "id": "2-4",
+      "time": "09:45–10:15",
+      "icon": "🚃",
+      "title": "京阪 東福寺 → 祇園四條",
+      "area": "東福寺→祇園",
+      "type": "transport",
+      "status": "none",
+      "trs": "京阪",
+      "tags": [
+        "京阪"
+      ],
+      "desc": "約 10 分＋步行"
+    },
+    {
+      "id": "2-5",
+      "time": "10:15–11:15",
+      "icon": "👘",
+      "title": "麗 kimono rental Rei 和服租借（2 人，含髮型）",
+      "area": "祇園",
+      "type": "activity",
+      "status": "todo",
+      "booking": "官網線上預約",
+      "desc": "1. 媽媽也一起穿，蕾絲或黑金款\n2. 17:15 前歸還\n3. 備選：璃光、wargo、梨花\n4. 攝影方案太貴，先自己拍\n5. ⚠️ 待決：選店時確認能不能晚還或隔天還，再調整清水寺夕陽後的行程",
+      "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E9%BA%97%20kimono%20rental%20Rei%20%E5%92%8C%E6%9C%8D%E7%A7%9F%E5%80%9F%20%E7%A5%87%E5%9C%92"
+    },
+    {
+      "id": "2-6",
+      "time": "11:15–12:30",
+      "icon": "📍",
+      "title": "花見小路 → 白川・巽橋 拍照",
+      "area": "祇園",
+      "type": "sight",
+      "status": "none",
+      "desc": "1. 穿和服拍日式街道，最後停在白川，午餐就在旁邊\n2. 📸 穿和服的拍照重點只選 3 個：白川巽橋、八坂塔／二年坂、清水寺，其他點路過就好",
+      "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E8%8A%B1%E8%A6%8B%E5%B0%8F%E8%B7%AF%20%E7%A5%87%E5%9C%92"
+    },
+    {
+      "id": "2-7",
+      "time": "12:30–13:45",
+      "icon": "🍜",
+      "title": "京都祇園 鰻魚四代目菊川",
+      "area": "祇園（白川）",
+      "type": "food",
+      "status": "booked",
+      "payment": "onSite",
+      "hours": "11-15／17-22",
+      "booking": "一休 予約番号 ●●●（認証コード ●●●）",
+      "desc": "1. 東山區元吉町 70-7，白川旁，電話 075-606-5670\n2. 只訂座位（お席のみ予約），當天現場點餐\n3. 招牌一本鰻（整條鰻魚）、ひつまぶし，平均每人 ¥5,000–9,000\n4. 點餐時說「ナス、ゴーヤ、ピーマンが苦手です」",
+      "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E4%BA%AC%E9%83%BD%E7%A5%87%E5%9C%92%20%E9%B0%BB%E9%AD%9A%E5%9B%9B%E4%BB%A3%E7%9B%AE%E8%8F%8A%E5%B7%9D%20%E7%A5%87%E5%9C%92%EF%BC%88%E7%99%BD%E5%B7%9D%EF%BC%89",
+      "isReserved": true
+    },
+    {
+      "id": "2-8",
+      "time": "13:45–16:50",
+      "icon": "⛩️",
+      "title": "八坂神社 → 寧寧之道 → 二年坂／三年坂 → 清水寺（看夕陽）",
+      "area": "東山",
+      "type": "sight",
+      "status": "buyOnSite",
+      "desc": "1. 📸 拍照重點：八坂塔／二年坂、清水寺（寧寧之道、三年坂路過就好）\n2. 🛍 松栄堂 產寧坂店（青龍苑內）先逛線香，網友提到有店舖限定「ときの香」\n3. 12/1 嵐山香郷有嵐山限定再加買\n4. 日落約 16:45，在清水舞台看夕陽",
+      "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E5%85%AB%E5%9D%82%E7%A5%9E%E7%A4%BE%20%E6%9D%B1%E5%B1%B1"
+    },
+    {
+      "id": "2-9",
+      "time": "16:50–17:15",
+      "icon": "🚶",
+      "title": "走回麗 歸還和服",
+      "area": "東山→祇園",
+      "type": "transport",
+      "status": "none",
+      "trs": "步行",
+      "tags": [
+        "步行"
+      ],
+      "desc": "步行約 20 分，17:15 前還"
+    },
+    {
+      "id": "2-10",
+      "time": "17:30–19:00",
+      "icon": "🍜",
+      "title": "壽喜燒晚餐（傾向：Moritaya 森田屋 木屋町）",
+      "area": "祇園／木屋町",
+      "type": "food",
+      "status": "unconfirmed",
+      "booking": "電話 075-231-5118（沒有線上訂位）",
+      "desc": "1. 傾向モリタ屋（套餐 ¥5,830 起，平日晚餐 17-22，L.O. 21:00），訂位方式還在想\n2. 訂位方式：A 國際電話 +81-75-231-5118／B 寫 email 請 Tune Stay 代訂／C 當天直接去\n3. 備案：北斗 木屋町店（約 ¥4,000，線上訂）\n4. 先吃飯再看夜楓",
+      "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E5%A3%BD%E5%96%9C%E7%87%92%E6%99%9A%E9%A4%90%20%E7%A5%87%E5%9C%92%EF%BC%8F%E6%9C%A8%E5%B1%8B%E7%94%BA"
+    },
+    {
+      "id": "2-11",
+      "time": "19:20–20:30",
+      "icon": "⛩️",
+      "title": "高台寺 秋季夜間點燈",
+      "area": "東山",
+      "type": "sight",
+      "status": "buyOnSite",
+      "hours": "2025 年 17-22，21:30 停止入場",
+      "desc": "1. 先斗町 → 計程車約 10 分（走路約 20 分）\n2. 臥龍池倒影、竹林\n3. 2026 點燈時間出發前看官網確認\n4. 備案（當天看體力決定）：永觀堂夜楓 17:30–20:30（21:00 關門），¥1,000／人，先斗町搭計程車約 15 分\n5. 20:30 計程車回飯店約 15–20 分，約 21:00 到",
+      "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E9%AB%98%E5%8F%B0%E5%AF%BA%20%E7%A7%8B%E5%AD%A3%E5%A4%9C%E9%96%93%E9%BB%9E%E7%87%88%20%E6%9D%B1%E5%B1%B1"
+    }
+  ]
+}

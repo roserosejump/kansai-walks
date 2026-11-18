@@ -1,0 +1,15 @@
+{
+  "title": "🗼 填入你的旅行標題",
+  "shortTitle": "簡短標題",
+  "theme": "pink",
+  "currency": {
+    "from": "JPY",
+    "to": "TWD"
+  },
+  "tripStartDate": "2026-01-01",
+  "tripEndDate": "2026-01-03",
+  "cities": {
+    "City1": { "lat": 35.6762, "lon": 139.6503, "label": "城市顯示名稱", "days": ["2026-01-01", "2026-01-02"] },
+    "City2": { "lat": 34.6937, "lon": 135.5023, "label": "另一個城市", "days": ["2026-01-03"] }
+  }
+}

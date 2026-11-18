@@ -1,0 +1,187 @@
+{
+  "day": 6,
+  "date": "12/4",
+  "isoDate": "2026-12-04",
+  "wd": "週五",
+  "cities": [
+    "奈良",
+    "生駒"
+  ],
+  "hotel": "Hiyori Hotel Osaka Shinsekai",
+  "highlight": "奈良・生駒",
+  "route": "東大寺・餵鹿 → 志津香釜飯 → 中谷堂 → 生駒山上遊樂園（天空腳踏車，玩到 16:00）→ HARUKAS 300 夜景 → 道頓堀今井烏龍麵 → くくる章魚燒",
+  "items": [
+    {
+      "id": "6-1",
+      "time": "08:30–08:45",
+      "icon": "🚃",
+      "title": "飯店出發 → 動物園前站 → 地鐵堺筋線 → 日本橋站",
+      "area": "飯店→日本橋",
+      "type": "transport",
+      "status": "none",
+      "trs": "地鐵",
+      "tags": [
+        "地鐵"
+      ],
+      "desc": "1. 比原本早 45 分出門，空出生駒的時間\n2. 動物園前站 5 號出口步行約 3 分"
+    },
+    {
+      "id": "6-2",
+      "time": "08:45–09:30",
+      "icon": "🚃",
+      "title": "近鐵日本橋 → 近鐵奈良",
+      "area": "大阪→奈良",
+      "type": "transport",
+      "status": "none",
+      "trs": "近鐵",
+      "tags": [
+        "近鐵"
+      ],
+      "desc": "快速急行約 35–40 分"
+    },
+    {
+      "id": "6-3",
+      "time": "09:30–10:45",
+      "icon": "⛩️",
+      "title": "奈良公園・東大寺・餵鹿",
+      "area": "奈良",
+      "type": "sight",
+      "status": "buyOnSite",
+      "desc": "1. 大仏殿 11–2 月 16:30 關門\n2. 早上人少",
+      "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E5%A5%88%E8%89%AF%E5%85%AC%E5%9C%92%E3%83%BB%E6%9D%B1%E5%A4%A7%E5%AF%BA%E3%83%BB%E9%A4%B5%E9%B9%BF%20%E5%A5%88%E8%89%AF"
+    },
+    {
+      "id": "6-4",
+      "time": "11:00–12:00",
+      "icon": "🍜",
+      "title": "志津香 公園店（釜飯）",
+      "area": "奈良",
+      "type": "food",
+      "status": "queue",
+      "hours": "11-15，週二公休",
+      "desc": "1. 不能預約，11:00 開門就到，避開排隊\n2. 約 ¥1,000–3,000／人",
+      "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E5%BF%97%E6%B4%A5%E9%A6%99%20%E5%85%AC%E5%9C%92%E5%BA%97%20%E5%A5%88%E8%89%AF"
+    },
+    {
+      "id": "6-5",
+      "time": "12:00–12:15",
+      "icon": "🍡",
+      "title": "中谷堂（高速搗麻糬）",
+      "area": "奈良",
+      "type": "food",
+      "status": "none",
+      "hours": "10-19",
+      "desc": "1. 三条通，走回近鐵奈良站順路\n2. 買麻糬帶上車吃",
+      "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E4%B8%AD%E8%B0%B7%E5%A0%82%20%E5%A5%88%E8%89%AF"
+    },
+    {
+      "id": "6-6",
+      "time": "12:15–12:45",
+      "icon": "🚃",
+      "title": "近鐵奈良線 → 生駒 → 生駒纜車上山",
+      "area": "奈良→生駒",
+      "type": "transport",
+      "status": "none",
+      "trs": "近鐵・纜車",
+      "tags": [
+        "近鐵",
+        "纜車"
+      ],
+      "desc": "纜車：鳥居前 → 宝山寺 → 生駒山上（中途轉車）"
+    },
+    {
+      "id": "6-7",
+      "time": "12:45–16:00",
+      "icon": "🎢",
+      "title": "生駒山上遊樂園",
+      "area": "生駒",
+      "type": "sight",
+      "status": "none",
+      "hours": "10-16",
+      "desc": "1. 官網日曆：12/4（五）10:00–16:00，今年營業到 12/6\n2. 週四公休\n3. 先排高空單車（天空腳踏車），人多可能提早停止受理\n4. 玩到 16:00 關門；媽媽累了就提早下山",
+      "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E7%94%9F%E9%A7%92%E5%B1%B1%E4%B8%8A%E9%81%8A%E6%A8%82%E5%9C%92%20%E7%94%9F%E9%A7%92"
+    },
+    {
+      "id": "6-8",
+      "time": "16:00–16:50",
+      "icon": "🚃",
+      "title": "纜車下山 → 近鐵奈良線 → 鶴橋 → JR 環狀線 → 天王寺",
+      "area": "生駒→天王寺",
+      "type": "transport",
+      "status": "none",
+      "trs": "JR・近鐵・纜車",
+      "tags": [
+        "JR",
+        "近鐵",
+        "纜車"
+      ],
+      "desc": "約 45–50 分"
+    },
+    {
+      "id": "6-9",
+      "time": "16:50–18:00",
+      "icon": "🗼",
+      "title": "阿倍野 HARUKAS 300",
+      "area": "天王寺",
+      "type": "sight",
+      "status": "todo",
+      "hours": "9-22",
+      "booking": "官網／旅遊網站買指定日期票（17:00 左右）",
+      "desc": "1. 以夜景為主；16:50 左右日落，到的時候大概只看得到夕陽尾巴和天色變暗\n2. 大人 ¥2,000，線上預購約 ¥1,800\n3. 21:30 停止入場",
+      "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E9%98%BF%E5%80%8D%E9%87%8E%20HARUKAS%20300%20%E5%A4%A9%E7%8E%8B%E5%AF%BA"
+    },
+    {
+      "id": "6-10",
+      "time": "18:00–18:15",
+      "icon": "🚃",
+      "title": "御堂筋線 天王寺 → なんば",
+      "area": "天王寺→難波",
+      "type": "transport",
+      "status": "none",
+      "trs": "地鐵",
+      "tags": [
+        "地鐵"
+      ],
+      "desc": "1. 約 6 分\n2. 🛍 搭車前先到天王寺 MIO 本館 1F 治一郎買布丁＋年輪蛋糕（布丁回飯店放冰箱）"
+    },
+    {
+      "id": "6-11",
+      "time": "18:15–19:15",
+      "icon": "🍜",
+      "title": "道頓堀 今井（豆皮烏龍麵）",
+      "area": "道頓堀",
+      "type": "food",
+      "status": "queue",
+      "hours": "11:30-21，L.O. 20:30，週三公休",
+      "desc": "1. 道頓堀 1-7-22，大阪烏龍麵代表老店\n2. きつねうどん約 ¥900，也有親子丼、しっぽくうどん",
+      "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E9%81%93%E9%A0%93%E5%A0%80%20%E4%BB%8A%E4%BA%95%20%E9%81%93%E9%A0%93%E5%A0%80"
+    },
+    {
+      "id": "6-12",
+      "time": "19:15–19:45",
+      "icon": "🍜",
+      "title": "たこ家道頓堀くくる 本店（章魚燒）",
+      "area": "道頓堀",
+      "type": "food",
+      "status": "queue",
+      "hours": "平日 11-21",
+      "desc": "1. 道頓堀 1-10-5，和今井同一條街\n2. 招牌「びっくりたこ焼」只有本店、限量，整塊大章魚\n3. 20:30 最後點餐",
+      "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E3%81%9F%E3%81%93%E5%AE%B6%E9%81%93%E9%A0%93%E5%A0%80%E3%81%8F%E3%81%8F%E3%82%8B%20%E6%9C%AC%E5%BA%97%20%E9%81%93%E9%A0%93%E5%A0%80"
+    },
+    {
+      "id": "6-13",
+      "time": "19:45–20:05",
+      "icon": "🚃",
+      "title": "なんば → 御堂筋線 → 動物園前 → 步行回飯店、回房間",
+      "area": "難波→飯店",
+      "type": "transport",
+      "status": "none",
+      "trs": "地鐵・步行",
+      "tags": [
+        "地鐵",
+        "步行"
+      ],
+      "desc": "地鐵 2 站"
+    }
+  ]
+}

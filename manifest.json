@@ -1,0 +1,16 @@
+{
+  "name": "Our Seoul Trip 2026",
+  "short_name": "Our Seoul",
+  "start_url": "/seoul-walks/",
+  "display": "standalone",
+  "background_color": "#f7f1e8",
+  "theme_color": "#f7f1e8",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "icon.png?v=106",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

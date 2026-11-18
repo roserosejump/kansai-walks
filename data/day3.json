@@ -1,0 +1,217 @@
+{
+  "day": 3,
+  "date": "12/1",
+  "isoDate": "2026-12-01",
+  "wd": "週二",
+  "cities": [
+    "嵐山"
+  ],
+  "hotel": "Tune Stay Kyoto",
+  "highlight": "嵐山",
+  "route": "小火車 09:02 → 保津川遊船（不是 10:00 班就放棄）→ 花筏湯豆腐＋私湯 → 竹林・御髮神社 → 天龍寺＋昇龍苑 → 祐齋亭 16:00 → eX café 烤糰子 → 都（天婦羅＋手鞠壽司）",
+  "items": [
+    {
+      "id": "3-1",
+      "time": "08:00–08:15",
+      "icon": "🚃",
+      "title": "飯店出發，步行到京都站",
+      "area": "飯店→京都站",
+      "type": "transport",
+      "status": "none",
+      "trs": "步行",
+      "tags": [
+        "步行"
+      ],
+      "desc": "約 7 分"
+    },
+    {
+      "id": "3-2",
+      "time": "08:15–08:35",
+      "icon": "🚃",
+      "title": "JR 嵯峨野線",
+      "area": "京都站→嵯峨嵐山",
+      "type": "transport",
+      "status": "buyOnSite",
+      "trs": "JR",
+      "tags": [
+        "JR"
+      ],
+      "desc": "約 17 分"
+    },
+    {
+      "id": "3-3",
+      "time": "08:35–08:55",
+      "icon": "🚃",
+      "title": "保津川下りコーナー 買船票＋巴士",
+      "area": "小火車嵯峨站",
+      "type": "transport",
+      "status": "buyOnSite",
+      "trs": "巴士",
+      "tags": [
+        "巴士"
+      ],
+      "booking": "嵯峨站站內窗口",
+      "desc": "船票不是 10:00 那班 → 放棄遊船，改搭 JR 回嵐山，早上先逛竹林、御髮神社，花筏 12:20 照常"
+    },
+    {
+      "id": "3-4",
+      "time": "09:02–09:25",
+      "icon": "🚂",
+      "title": "嵐山小火車 嵯峨野 1 號（富貴 5 號車 4A、4D）",
+      "area": "嵐山",
+      "type": "transport",
+      "status": "booked",
+      "payment": "paid",
+      "cost": 1760,
+      "trs": "嵯峨野小火車",
+      "tags": [
+        "嵯峨野小火車"
+      ],
+      "booking": "訂單 ●●●",
+      "desc": "1. 4A、4D 靠窗對坐，4D 面向前進方向\n2. QR code 當天才顯示"
+    },
+    {
+      "id": "3-5",
+      "time": "09:30–09:45",
+      "icon": "🚃",
+      "title": "京阪京都交通 39 系統 → 乘船處",
+      "area": "龜岡",
+      "type": "transport",
+      "status": "buyOnSite",
+      "trs": "巴士",
+      "tags": [
+        "巴士"
+      ],
+      "desc": "可用 IC 卡"
+    },
+    {
+      "id": "3-6",
+      "time": "10:00–12:00",
+      "icon": "⛵",
+      "title": "保津川遊船",
+      "area": "保津川",
+      "type": "sight",
+      "status": "buyOnSite",
+      "payment": "onSite",
+      "cost": 12000,
+      "booking": "嵯峨站窗口／乘船處 2 樓",
+      "desc": "1. 楓葉季可能延誤約 1 小時\n2. 10:00 的船也延誤 → 在船上先打給花筏 075-861-0228，12:30 前一定要聯絡：「保津川下りが遅れています。予約番号 ●●● です」",
+      "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E4%BF%9D%E6%B4%A5%E5%B7%9D%E9%81%8A%E8%88%B9%20%E4%BF%9D%E6%B4%A5%E5%B7%9D"
+    },
+    {
+      "id": "3-7",
+      "time": "12:20–14:00",
+      "icon": "🍜",
+      "title": "花筏 日歸個室・花【湯豆腐】（＋貸切露天風呂）",
+      "area": "嵐山",
+      "type": "food",
+      "status": "booked",
+      "payment": "onSite",
+      "cost": 14300,
+      "hours": "11-14，L.O. 12:30",
+      "booking": "預約番號 ●●●（reserve.489ban.net）",
+      "desc": "1. 現場付款\n2. 12:30 未到且未聯絡＝取消收 100%，延誤請打 075-861-0228\n3. 14:00 退房\n4. 貸切露天風呂 13:15 已回信請求、待店家回覆（¥2,200）\n5. 線上取消期限 11/30 16:00",
+      "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E8%8A%B1%E7%AD%8F%20%E6%97%A5%E6%AD%B8%E5%80%8B%E5%AE%A4%E3%83%BB%E8%8A%B1%E3%80%90%E6%B9%AF%E8%B1%86%E8%85%90%E3%80%91%20%E5%B5%90%E5%B1%B1",
+      "isReserved": true
+    },
+    {
+      "id": "3-8",
+      "time": "14:00–14:50",
+      "icon": "⛩️",
+      "title": "竹林小徑散步＋御髮神社（不搭人力車）",
+      "area": "嵐山",
+      "type": "sight",
+      "status": "none",
+      "desc": "1. 花筏走到竹林約 10 分\n2. 御髮神社買剪刀御守\n3. 從竹林進天龍寺北門",
+      "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E7%AB%B9%E6%9E%97%E5%B0%8F%E5%BE%91%E6%95%A3%E6%AD%A5%EF%BC%8B%E5%BE%A1%E9%AB%AE%E7%A5%9E%E7%A4%BE%20%E5%B5%90%E5%B1%B1"
+    },
+    {
+      "id": "3-9",
+      "time": "14:50–15:40",
+      "icon": "⛩️",
+      "title": "天龍寺庭園＋昇龍苑（伴手禮）",
+      "area": "嵐山",
+      "type": "sight",
+      "status": "buyOnSite",
+      "hours": "庭園入場 -16:50／昇龍苑 10-17",
+      "desc": "1. 天龍寺從北門進、正門出（庭園 ¥500）\n2. 昇龍苑在正門口，10:00–17:00\n3. 🛍 想買：2F 松栄堂「嵐山香郷」線香（問店員「嵐山限定のお香はありますか」）\n4. 1F 可看季節限定：マールブランシュ 秋冬限定マロン・ド・マール、西尾八ッ橋 季節口味生八ツ橋\n5. 重的伴手禮可改在京都站買\n6. ⚠️ 15:40 一定要離開，走到祐齋亭約 15 分",
+      "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E5%A4%A9%E9%BE%8D%E5%AF%BA%E5%BA%AD%E5%9C%92%EF%BC%8B%E6%98%87%E9%BE%8D%E8%8B%91%20%E5%B5%90%E5%B1%B1"
+    },
+    {
+      "id": "3-10",
+      "time": "16:00–16:50",
+      "icon": "📍",
+      "title": "嵐山祐齋亭",
+      "area": "嵐山",
+      "type": "sight",
+      "status": "booked",
+      "booking": "預約代碼 ●●●（官網）",
+      "desc": "1. 16:00–16:30 入場（16:10 前到即可）\n2. 從昇龍苑經渡月橋走過來約 15 分\n3. 日落約 16:45\n4. 圓窗、川端康成房間禁拍人像",
+      "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E5%B5%90%E5%B1%B1%E7%A5%90%E9%BD%8B%E4%BA%AD%20%E5%B5%90%E5%B1%B1",
+      "isTicket": true
+    },
+    {
+      "id": "3-11",
+      "time": "16:50–18:00",
+      "icon": "☕",
+      "title": "eX café 京都嵐山本店（烤糰子）",
+      "area": "嵐山",
+      "type": "food",
+      "status": "queue",
+      "hours": "9-18，L.O. 17:30",
+      "desc": "1. 經渡月橋走過去約 15 分\n2. 17:30 最後點餐、18:00 打烊，楓葉季可能要排隊，17:15 前要到\n3. 客滿備案：嵐電嵐山站 Tully's（到 20:00）或直接回京都",
+      "mapUrl": "https://www.google.com/maps/search/?api=1&query=eX%20caf%C3%A9%20%E4%BA%AC%E9%83%BD%E5%B5%90%E5%B1%B1%E6%9C%AC%E5%BA%97%20%E5%B5%90%E5%B1%B1"
+    },
+    {
+      "id": "3-12",
+      "time": "18:00–18:45",
+      "icon": "🚶",
+      "title": "步行到 JR 嵯峨嵐山站 → JR 嵯峨野線 → 京都站",
+      "area": "嵐山→京都站",
+      "type": "transport",
+      "status": "none",
+      "trs": "JR・步行",
+      "tags": [
+        "JR",
+        "步行"
+      ],
+      "desc": "步行約 10 分（累了可搭計程車）＋JR 約 17 分"
+    },
+    {
+      "id": "3-13",
+      "time": "19:00–20:15",
+      "icon": "🍜",
+      "title": "天ぷらと手まり寿司 都",
+      "area": "烏丸七條",
+      "type": "food",
+      "status": "queue",
+      "hours": "11-15／17-22",
+      "booking": "電話 075-708-3336／050-5868-2841",
+      "desc": "1. 天婦羅＋手鞠壽司套餐（晚餐 ¥2,750 起），晚餐 L.O. 21:00\n2. 從京都站往飯店走，順路經過\n3. 不訂位、當天直接去；icotto 標「營業狀況不明」，出發前看 Google Maps 最新評論確認還有開\n4. 備案：麺匠たか松 拉麵小路店（京都站 10F，11-22）或 Porta 地下街",
+      "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E5%A4%A9%E3%81%B7%E3%82%89%E3%81%A8%E6%89%8B%E3%81%BE%E3%82%8A%E5%AF%BF%E5%8F%B8%20%E9%83%BD%20%E7%83%8F%E4%B8%B8%E4%B8%83%E6%A2%9D"
+    },
+    {
+      "id": "3-14",
+      "time": "20:15–20:25",
+      "icon": "🚶",
+      "title": "步行回飯店",
+      "area": "烏丸七條→飯店",
+      "type": "transport",
+      "status": "none",
+      "trs": "步行",
+      "tags": [
+        "步行"
+      ],
+      "desc": "幾分鐘"
+    },
+    {
+      "id": "3-15",
+      "time": "20:25",
+      "icon": "🏨",
+      "title": "回房間",
+      "area": "飯店",
+      "type": "hotel",
+      "status": "none"
+    }
+  ]
+}

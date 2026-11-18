@@ -1,0 +1,186 @@
+{
+  "day": 5,
+  "date": "12/3",
+  "isoDate": "2026-12-03",
+  "wd": "週四",
+  "cities": [
+    "大阪"
+  ],
+  "hotel": "Hiyori Hotel Osaka Shinsekai",
+  "highlight": "大阪",
+  "route": "07:15 出發 → 入園先買星星爆米花桶 → 小小兵・霍格華茲 → 任天堂世界 10:50（瑪利歐賽車、礦車）→ 奇諾比奧咖啡館 → ☆A → NoLimit 遊行 → ☆B → 聖誕夜間秀",
+  "items": [
+    {
+      "id": "5-1",
+      "time": "07:15–07:45",
+      "icon": "🚃",
+      "title": "飯店出發 → 新今宮 JR 環狀線 → 西九條轉 JR 夢咲線 → Universal City",
+      "area": "飯店→USJ",
+      "type": "transport",
+      "status": "none",
+      "trs": "JR",
+      "tags": [
+        "JR"
+      ],
+      "desc": "1. 約 25–30 分\n2. 出發前下載 USJ 官方 App，先把門票和快通綁進去"
+    },
+    {
+      "id": "5-2",
+      "time": "07:45–08:30",
+      "icon": "🎢",
+      "title": "排隊入園（日本環球影城＋快速通關 4 Minecart & JAWS）",
+      "area": "USJ",
+      "type": "sight",
+      "status": "booked",
+      "payment": "paid",
+      "hours": "9-21",
+      "booking": "Klook 查詢編號 ●●●",
+      "desc": "1. 官方 9:00 開園，通常 8:00–8:30 提早開放\n2. 預測人潮「普通」\n3. 快通一人一張，入園門票另外需要\n4. 先截圖存手機（園內網路可能不穩）",
+      "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E6%8E%92%E9%9A%8A%E5%85%A5%E5%9C%92%20USJ",
+      "isTicket": true
+    },
+    {
+      "id": "5-3",
+      "time": "08:30–10:30",
+      "icon": "🎢",
+      "title": "入園先在好萊塢區買星星爆米花桶 → 小小兵、霍格華茲城堡漫步、奶油啤酒",
+      "area": "USJ",
+      "type": "sight",
+      "status": "none",
+      "payment": "onSite",
+      "cost": 4800,
+      "desc": "1. 週年紀念版超級星星爆米花桶 ¥4,800\n2. 好萊塢區就在入口：Beverly Hills Gift 門口推車（焦糖、鹽味）、Stage 18 門口推車（鹽味）\n3. 推車還沒開 → 10:50 在任天堂世界「ピットストップ・ポップコーン」買（水果、焦糖桃子口味）\n4. 口味常換，問現場店員\n5. 早上人最少，先玩沒有快通的",
+      "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E5%85%A5%E5%9C%92%E5%85%88%E5%9C%A8%E5%A5%BD%E8%90%8A%E5%A1%A2%E5%8D%80%E8%B2%B7%E6%98%9F%E6%98%9F%E7%88%86%E7%B1%B3%E8%8A%B1%E6%A1%B6%20USJ"
+    },
+    {
+      "id": "5-4",
+      "time": "10:30–10:50",
+      "icon": "🚶",
+      "title": "走到任天堂世界入口",
+      "area": "USJ",
+      "type": "transport",
+      "status": "none",
+      "trs": "步行",
+      "tags": [
+        "步行"
+      ],
+      "desc": "一進任天堂世界先用 App 拿奇諾比奧咖啡館號碼牌"
+    },
+    {
+      "id": "5-5",
+      "time": "10:50–11:50",
+      "icon": "🎢",
+      "title": "超級任天堂世界（瑪利歐賽車＋快通：咚奇剛的瘋狂礦車）",
+      "area": "超級任天堂世界",
+      "type": "sight",
+      "status": "booked",
+      "desc": "1. 快通指定時間以 App 顯示為準\n2. 進區先用 App 拿奇諾比奧咖啡館號碼牌\n3. 區內拍照、逛周邊",
+      "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E8%B6%85%E7%B4%9A%E4%BB%BB%E5%A4%A9%E5%A0%82%E4%B8%96%E7%95%8C%20%E8%B6%85%E7%B4%9A%E4%BB%BB%E5%A4%A9%E5%A0%82%E4%B8%96%E7%95%8C",
+      "isTicket": true
+    },
+    {
+      "id": "5-6",
+      "time": "11:50–13:00",
+      "icon": "☕",
+      "title": "奇諾比奧咖啡館 午餐",
+      "area": "超級任天堂世界",
+      "type": "food",
+      "status": "queue",
+      "booking": "USJ App 拿號碼牌",
+      "desc": "1. 用 App 拿號碼牌，叫到號再去\n2. 號碼牌拿不到 → 改吃別區餐廳，不要硬等",
+      "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E5%A5%87%E8%AB%BE%E6%AF%94%E5%A5%A7%E5%92%96%E5%95%A1%E9%A4%A8%20%E5%8D%88%E9%A4%90%20%E8%B6%85%E7%B4%9A%E4%BB%BB%E5%A4%A9%E5%A0%82%E4%B8%96%E7%95%8C"
+    },
+    {
+      "id": "5-7",
+      "time": "13:00–14:00",
+      "icon": "🎢",
+      "title": "☆A 侏羅紀公園（快通）→ 大白鯊 JAWS（現場排隊）",
+      "area": "USJ",
+      "type": "sight",
+      "status": "booked",
+      "desc": "1. ☆A 選侏羅紀公園（媽媽選），用快通\n2. 最後 26m 俯衝會濺濕，12 月很冷，先穿雨衣（園內買或自備）\n3. JAWS 沒有快通，現場排隊；排太久就放棄，14:00 要看遊行",
+      "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E2%98%86A%20%E4%BE%8F%E7%BE%85%E7%B4%80%E5%85%AC%E5%9C%92%20USJ",
+      "isTicket": true
+    },
+    {
+      "id": "5-8",
+      "time": "14:00–14:40",
+      "icon": "🎢",
+      "title": "25 週年 NoLimit 遊行",
+      "area": "USJ",
+      "type": "sight",
+      "status": "none",
+      "desc": "約 40 分，提早找位子",
+      "mapUrl": "https://www.google.com/maps/search/?api=1&query=25%20%E9%80%B1%E5%B9%B4%20NoLimit%20%E9%81%8A%E8%A1%8C%20USJ"
+    },
+    {
+      "id": "5-9",
+      "time": "15:00–16:30",
+      "icon": "🎢",
+      "title": "☆B 哈利波特禁忌之旅（快通）＋看霍格華茲城堡",
+      "area": "哈利波特區",
+      "type": "sight",
+      "status": "booked",
+      "desc": "1. ☆B 選哈利波特禁忌之旅（媽媽選）\n2. 3D 搖晃，容易暈的話前一餐少吃一點\n3. 帶上隨身物品要放置物櫃（免費）",
+      "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E2%98%86B%20%E5%93%88%E5%88%A9%E6%B3%A2%E7%89%B9%E7%A6%81%E5%BF%8C%E4%B9%8B%E6%97%85%20%E5%93%88%E5%88%A9%E6%B3%A2%E7%89%B9%E5%8D%80",
+      "isTicket": true
+    },
+    {
+      "id": "5-10",
+      "time": "16:30–18:00",
+      "icon": "🍜",
+      "title": "冬季美食節、晚餐",
+      "area": "USJ",
+      "type": "food",
+      "status": "none",
+      "desc": "1. 「ユニバーサル・フード・フェスティバル」有邊走邊吃的推車菜單\n2. 備選：紐約區「路易斯紐約披薩」，離夜間秀很近",
+      "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E5%86%AC%E5%AD%A3%E7%BE%8E%E9%A3%9F%E7%AF%80%E3%80%81%E6%99%9A%E9%A4%90%20USJ"
+    },
+    {
+      "id": "5-11",
+      "time": "18:00–19:00",
+      "icon": "🎢",
+      "title": "聖誕夜間秀「Light Up the Night」＋「Joy of Lights」燈光秀",
+      "area": "紐約區",
+      "type": "sight",
+      "status": "none",
+      "desc": "1. 地點：Gramercy Park，約 30 分，有雪景特效\n2. 時間看當天 App\n3. 霍格華茲城堡也有光雕秀",
+      "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E8%81%96%E8%AA%95%E5%A4%9C%E9%96%93%E7%A7%80%E3%80%8CLight%20Up%20the%20Night%E3%80%8D%EF%BC%8B%E3%80%8CJoy%20of%20Lights%E3%80%8D%E7%87%88%E5%85%89%E7%A7%80%20%E7%B4%90%E7%B4%84%E5%8D%80"
+    },
+    {
+      "id": "5-12",
+      "time": "19:00–19:30",
+      "icon": "🛍️",
+      "title": "出園（可順便買土產）",
+      "area": "好萊塢區",
+      "type": "shopping",
+      "status": "none",
+      "desc": "爆米花桶早上已買，空桶可以用來裝小東西",
+      "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E5%87%BA%E5%9C%92%20%E5%A5%BD%E8%90%8A%E5%A1%A2%E5%8D%80"
+    },
+    {
+      "id": "5-13",
+      "time": "19:30–20:00",
+      "icon": "🚃",
+      "title": "Universal City → 西九條 → JR 環狀線 → 新今宮 → 步行回飯店",
+      "area": "USJ→飯店",
+      "type": "transport",
+      "status": "none",
+      "trs": "JR・步行",
+      "tags": [
+        "JR",
+        "步行"
+      ],
+      "desc": "1. 約 25–30 分\n2. 閉園前離開，避開車站人潮\n3. （備案）宵夜：Universal CityWalk 4F「大阪章魚燒博物館 TAKOPA」[11-22，無休]，會津屋、くくる、甲賀流、やまちゃん等名店，可比較吃；不餓就直接回飯店"
+    },
+    {
+      "id": "5-14",
+      "time": "20:00",
+      "icon": "🏨",
+      "title": "回房間",
+      "area": "飯店",
+      "type": "hotel",
+      "status": "none"
+    }
+  ]
+}
