@@ -15,6 +15,7 @@
   /* 邊線 */
   --line: rgba(43, 32, 30, .12);   /* 裝飾性分隔線 */
   --line-strong: #7A6C65;          /* 互動元件邊線：card 5.0:1 */
+  --gold: #B08D57;                 /* 金線：只做裝飾線，不放文字 */
 
   /* 主題色 */
   --maple: #A82219;      /* 楓紅 */
@@ -104,6 +105,8 @@ a { color: inherit; }
 .sec-lb::before, .chk-sec-t::before, .tool-hdr::before {
   content: ""; flex: none; width: 3px; height: 1.1em; border-radius: 2px; background: var(--maple);
 }
+/* 標題後面拉一條金色細線 */
+.sec-lb::after { content: ""; flex: 1; height: 1px; background: var(--gold); opacity: .7; }
 
 /* ── 首頁 hero ───────────────────────────────────────────── */
 .h-hero {
@@ -120,9 +123,9 @@ a { color: inherit; }
 
 .countdown {
   margin-top: 14px; padding: 14px 16px;
-  background: var(--paper);
-  border-radius: var(--r-sm);
-  border-left: 4px solid var(--maple);
+  background: transparent;
+  border-top: 1px solid var(--gold); border-bottom: 1px solid var(--gold);
+  padding-left: 0; padding-right: 0;
 }
 .cd-label { font-size: .85rem; color: var(--ink-2); }
 .cd-num { display: flex; align-items: baseline; flex-wrap: wrap; gap: 2px 6px; margin-top: 2px; }
@@ -191,7 +194,8 @@ a { color: inherit; }
   padding: 16px 18px; margin-bottom: 16px;
   background: var(--card);
   border-radius: var(--r); box-shadow: var(--shadow);
-  border-top: 4px solid var(--maple);
+  border-top: 1px solid var(--gold);
+  outline: 1px solid var(--gold); outline-offset: -7px; /* 內縮金色雙線 */
 }
 .dh-top { display: flex; flex-wrap: wrap; gap: 10px; align-items: baseline; }
 .dh-daytag { color: var(--maple); font-weight: 700; letter-spacing: .12em; font-size: .85rem; }
@@ -273,7 +277,7 @@ a { color: inherit; }
 .st-unconfirmed { background: transparent; border: 1px dashed var(--line-strong); }
 
 /* 展開內容 */
-.ic-body { padding: 2px 16px 16px 24px; border-top: 1px solid var(--line); }
+.ic-body { padding: 2px 16px 16px 24px; border-top: 1px solid var(--gold); }
 .blk { margin-top: 14px; }
 .blk-lb { display: block; margin-bottom: 4px; color: var(--maple); font-size: .8rem; font-weight: 700; letter-spacing: .12em; }
 .blk-vl { white-space: pre-line; }
@@ -376,7 +380,7 @@ a { color: inherit; }
 #bnav {
   flex: none; display: flex; gap: 4px;
   padding: 6px 8px calc(6px + env(safe-area-inset-bottom, 0px));
-  background: var(--card); border-top: 1px solid var(--line);
+  background: var(--card); border-top: 1px solid var(--gold);
 }
 .ni {
   flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
@@ -393,3 +397,21 @@ a { color: inherit; }
 .lf-a { fill: #B3261E; }
 .lf-b { fill: #E0603F; }
 .lf-c { fill: #EBB43E; }
+
+/* 楓葉緩緩飄落：只在沒關動態效果時啟用；每片時間與延遲不同，避免整齊劃一 */
+.fall { transform-box: fill-box; transform-origin: center; }
+@keyframes drift {
+  0%   { transform: translate(0, -6px) rotate(0deg); opacity: 0; }
+  12%  { opacity: 1; }
+  50%  { transform: translate(10px, 40px) rotate(70deg); }
+  88%  { opacity: 1; }
+  100% { transform: translate(-6px, 84px) rotate(150deg); opacity: 0; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .fall { animation: drift 9s ease-in-out infinite; }
+  .fall-1 { animation-duration: 9s;  animation-delay: -1s; }
+  .fall-2 { animation-duration: 11s; animation-delay: -5s; }
+  .fall-3 { animation-duration: 8s;  animation-delay: -3s; }
+  .fall-4 { animation-duration: 10s; animation-delay: -7s; }
+  .fall-5 { animation-duration: 12s; animation-delay: -2s; }
+}
