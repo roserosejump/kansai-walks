@@ -170,7 +170,7 @@ a { color: inherit; }
   border-radius: var(--r); box-shadow: var(--shadow);
   cursor: pointer;
 }
-.dc.today { background: var(--ginkgo-tint); }
+.dc.today { background: var(--maple-tint); }
 .dc-top { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
 .dc-n { color: var(--maple); font-weight: 700; font-size: .8rem; letter-spacing: .12em; }
 .dc-theme { font-family: var(--serif); font-size: 1.15rem; font-weight: 700; line-height: 1.3; }
@@ -206,7 +206,7 @@ a { color: inherit; }
 
 /* 行程卡 */
 .ic {
-  --strip: var(--line);
+  --strip: var(--maple);
   position: relative; overflow: hidden;
   margin-bottom: 12px;
   background: var(--card);
@@ -215,12 +215,6 @@ a { color: inherit; }
 .ic::before { /* 左側依類型上色的細色條 */
   content: ""; position: absolute; inset: 0 auto 0 0; width: 5px; background: var(--strip);
 }
-.ic[data-type="transport"] { --strip: #9CC5C0; }
-.ic[data-type="food"]      { --strip: #E3A592; }
-.ic[data-type="sight"]     { --strip: #A9BF84; }
-.ic[data-type="hotel"]     { --strip: #E5C06A; }
-.ic[data-type="shopping"],
-.ic[data-type="activity"]  { --strip: #B9ADD9; }
 
 /* 選配：虛線外框＋紙色底表示「比較淡」；文字維持墨色，不降對比 */
 .ic.optional { background: var(--paper); box-shadow: none; outline: 1px dashed var(--line-strong); outline-offset: -1px; }
@@ -253,28 +247,11 @@ a { color: inherit; }
   font-size: .82rem; font-weight: 500; line-height: 1.3;
   color: var(--ink);
 }
-/* 交通工具：一種一個固定顏色（全部淺底＋墨字，對比 ≥ 10:1） */
-.tag-walk     { background: #DDE7C8; }
-.tag-jr       { background: #D3E6E3; }
-.tag-metro    { background: #F5DE9A; }
-.tag-bus      { background: #F6DDD3; }
-.tag-keihan   { background: #E3DDF2; }
-.tag-hankyu   { background: #F8DDBF; }
-.tag-kintetsu { background: #D6EBDB; }
-.tag-nankai   { background: #D9E4F5; }
-.tag-haruka   { background: #F6D5DE; }
-.tag-plane    { background: #E8E3DB; }
-.tag-taxi     { background: #F6E9A6; }
-.tag-cable    { background: #DDEFE8; }
-.tag-sagano   { background: #F3C9BC; }
-.tag-car      { background: #EEE9E0; }
-.tag-other    { background: #EEE9E0; }
-/* 預約狀態：同樣柔和底色，靠圖示＋文字區分，不只靠顏色 */
-.st-booked      { background: #D6EBDB; }
-.st-todo        { background: #F5DE9A; }
-.st-buyOnSite   { background: #D3E6E3; }
-.st-queue       { background: #F6DDD3; }
-.st-unconfirmed { background: transparent; border: 1px dashed var(--line-strong); }
+/* 紅白配色：交通標籤一律白底細框，靠文字區分；
+   狀態 badge 只有「已預約」用淡楓紅底強調，其餘白底細框，靠圖示＋文字區分 */
+.tag, .st { background: var(--card); border: 1px solid var(--line-strong); }
+.st-booked { background: var(--maple-tint); border-color: var(--maple); color: var(--maple-deep); }
+.st-unconfirmed { border-style: dashed; }
 
 /* 展開內容 */
 .ic-body { padding: 2px 16px 16px 24px; border-top: 1px solid var(--gold); }
@@ -304,7 +281,7 @@ a { color: inherit; }
   border-radius: var(--r-sm); box-shadow: var(--shadow-sm);
   font-weight: 700; text-decoration: none;
 }
-.tc-btn { background: var(--sky-tint); color: var(--ink); }
+.tc-btn { background: var(--card); color: var(--maple); border: 1px solid var(--maple); }
 
 /* 行程內待辦 / 清單項目共用 */
 .task-list { margin-top: 4px; }
@@ -332,10 +309,10 @@ a { color: inherit; }
 .cr-body { min-width: 0; }
 .cr-date, .cr-area {
   display: inline-block; margin: 0 6px 2px 0; padding: 0 9px;
-  background: var(--ginkgo-tint); border-radius: 999px;
+  background: var(--maple-tint); border-radius: 999px;
   font-size: .76rem; font-weight: 500;
 }
-.cr-area { background: var(--sky-tint); }
+.cr-area { background: var(--card); border: 1px solid var(--line-strong); }
 .add-row { display: flex; gap: 8px; margin-top: 8px; }
 .add-inp { flex: 1; min-width: 0; min-height: var(--tap); padding: 8px 14px; background: var(--paper); border: 1px solid var(--line-strong); border-radius: var(--r-sm); }
 .add-btn {
@@ -415,3 +392,33 @@ a { color: inherit; }
   .fall-4 { animation-duration: 10s; animation-delay: -7s; }
   .fall-5 { animation-duration: 12s; animation-delay: -2s; }
 }
+
+/* ═════ 昭和レトロ層（整段可刪，刪掉即回到上一版）═════
+   米色紙＋淡網點、紅白條紋遮陽棚、紅色細框＋偏移硬陰影、印章、超粗明體 */
+:root { --paper: #F3E9D6; --card: #FFFBF1; --stamp-shadow: 3px 3px 0 rgba(168, 34, 25, .22); }
+body {
+  background-color: var(--paper);
+  background-image: radial-gradient(rgba(168, 34, 25, .07) 1px, transparent 1.2px);
+  background-size: 7px 7px;
+}
+#topbar { border-bottom: 0; position: relative; padding-bottom: 12px; }
+#topbar::after { /* 紅白遮陽棚 */
+  content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 7px;
+  background: repeating-linear-gradient(90deg, var(--maple) 0 14px, var(--card) 14px 28px);
+  border-top: 1px solid var(--maple); border-bottom: 1px solid var(--maple);
+}
+.tb-title, .h-greet, .dh-t, .dc-theme, .tb-t, .cd-num b { font-weight: 900; }
+.h-hero, .dc, .ic, .day-hdr, .chk-sec, .tool-card {
+  border: 1.5px solid var(--maple); box-shadow: var(--stamp-shadow);
+}
+.ic.optional { border: 1.5px dashed var(--maple); outline: 0; box-shadow: none; }
+.h-art { border-bottom: 1.5px solid var(--maple); }
+.day-hdr { outline: 0; }
+.today-btn { box-shadow: 3px 3px 0 var(--maple-deep); }
+/* 印章 */
+.dc-n, .dh-daytag {
+  display: inline-block; padding: 1px 10px; border: 1.5px solid var(--maple); border-radius: 6px;
+  color: var(--maple); background: var(--card); font-weight: 900; letter-spacing: .14em; transform: rotate(-3deg);
+}
+.dc.today .dc-n { background: var(--maple); color: var(--paper); }
+.ni.active { background: transparent; box-shadow: inset 0 -3px 0 var(--maple); border-radius: 0; }
