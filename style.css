@@ -370,10 +370,10 @@ a { color: inherit; }
 .ni.active { background: var(--maple-tint); color: var(--maple); font-weight: 700; }
 
 /* ── SVG 插圖 ───────────────────────────────────────────── */
-.lf { stroke: none; }
+.lf { stroke: #F3E9D6; stroke-width: 6; paint-order: stroke; }
 .lf-a { fill: #B3261E; }
-.lf-b { fill: #E0603F; }
-.lf-c { fill: #EBB43E; }
+.lf-b { fill: #861A13; }
+.lf-c { fill: #2B201E; }
 
 /* 楓葉緩緩飄落：只在沒關動態效果時啟用；每片時間與延遲不同，避免整齊劃一 */
 .fall { transform-box: fill-box; transform-origin: center; }
