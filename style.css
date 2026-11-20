@@ -7,10 +7,10 @@
 
 :root {
   /* 底色與文字 */
-  --paper: #F7F1E6;      /* 和紙 */
-  --card: #FFFDF9;       /* 卡片 */
-  --ink: #2B201E;        /* 墨 */
-  --ink-2: #6A5C56;      /* 次要文字：paper 5.7:1、card 6.3:1 */
+  --paper: #F3EBDD;      /* 和紙 */
+  --card: #FFFCF6;       /* 卡片 */
+  --ink: #3A2E2A;        /* 墨 */
+  --ink-2: #6B5C54;      /* 次要文字：paper 5.7:1、card 6.3:1 */
 
   /* 邊線 */
   --line: rgba(43, 32, 30, .12);   /* 裝飾性分隔線 */
@@ -394,33 +394,3 @@ a { color: inherit; }
   .fall-4 { animation-duration: 10s; animation-delay: -7s; }
   .fall-5 { animation-duration: 12s; animation-delay: -2s; }
 }
-
-/* ═════ 昭和レトロ層（整段可刪，刪掉即回到上一版）═════
-   米色紙＋淡網點、紅白條紋遮陽棚、紅色細框＋偏移硬陰影、印章、超粗明體 */
-:root { --paper: #F3E9D6; --card: #FFFBF1; --stamp-shadow: 3px 3px 0 rgba(168, 34, 25, .22); }
-body {
-  background-color: var(--paper);
-  background-image: radial-gradient(rgba(168, 34, 25, .07) 1px, transparent 1.2px);
-  background-size: 7px 7px;
-}
-#topbar { border-bottom: 0; position: relative; padding-bottom: 12px; }
-#topbar::after { /* 紅白遮陽棚 */
-  content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 7px;
-  background: repeating-linear-gradient(90deg, var(--maple) 0 14px, var(--card) 14px 28px);
-  border-top: 1px solid var(--maple); border-bottom: 1px solid var(--maple);
-}
-.tb-title, .h-greet, .dh-t, .dc-theme, .tb-t, .cd-num b { font-weight: 900; }
-.h-hero, .dc, .ic, .day-hdr, .chk-sec, .tool-card {
-  border: 1.5px solid var(--maple); box-shadow: var(--stamp-shadow);
-}
-.ic.optional { border: 1.5px dashed var(--maple); outline: 0; box-shadow: none; }
-.h-art-wrap { border-bottom: 1.5px solid var(--maple); }
-.day-hdr { outline: 0; }
-.today-btn { box-shadow: 3px 3px 0 var(--maple-deep); }
-/* 印章 */
-.dc-n, .dh-daytag {
-  display: inline-block; padding: 1px 10px; border: 1.5px solid var(--maple); border-radius: 6px;
-  color: var(--maple); background: var(--card); font-weight: 900; letter-spacing: .14em; transform: rotate(-3deg);
-}
-.dc.today .dc-n { background: var(--maple); color: var(--paper); }
-.ni.active { background: transparent; box-shadow: inset 0 -3px 0 var(--maple); border-radius: 0; }
