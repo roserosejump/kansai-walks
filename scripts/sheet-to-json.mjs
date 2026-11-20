@@ -2,6 +2,8 @@
 /**
  * 把 Google Sheet「🍁 關西賞楓行程 2026」匯出的 CSV 轉成 PWA 用的 JSON。
  *
+ * （已停用，執行需加 --force，見下方保護。）
+ *
  * 用法：
  *   1. Google Sheet → 檔案 → 下載 → 逗號分隔值 (.csv)，每個分頁各下載一次，
  *      依下方 INPUT 的檔名放進 sheet-export/
@@ -15,6 +17,14 @@
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+
+// ⚠️ 已停用：之後行程資料直接改 data/ 裡的 JSON，不再從 Google Sheet 轉檔。
+// 這支腳本會用 Sheet 的舊資料「整個覆蓋」data/day*.json、checklist.json、config.json，
+// 你直接改過的內容會全部消失。真的要重新匯入才加 --force。
+if (!process.argv.includes('--force')) {
+  console.error('已停用：資料現在直接改 data/，不再從 Sheet 轉檔。要重新匯入請加 --force（會覆蓋你直接改過的資料）。');
+  process.exit(1);
+}
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const INPUT = {

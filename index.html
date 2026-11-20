@@ -7,13 +7,13 @@
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="format-detection" content="telephone=no">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <link rel="icon" href="icon.png?v=106">
+  <link rel="icon" type="image/png" href="icons/icon-192.png">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="秋の関西">
   <meta name="theme-color" content="#FFFCF6">
   <title>秋の関西 2026</title>
   <link rel="manifest" href="manifest.json">
-  <link rel="apple-touch-icon" href="icon.png?v=106">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@700;900&display=swap" rel="stylesheet">
@@ -175,7 +175,7 @@
     let SHORT = {};   // data/short-titles.json：行程 id → 一句話短標題（手動維護）
     let FLIGHTS = {}; // data/flights.json：以航班編號為 key 的行李、餐點等資訊
     const SHOP_KEY = 'jp-shop';
-    const SW_CACHE_NAME = 'kansai-walks-v3'; // 要跟 sw.js 裡的 CACHE_NAME 保持一致
+    const SW_CACHE_NAME = 'kansai-walks-v4'; // 要跟 sw.js 裡的 CACHE_NAME 保持一致
 
     async function loadData() {
       // 天數放在 config.json 的 days，不寫死在程式裡；先抓 config 才知道要抓幾天
@@ -517,10 +517,10 @@
     function notesHtml(t, hide) {
       // 先用原文判斷是不是重點（原文的 ⚠ 也算），再去掉編號與 emoji
       const ls = String(t).split('\n').map(x => x.replace(/^\d+\.\s*/, '').trim()).filter(x => x && !(hide || []).includes(x))
-        .map(x => ({ alert: ALERT_RE.test(x), text: noEmoji(x) })).filter(x => x.text);
+        .map(x => ({ alert: ALERT_RE.test(x), text: maskNote(noEmoji(x)) })).filter(x => x.text);
       const al = ls.filter(x => x.alert), rest = ls.filter(x => !x.alert);
-      return (al.length ? `<div class="alert-box"><div class="alert-lb">${ic('sos')}重點</div>${al.map(x => `<div>${X(x.text)}</div>`).join('')}</div>` : '')
-        + (rest.length ? `<ul class="notes">${rest.map(x => `<li>${X(x.text)}</li>`).join('')}</ul>` : '');
+      return (al.length ? `<div class="alert-box"><div class="alert-lb">${ic('sos')}重點</div>${al.map(x => `<div>${lineHtml(X(x.text))}</div>`).join('')}</div>` : '')
+        + (rest.length ? `<ul class="notes">${rest.map(x => `<li>${lineHtml(X(x.text))}</li>`).join('')}</ul>` : '');
     }
     // 「交通」列：句子原樣顯示（不拆解，免得拆錯）；「→」用楓紅，時間（約 N 分）加粗
     function accessHtml(l) {
@@ -578,13 +578,13 @@
           + plain('營業', noEmoji(item.hours).replace(/L\.\s?O\.?/g, '最後點餐'))
           + routeRow
           + (ACCESS[item.id] || []).map(l => row('交通', accessHtml(l))).join('') // 營業下面：怎麼去
-          + plain('費用', cost) + plain('預約', noEmoji(item.booking));
+          + plain('費用', cost) + (item.booking ? row('預約', lineHtml(X(maskNote(noEmoji(item.booking))))) : '');
         const full = asStart ? `<div class="d-full">${X(noEmoji(item.title))}</div>` : !isTransport && SHORT[item.id] && SHORT[item.id] !== item.title ? `<div class="d-full">${X(noEmoji(item.title))}</div>` : '';
         // 有 tags 就用標籤，不再重複顯示 trs 文字；沒有 tags 才退回顯示 trs
         const shortTrs = !item.tags && item.trs && item.trs.length <= 40 ? `<div class="tl-meta">${trsHtml(item.trs)}</div>` : '';
         const [t1, t2] = String(item.time || '').split(/[–-]/);
         const small = item.type === 'transport' || item.type === 'hotel';
-        return `<div class="tl-row ${small ? 'sm' : 'key'}${asStart ? ' mark' : ''}${item.optional ? ' optional' : ''}${isOpen ? ' open' : ''}" id="ic-${X(item.id)}" data-type="${X(item.type || '')}"><div class="tl-t">${X(t1 || '')}${t2 ? `<small>${X(t2)}</small>` : ''}</div><div class="tl-dot" aria-hidden="true"></div><div class="tl-main"><button type="button" class="tl-head" aria-expanded="${isOpen}" aria-controls="ib-${X(item.id)}" onclick="togCard('${X(item.id)}')"><span class="tl-ic">${asStart ? ic('flag') : typeIcon(item)}</span><span class="tl-title">${X(asStart ? startLabel : noEmoji(SHORT[item.id] || item.title))}</span>${item.optional ? '<span class="opt-chip">選配</span>' : ''}<span class="tl-chev" aria-hidden="true">›</span></button><div class="tl-detail${isOpen ? '' : ' hidden'}" id="ib-${X(item.id)}">${full}${chipsHtml(item)}${kv ? `<div class="kvs">${kv}</div>` : ''}${shortTrs}${body}</div></div></div>`;
+        return `<div class="tl-row ${small ? 'sm' : 'key'}${asStart ? ' mark' : ''}${item.optional ? ' optional' : ''}${isOpen ? ' open' : ''}" id="ic-${X(item.id)}" data-type="${X(item.type || '')}"><div class="tl-t">${X(t1 || '')}${t2 ? `<small>${X(t2)}</small>` : ''}</div><div class="tl-dot" aria-hidden="true"></div><div class="tl-main"><button type="button" class="tl-head" aria-expanded="${isOpen}" aria-controls="ib-${X(item.id)}" onclick="togCard('${X(item.id)}')"><span class="tl-ic">${asStart ? ic('flag') : typeIcon(item)}</span><span class="tl-title">${X(asStart ? startLabel : noEmoji(SHORT[item.id] || item.title))}</span>${item.optional ? '<span class="opt-chip">選配</span>' : ''}<span class="tl-chev" aria-hidden="true">›</span></button></div><div class="tl-detail${isOpen ? '' : ' hidden'}" id="ib-${X(item.id)}">${full}${chipsHtml(item)}${kv ? `<div class="kvs">${kv}</div>` : ''}${shortTrs}${body}</div></div>`;
       });
       // 每天的頭尾加一列「標記」：開頭「從飯店出發」，結尾「回飯店」（最後一天是「回家」）。這是畫面上加的，不是資料
       const endOf = it => String(it.time || '').split(/[–-]/).pop(); // startOf 在上面標題小卡那段已經定義過
@@ -732,6 +732,9 @@
     function ic(name, cls) { return `<svg class="ico${cls ? ' ' + cls : ''}" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#i-${name}"/></svg>`; }
     // 畫面上不顯示 emoji：資料裡零星有 📸 🛍 等，統一拿掉，只留文字（不改資料檔）
     function noEmoji(s) { return String(s == null ? '' : s).replace(/[\p{Extended_Pictographic}\uFE0F\u200D]/gu, '').replace(/[ \t]{2,}/g, ' ').trim(); }
+    // 資料裡的預約編號都遮成「●●●」（真編號存在 LINE 記事本，不放進公開網站）。畫面上改顯示成「LINE 記事本」小標籤
+    function maskNote(s) { return String(s == null ? '' : s).replace(/●+/g, '【LINE 記事本】'); }
+    function lineHtml(escapedHtml) { return escapedHtml.replace(/【LINE 記事本】/g, '<span class="ln">LINE 記事本</span>'); }
     // 行程類型 → 圖示（飛機另外判斷）
     const TYPE_ICON = { transport: 'train', food: 'food', sight: 'torii', hotel: 'bed', shopping: 'bag', activity: 'star' };
     function typeIcon(item) { return ic((item.tags || []).includes('✈️ 飛機') ? 'plane' : (TYPE_ICON[item.type] || 'torii')); }

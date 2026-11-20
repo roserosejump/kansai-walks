@@ -517,15 +517,15 @@ html[data-fs="3"] { --fsm: 1.33; }
 .tl-chev { flex: none; color: var(--ink-2); font-size: 1.2rem; line-height: 1; transition: transform .15s; }
 .tl-head .opt-chip { margin: 0; flex: none; }
 
-.tl-row.open .tl-main { background: var(--card); box-shadow: var(--shadow); margin-bottom: 8px; }
 .tl-row.open .tl-title { font-size: 1.05rem; color: var(--ink); font-weight: 700; }
 .tl-row.open .tl-chev { transform: rotate(90deg); }
-.tl-detail { padding: 0 14px 14px; }
+/* 展開後：小卡橫跨整列（含時間軸那一欄）的滿版寬度，不再被擠在右邊 */
+.tl-detail { grid-column: 1 / -1; position: relative; z-index: 1; margin: 2px 0 10px; padding: 16px 16px 18px; background: var(--card); border-radius: 18px; box-shadow: var(--shadow); }
 .tl-meta { color: var(--ink-2); font-size: .88rem; }
 .tl-detail .chip-row { margin-top: 8px; }
 
 /* 小卡內部：完整名稱 → 標籤 → 資訊列 → 重點框 → 備註 → 導航 */
-.d-full { margin-top: 2px; padding-top: 10px; border-top: 1px solid var(--line); font-weight: 700; font-size: 1rem; line-height: 1.45; }
+.d-full { margin: 0; font-weight: 700; font-size: 1.05rem; line-height: 1.45; }
 .kvs { margin-top: 10px; padding: 0 12px; background: var(--paper); border-radius: 12px; }
 .kv { display: grid; grid-template-columns: 3em minmax(0, 1fr); gap: 0 12px; padding: 8px 0; border-bottom: 1px solid var(--line); font-size: .92rem; }
 .kv:last-child { border-bottom: 0; }
@@ -566,3 +566,6 @@ html[data-fs="3"] { --fsm: 1.33; }
 .tl-row.mark .tl-title { color: var(--maple); font-weight: 700; }
 .tl-row.mark .tl-ic { color: var(--maple); }
 .tl-row.mark button.tl-head { cursor: pointer; } /* 帶內容的出發列（D8 退房）仍然可以點開 */
+
+/* 預約編號的位置：資料裡遮成 ●●●，畫面上顯示「LINE 記事本」小標籤 */
+.ln { display: inline-block; padding: 0 9px; border-radius: 999px; background: var(--maple-tint); color: var(--maple-deep); font-size: .88em; font-weight: 700; white-space: nowrap; }

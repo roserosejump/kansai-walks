@@ -1,16 +1,33 @@
 {
   "name": "秋の関西 2026",
   "short_name": "秋の関西",
+  "description": "關西賞楓八日行程（2026/11/29–12/6）",
+  "lang": "zh-TW",
+  "id": "/kansai-walks/",
   "start_url": "/kansai-walks/",
+  "scope": "/kansai-walks/",
   "display": "standalone",
-  "background_color": "#f7f1e8",
-  "theme_color": "#f7f1e8",
   "orientation": "portrait",
+  "background_color": "#F3EBDD",
+  "theme_color": "#FFFCF6",
   "icons": [
     {
-      "src": "icon.png?v=106",
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-512.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ]
 }
