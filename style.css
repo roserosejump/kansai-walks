@@ -569,3 +569,13 @@ html[data-fs="3"] { --fsm: 1.33; }
 
 /* 預約編號的位置：資料裡遮成 ●●●，畫面上顯示「LINE 記事本」小標籤 */
 .ln { display: inline-block; padding: 0 9px; border-radius: 999px; background: var(--maple-tint); color: var(--maple-deep); font-size: .88em; font-weight: 700; white-space: nowrap; }
+
+/* 交通：收合列右邊的小標籤（搭車淡楓紅、步行淡灰），步行那一列整體比較淡 */
+.tl-tgs { flex: none; display: inline-flex; gap: 6px; }
+.tl-tg { padding: 0 8px; border-radius: 6px; font-size: .76rem; font-weight: 700; line-height: 1.7; }
+.tl-tg.r { background: var(--maple-tint); color: var(--maple-deep); }
+.tl-tg.w { background: rgba(58, 46, 42, .08); color: var(--ink-2); font-weight: 500; }
+.tl-row.ride .tl-ic { color: var(--ink); }
+.tl-row.walk .tl-ic { opacity: .75; }
+.tl-row.walk .tl-title { font-size: .9rem; opacity: .85; }
+.tl-row.walk .tl-dot { width: 5px; height: 5px; margin-top: 19px; border: 0; background: var(--ink-2); opacity: .55; }
