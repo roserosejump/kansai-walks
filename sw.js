@@ -5,12 +5,12 @@
 //     字型檔不會變，先用快取最快；離線時才不會跑版。
 // 想強制所有人更新（例如大幅改了資料結構），把 CACHE_NAME 的版本號 +1 即可。
 // CACHE_NAME 要跟 index.html 裡的 SW_CACHE_NAME 保持一致
-const CACHE_NAME = 'kansai-walks-v1';
+const CACHE_NAME = 'kansai-walks-v2';
 const FONT_CACHE = 'kansai-fonts-v1';
 const NETWORK_TIMEOUT_MS = 3000;
 // 只放固定不太會變的外殼；data/*.json 由 index.html 的 loadData() 直接寫入快取
 // （第一次造訪時 Service Worker 還沒接管頁面，這些請求不會經過 fetch 事件，所以要頁面自己存）
-const APP_SHELL = ['index.html', 'style.css', 'manifest.json', 'icon.png?v=106'];
+const APP_SHELL = ['index.html', 'style.css', 'manifest.json', 'icon.png?v=106', 'images/hero.jpg'];
 const FONT_HOSTS = ['fonts.googleapis.com', 'fonts.gstatic.com'];
 
 self.addEventListener('install', (event) => {

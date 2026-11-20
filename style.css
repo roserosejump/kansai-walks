@@ -114,7 +114,9 @@ a { color: inherit; }
   border-radius: var(--r);
   overflow: hidden; box-shadow: var(--shadow);
 }
-.h-art { display: block; width: 100%; height: auto; }
+.h-art-wrap { position: relative; }
+.h-art { display: block; width: 100%; height: auto; aspect-ratio: 2 / 1; object-fit: cover; object-position: 60% 50%; }
+.h-leaves { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
 .h-body { padding: 16px 18px 18px; }
 .h-greet { font-family: var(--serif); font-size: 1.6rem; font-weight: 700; line-height: 1.3; letter-spacing: .04em; }
 .h-greet em { font-style: normal; color: var(--maple); }
@@ -373,7 +375,7 @@ a { color: inherit; }
 .lf { stroke: #F3E9D6; stroke-width: 6; paint-order: stroke; }
 .lf-a { fill: #B3261E; }
 .lf-b { fill: #861A13; }
-.lf-c { fill: #2B201E; }
+.lf-c { fill: #C23A2B; }
 
 /* 楓葉緩緩飄落：只在沒關動態效果時啟用；每片時間與延遲不同，避免整齊劃一 */
 .fall { transform-box: fill-box; transform-origin: center; }
@@ -412,7 +414,7 @@ body {
   border: 1.5px solid var(--maple); box-shadow: var(--stamp-shadow);
 }
 .ic.optional { border: 1.5px dashed var(--maple); outline: 0; box-shadow: none; }
-.h-art { border-bottom: 1.5px solid var(--maple); }
+.h-art-wrap { border-bottom: 1.5px solid var(--maple); }
 .day-hdr { outline: 0; }
 .today-btn { box-shadow: 3px 3px 0 var(--maple-deep); }
 /* 印章 */
