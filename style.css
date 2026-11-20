@@ -395,16 +395,12 @@ a { color: inherit; }
   .fall-5 { animation-duration: 12s; animation-delay: -2s; }
 }
 
-/* ═════ 階段 3：媽媽模式／完整模式 ═════════════════════════════════
-   模式與字級存在 <html data-mode="mom|full" data-fs="0..3">。
-   用百分比縮放根字體，所有 rem 尺寸會一起放大；
-   媽媽模式基準 106%（= 18px），完整模式 100%（= 17px 內文）。 */
+/* ═════ 階段 3：字級、導覽、現在／下一站 ═════════════════════════════
+   字級存在 <html data-fs="0..3">；用百分比縮放根字體，所有 rem 尺寸會一起放大。 */
 html { --fsm: 1; font-size: calc(100% * var(--fsm)); }
 html[data-fs="1"] { --fsm: 1.11; }
 html[data-fs="2"] { --fsm: 1.22; }
 html[data-fs="3"] { --fsm: 1.33; }
-html[data-mode="mom"] { font-size: calc(106% * var(--fsm)); }
-html[data-mode="mom"] body { line-height: 1.7; }
 
 /* ── 線條圖示 ── */
 .ico, .ni-icon {
@@ -413,23 +409,15 @@ html[data-mode="mom"] body { line-height: 1.7; }
 .ico { width: 1.2em; height: 1.2em; }
 .ni-icon { width: 26px; height: 26px; }
 
-/* ── 頂欄：左（返回）｜標題｜右（模式切換） ── */
-#topbar { grid-template-columns: auto minmax(0, 1fr) auto; }
 .tb-title { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-#tbr { white-space: normal; }
 .tb-back { border: 0; background: transparent; font-family: inherit; font-size: 1rem; }
-.mode-btn {
-  min-height: 44px; padding: 0 14px; border: 1px solid var(--line-strong); border-radius: 999px;
-  background: var(--maple-tint); color: var(--ink); font-weight: 700; font-size: .85rem; cursor: pointer;
-}
-html[data-mode="full"] .mode-btn { background: var(--card); }
 
 /* ── 底部導覽：按鈕、至少 48×48、一定有文字 ── */
 .ni { border: 0; background: transparent; font-family: inherit; font-size: inherit; min-height: 60px; }
 .ni-lb { font-size: .85rem; }
 .ni[aria-current="page"] { background: var(--maple-tint); color: var(--maple); font-weight: 700; }
 
-/* ── 字級控制、顯示設定 ── */
+/* ── 字級控制（資訊頁） ── */
 .fs-ctrl { display: flex; align-items: center; gap: 10px; }
 .fs-btn {
   min-width: var(--tap); min-height: var(--tap); border: 1px solid var(--line-strong); border-radius: var(--r-sm);
@@ -437,17 +425,9 @@ html[data-mode="full"] .mode-btn { background: var(--card); }
 }
 .fs-btn:disabled { opacity: .4; cursor: default; }
 .fs-val { min-width: 3.2em; text-align: center; color: var(--ink-2); font-size: .9rem; }
-#now-wrap > .fs-slot { display: flex; justify-content: flex-end; margin-bottom: 10px; }
 .set-inner { padding: 12px 18px 18px; }
 .set-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 12px; }
 .set-lb { font-weight: 700; }
-.seg { display: flex; gap: 6px; }
-.seg button {
-  min-height: var(--tap); padding: 0 14px; border: 1px solid var(--line-strong); border-radius: 999px;
-  background: var(--card); font-weight: 500; cursor: pointer;
-}
-.seg button[aria-pressed="true"] { background: var(--maple); border-color: var(--maple); color: var(--paper); font-weight: 700; }
-.set-note { margin: 14px 0 0; color: var(--ink-2); font-size: .85rem; }
 .fx-row:first-child { margin-top: 0; }
 
 /* ── 現在／下一站 ── */
@@ -467,22 +447,64 @@ html[data-mode="full"] .mode-btn { background: var(--card); }
 .go-btn.big { display: flex; min-height: 56px; font-size: 1.15rem; }
 .nc-now .go-btn { background: var(--paper); color: var(--maple); }
 .map-btn { gap: 8px; }
-/* 單日頁卡片裡的導航按鈕只在媽媽模式出現（完整模式的導航在展開內容裡） */
-html[data-mode="full"] .ic .go-btn { display: none; }
 
-/* ── 媽媽模式：只留時間、標題、地點、交通標籤、導航 ── */
-html[data-mode="mom"] .ic-body,
-html[data-mode="mom"] .ic-arr,
-html[data-mode="mom"] .ic .st,
-html[data-mode="mom"] .ic .ic-hours,
-html[data-mode="mom"] .h-leaves { display: none; }
-html[data-mode="mom"] .ic-top { cursor: default; }
-html[data-mode="mom"] .ic-time { font-size: 1.05rem; }
-html[data-mode="mom"] .ic-title { font-size: 1.2rem; }
-html[data-mode="mom"] .atag { font-size: 1rem; }
-html[data-mode="mom"] .tag { font-size: .95rem; min-height: 32px; }
-html[data-mode="mom"] .ic .go-btn { display: flex; min-height: 52px; font-size: 1.05rem; }
-/* 動畫全部關掉 */
-html[data-mode="mom"] *, html[data-mode="mom"] *::before, html[data-mode="mom"] *::after {
-  animation: none !important; transition: none !important; scroll-behavior: auto !important;
+/* ── 5 顆導覽、緊急頁 ── */
+.ni { min-width: 0; }
+.ni-lb { font-size: .78rem; }
+.ni-sos { color: var(--maple); }
+.ni-sos[aria-current="page"] { background: var(--maple); color: var(--paper); }
+.stay { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 0; border-top: 1px solid var(--line); }
+.stay:first-of-type { border-top: 0; }
+.stay-d { font-size: .85rem; font-weight: 700; color: var(--maple); }
+.stay-n { font-weight: 700; }
+.stay .go-btn { margin-top: 0; flex: none; }
+
+/* ── 航班資訊卡：登機證造型（票券缺口＋虛線航線＋紙飛機）── */
+.fl { margin-bottom: 14px; background: var(--card); border-radius: 22px; box-shadow: var(--shadow); overflow: hidden; }
+.fl-top { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; padding: 12px 18px 0; }
+.fl-dir {
+  display: inline-flex; flex: none; white-space: nowrap; align-items: center; gap: 6px; padding: 2px 14px 2px 10px; border-radius: 999px;
+  background: var(--maple-tint); color: var(--maple-deep); font-weight: 700; font-size: .92rem;
 }
+.fl-dir .ico { width: 1.05em; height: 1.05em; }
+.fl-date { color: var(--ink-2); font-size: .92rem; white-space: nowrap; }
+.fl-main { display: grid; grid-template-columns: auto minmax(2rem, 1fr) auto; align-items: center; gap: 10px; padding: 14px 18px 4px; }
+.fl-pt { min-width: 0; }
+.fl-r { text-align: right; }
+.fl-code { font-size: .8rem; font-weight: 700; color: var(--maple); letter-spacing: .14em; }
+.fl-time { font-family: var(--serif); font-weight: 900; font-size: 2rem; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.fl-next { margin-left: 3px; font-family: var(--font); font-size: .8rem; font-weight: 700; color: var(--maple); vertical-align: super; }
+.fl-place { margin-top: 2px; color: var(--ink-2); font-size: .92rem; }
+.fl-term { margin-left: 6px; padding: 0 7px; border-radius: 999px; background: var(--paper); color: var(--ink); font-size: .75rem; font-weight: 700; }
+/* 虛線航線：兩端各一個小圓點，中間飛一架紙飛機 */
+.fl-path { position: relative; align-self: center; height: 28px; margin-top: 6px; }
+.fl-path::before { content: ""; position: absolute; left: 6px; right: 6px; top: 50%; border-top: 2px dashed var(--maple); opacity: .55; }
+.fl-path::after { content: ""; position: absolute; left: 0; right: 0; top: calc(50% - 4px); height: 8px;
+  background: radial-gradient(circle at 4px 50%, var(--maple) 0 3.5px, transparent 4px), radial-gradient(circle at calc(100% - 4px) 50%, var(--maple) 0 3.5px, transparent 4px); }
+.fl-plane { position: absolute; left: 50%; top: 50%; width: 24px; height: 24px; margin: -12px 0 0 -12px; padding: 3px; border-radius: 50%;
+  background: var(--card); color: var(--maple); fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
+  .fl-plane { animation: bob 3s ease-in-out infinite; }
+}
+.fl-who { margin-left: auto; font-weight: 700; font-size: .85rem; letter-spacing: .04em; color: var(--ink-2); white-space: nowrap; }
+.fl-no-row { padding: 6px 18px 14px; }
+.fl-no { display: inline-block; padding: 0 12px; border-radius: 999px; background: var(--paper); font-weight: 700; letter-spacing: .08em; }
+/* 票根：虛線＋左右兩個半圓缺口 */
+.fl-info { position: relative; padding: 16px 18px; border-top: 2px dashed var(--line); }
+.fl-facts { display: flex; flex-wrap: wrap; gap: 6px 0; margin-left: -10px; overflow: hidden; font-size: .92rem; }
+/* 分隔線：每項都有左框線，並往左縮 1px；每一行的第一項框線超出容器被裁掉，所以換行時行首不會多一條線 */
+.fl-facts span { padding: 0 10px; margin-left: -1px; border-left: 1px solid var(--line-strong); }
+.fl-warn { margin-top: 8px; font-weight: 700; color: var(--maple); }
+.fl-info::before, .fl-info::after { content: ""; position: absolute; top: -11px; width: 20px; height: 20px; border-radius: 50%; background: var(--paper); }
+.fl-info::before { left: -10px; }
+.fl-info::after { right: -10px; }
+
+/* 緊急號碼：只顯示、不可點 */
+.sos-num { margin-top: 6px; font-family: var(--serif); font-weight: 900; font-size: 2rem; line-height: 1.2; letter-spacing: .04em; font-variant-numeric: tabular-nums; user-select: all; }
+
+/* 請給日本人看：日文大字，放在每張緊急卡片裡 */
+.jp { margin-top: 14px; padding: 12px 14px; background: var(--paper); border-left: 4px solid var(--maple); border-radius: 0 var(--r-sm) var(--r-sm) 0; color: var(--ink); }
+.jp-lb { font-size: .78rem; font-weight: 700; letter-spacing: .1em; color: var(--maple); }
+.jp-t { margin-top: 4px; font-weight: 700; font-size: 1.2rem; line-height: 1.5; }
+.jp-t + .jp-t { margin-top: 8px; padding-top: 8px; border-top: 1px dashed var(--line-strong); }

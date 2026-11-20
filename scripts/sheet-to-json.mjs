@@ -281,8 +281,9 @@ function buildConfig(days) {
   const dates = days.map((d) => d.isoDate);
   const datesOf = (...dayNums) => dayNums.map((n) => dates[n - 1]);
   return {
-    title: '🍁 關西賞楓之旅 2026',
-    shortTitle: 'Kansai 2026',
+    title: '秋の関西 2026',
+    shortTitle: '秋の関西',
+    days: days.length, // App 的 loadData() 靠這個決定要抓幾個 dayN.json，少了就整個行程載不出來
     theme: 'latte',
     currency: { from: 'JPY', to: 'TWD', referenceRate: 0.21 },
     tripStartDate: dates[0],

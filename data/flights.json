@@ -1,0 +1,4 @@
+{
+  "SL396": { "airline": "泰獅航空", "checked": "20kg", "carryOn": "7kg", "meal": false },
+  "GK57": { "airline": "捷星航空", "checked": "30kg + 25kg", "carryOn": "7kg", "meal": true, "checkinDeadline": "21:25" }
+}
