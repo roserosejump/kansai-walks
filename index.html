@@ -537,6 +537,23 @@
     function accessHtml(l) {
       return X(l).split('→').map(x => x.trim().replace(/(約?\s*\d+(?:[–-]\d+)?\s*分鐘?)/g, '<b>$1</b>')).join(' <span class="ar">→</span> ');
     }
+    // 待辦：資料裡的 item.tasks（字串陣列）。每一項有 checkbox，勾選狀態存在手機（localStorage）。
+    // 記錄代號用「行程 id＋第幾項」，所以改文字不會讓勾選狀態對錯項目；但調整項目「順序」會
+    const taskId = (item, i) => `${item.id}#${i + 1}`;
+    function todoCount(item, tasks) { const n = (item.tasks || []).length; return { n, done: (item.tasks || []).filter((_, i) => tasks[taskId(item, i)]).length }; }
+    function todoHtml(item, tasks) {
+      if (!item.tasks || !item.tasks.length) return '';
+      const rows = item.tasks.map((t, i) => {
+        const tid = taskId(item, i);
+        return `<div class="tr${tasks[tid] ? ' done' : ''}" role="checkbox" tabindex="0" aria-checked="${!!tasks[tid]}" onclick="togTask('${X(tid)}','${X(item.id)}',this)" onkeydown="if(event.key===' '||event.key==='Enter'){event.preventDefault();togTask('${X(tid)}','${X(item.id)}',this)}"><div class="tcb"></div><div class="t-text">${X(noEmoji(t))}</div></div>`;
+      }).join('');
+      return `<div class="todo"><div class="todo-lb">${ic('check')}待辦（做完請打勾）</div>${rows}</div>`;
+    }
+    // 收合列上的「待辦 1/2」小標：沒做完是楓紅色，全做完變灰
+    function todoChip(item, tasks) {
+      const c = todoCount(item, tasks);
+      return c.n ? `<span class="tl-todo${c.done === c.n ? ' all' : ''}" id="td-${X(item.id)}">${ic('check')}${c.done}/${c.n}</span>` : '';
+    }
     function renderDay() {
       const d = DAYS[curDay - 1];
       // 當天節奏：第一項與最後一項的開始時間（不顯示行程數，免得看了就覺得累）
@@ -560,7 +577,7 @@
         const asStart = idx === 0 && item.type === 'hotel';
         const isOpen = expanded.has(item.id), mh = mapHref(item, d);
         // 展開後的內容：地點／標籤 → 備註 → 其他區塊 → 導航
-        let body = '';
+        let body = todoHtml(item, tasks); // 待辦（有 checkbox）放在最前面，才不會漏掉
         if (item.trs && item.trs.length > 40) body += `<div class="blk"><div class="blk-lb">交通</div><div class="blk-vl">${trsHtml(item.trs)}</div></div>`;
         if (item.desc) body += typeof item.desc === 'string' ? notesHtml(item.desc, ACCESS[item.id])
           : `<div class="blk"><div class="must-list">${item.desc.map(miHtml).join('')}</div></div>`;
@@ -575,7 +592,6 @@
         }
         if (item.mustEat && item.mustEat.length) body += `<div class="blk"><div class="blk-lb">必吃推薦</div><div class="must-list">${item.mustEat.map(miHtml).join('')}</div></div>`;
         if (item.reservation) { const r = item.reservation; const tcHref = r.tcUrl || 'https://www.tablecheck.com/zh-TW/account/reservations/upcoming'; body += `<div class="blk"><div class="blk-lb">訂位資訊</div><div class="rg"><div class="rc"><div class="rc-lb">ID</div><div class="rc-vl">${X(r.id)}</div></div>${r.time ? `<div class="rc"><div class="rc-lb">時間</div><div class="rc-vl">${X(r.time)}</div></div>` : ''}${r.menu ? `<div class="rc" style="grid-column:1/-1"><div class="rc-lb">內容</div><div class="rc-vl">${X(r.menu)}</div></div>` : ''}</div><a class="tc-btn" href="${X(tcHref)}" target="_blank" rel="noopener">TableCheck 查看訂位</a></div>`; }
-        if (item.tasks && item.tasks.length) { const tRows = item.tasks.map(t => { const tid = item.id + '-' + btoa(encodeURIComponent(t)).slice(0, 8); const dn = tasks[tid] ? 'done' : ''; const tHtml = X(t).replace(/\(([^)]+)\)/g, (_, h) => `<span class="mi-hours">${h}</span>`); return `<div class="tr ${dn}" onclick="togTask('${tid}',this)"><div class="tcb"></div><div class="t-text">${tHtml}</div></div>`; }).join(''); body += `<div class="blk"><div class="blk-lb">待辦</div><div class="task-list">${tRows}</div></div>`; }
         if (mh) body += `<a class="map-btn" href="${X(mh)}" target="_blank" rel="noopener">${PIN}Google Maps 導航</a>`;
         // 資訊列：資料裡本來就有獨立欄位的，整理成一眼能讀的表格（時間已在左邊，不重複）
         const PAY = { paid: '已付款', onSite: '現場付款' };
@@ -595,7 +611,7 @@
         const shortTrs = !item.tags && item.trs && item.trs.length <= 40 ? `<div class="tl-meta">${trsHtml(item.trs)}</div>` : '';
         const [t1, t2] = String(item.time || '').split(/[–-]/);
         const small = item.type === 'transport' || item.type === 'hotel';
-        return `<div class="tl-row ${small ? 'sm' : 'key'}${asStart ? ' mark' : ''}${item.optional ? ' optional' : ''}${isOpen ? ' open' : ''}${isTransport ? (modeOf(item) === 'walk' ? ' walk' : ' ride') : ''}" id="ic-${X(item.id)}" data-type="${X(item.type || '')}"><div class="tl-t">${X(t1 || '')}${t2 ? `<small>${X(t2)}</small>` : ''}</div><div class="tl-dot" aria-hidden="true"></div><div class="tl-main"><button type="button" class="tl-head" aria-expanded="${isOpen}" aria-controls="ib-${X(item.id)}" onclick="togCard('${X(item.id)}')"><span class="tl-ic">${asStart ? ic('flag') : typeIcon(item)}</span><span class="tl-title">${X(asStart ? startLabel : noEmoji(SHORT[item.id] || item.title))}</span>${asStart ? '' : tagChips(item, noEmoji(SHORT[item.id] || item.title))}${item.optional ? '<span class="opt-chip">選配</span>' : ''}<span class="tl-chev" aria-hidden="true">›</span></button></div><div class="tl-detail${isOpen ? '' : ' hidden'}" id="ib-${X(item.id)}">${full}${chipsHtml(item)}${kv ? `<div class="kvs">${kv}</div>` : ''}${shortTrs}${body}</div></div>`;
+        return `<div class="tl-row ${small ? 'sm' : 'key'}${asStart ? ' mark' : ''}${item.optional ? ' optional' : ''}${isOpen ? ' open' : ''}${isTransport ? (modeOf(item) === 'walk' ? ' walk' : ' ride') : ''}" id="ic-${X(item.id)}" data-type="${X(item.type || '')}"><div class="tl-t">${X(t1 || '')}${t2 ? `<small>${X(t2)}</small>` : ''}</div><div class="tl-dot" aria-hidden="true"></div><div class="tl-main"><button type="button" class="tl-head" aria-expanded="${isOpen}" aria-controls="ib-${X(item.id)}" onclick="togCard('${X(item.id)}')"><span class="tl-ic">${asStart ? ic('flag') : typeIcon(item)}</span><span class="tl-title">${X(asStart ? startLabel : noEmoji(SHORT[item.id] || item.title))}</span>${asStart ? '' : tagChips(item, noEmoji(SHORT[item.id] || item.title))}${todoChip(item, tasks)}${item.optional ? '<span class="opt-chip">選配</span>' : ''}<span class="tl-chev" aria-hidden="true">›</span></button></div><div class="tl-detail${isOpen ? '' : ' hidden'}" id="ib-${X(item.id)}">${full}${chipsHtml(item)}${kv ? `<div class="kvs">${kv}</div>` : ''}${shortTrs}${body}</div></div>`;
       });
       // 每天的頭尾加一列「標記」：開頭「從飯店出發」，結尾「回飯店」（最後一天是「回家」）。這是畫面上加的，不是資料
       const endOf = it => String(it.time || '').split(/[–-]/).pop(); // startOf 在上面標題小卡那段已經定義過
@@ -614,7 +630,15 @@
       row.querySelector('.tl-head').setAttribute('aria-expanded', String(open));
       if (open) expanded.add(id); else expanded.delete(id);
     }
-    function togTask(tid, el) { const t = getTasks(), nv = !t[tid]; setTask(tid, nv); el.classList.toggle('done', nv); }
+    function togTask(tid, itemId, el) {
+      const t = getTasks(), nv = !t[tid]; setTask(tid, nv);
+      el.classList.toggle('done', nv); el.setAttribute('aria-checked', String(nv));
+      const chip = document.getElementById('td-' + itemId);
+      if (chip) { // 同步更新收合列的進度小標
+        const item = DAYS.flatMap(d => d.items).find(x => x.id === itemId), c = todoCount(item, getTasks());
+        chip.lastChild.textContent = `${c.done}/${c.n}`; chip.classList.toggle('all', c.done === c.n);
+      }
+    }
 
     // ── CHECKLIST ─────────────────────────────────────────────────────────────────
     function renderChk() {

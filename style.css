@@ -579,3 +579,15 @@ html[data-fs="3"] { --fsm: 1.33; }
 .tl-row.walk .tl-ic { opacity: .75; }
 .tl-row.walk .tl-title { font-size: .9rem; opacity: .85; }
 .tl-row.walk .tl-dot { width: 5px; height: 5px; margin-top: 19px; border: 0; background: var(--ink-2); opacity: .55; }
+
+/* 待辦（checkbox）：小卡裡最上面的一個框；收合列有「✓ 0/2」進度小標 */
+.todo { margin-top: 12px; padding: 4px 14px 6px; background: var(--maple-tint); border-radius: 14px; }
+.todo-lb { display: flex; align-items: center; gap: 6px; padding-top: 8px; font-size: .8rem; font-weight: 700; letter-spacing: .08em; color: var(--maple-deep); }
+.todo-lb .ico { width: 1.1em; height: 1.1em; }
+.todo .tr { border-bottom: 1px dashed rgba(168, 34, 25, .25); padding: 12px 0; align-items: center; }
+.todo .tr:last-child { border-bottom: 0; }
+.todo .tcb { background: var(--card); border-color: var(--maple); }
+.todo .t-text { font-weight: 500; }
+.tl-todo { flex: none; display: inline-flex; align-items: center; gap: 3px; padding: 0 8px; border-radius: 6px; background: var(--maple); color: var(--paper); font-size: .76rem; font-weight: 700; line-height: 1.7; }
+.tl-todo .ico { width: .95em; height: .95em; }
+.tl-todo.all { background: rgba(58, 46, 42, .1); color: var(--ink-2); }
