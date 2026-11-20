@@ -9,7 +9,7 @@
   <link rel="icon" href="icon.png?v=106">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="Kansai 2026">
-  <meta name="theme-color" content="#FFFDF9">
+  <meta name="theme-color" content="#FFFCF6">
   <title>🍁 關西賞楓之旅 2026</title>
   <link rel="manifest" href="manifest.json">
   <link rel="apple-touch-icon" href="icon.png?v=106">
@@ -17,8 +17,14 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
-
-  <link rel="manifest" href="manifest.json">
+  <script>
+    // 在畫面畫出來之前先套用「模式／字級」，不然會先閃一下預設樣式
+    try {
+      const m = JSON.parse(localStorage.getItem('kw-mode')), f = JSON.parse(localStorage.getItem('kw-fs'));
+      document.documentElement.dataset.mode = m === 'full' ? 'full' : 'mom';
+      document.documentElement.dataset.fs = Number.isInteger(f) && f >= 0 && f <= 3 ? f : 0;
+    } catch (e) { document.documentElement.dataset.mode = 'mom'; document.documentElement.dataset.fs = 0; }
+  </script>
   <script>
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('sw.js');
@@ -28,12 +34,17 @@
 
 <body>
   <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <symbol id="i-today" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2.5"/><path d="M3 10h18M8 3v4M16 3v4M9 15.5l2 2 4-4"/></symbol>
+    <symbol id="i-all" viewBox="0 0 24 24"><path d="M9 4L3 6v14l6-2 6 2 6-2V4l-6 2zM9 4v14M15 6v14"/></symbol>
+    <symbol id="i-list" viewBox="0 0 24 24"><path d="M10 6h11M10 12h11M10 18h11M3.5 6l1.5 1.5L7.5 5M3.5 12l1.5 1.5L7.5 11M3.5 18l1.5 1.5L7.5 17"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5.5M12 7.6v.1"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></symbol>
     <symbol id="leaf" viewBox="0 0 100 100"><path d="M50 6l8 20 16-8-4 22 22-4-12 18 14 8-26 4 4 16-18-8-2 22h-4l-2-22-18 8 4-16-26-4 14-8L8 36l22 4-4-22 16 8z" /></symbol>
   </svg>
   <div id="topbar">
     <div id="tbl"></div>
     <div class="tb-title" id="tbt">🍁 關西賞楓之旅 2026</div>
-    <div class="tb-r" id="tbr"></div>
+    <div class="tb-r" id="tbr"><button class="mode-btn" id="mode-btn" type="button" onclick="toggleMode()">媽媽模式</button></div>
   </div>
   <div id="scroll">
     <div class="page active" id="pg-home">
@@ -70,6 +81,7 @@
       </div>
     </div>
     <div class="page" id="pg-day">
+      <div id="now-wrap"></div>
       <div class="day-hdr" id="day-hdr"></div>
       <div class="items-wrap" id="items-wrap"></div>
     </div>
@@ -78,6 +90,19 @@
     </div>
     <div class="page" id="pg-tools">
       <div class="tools-page">
+        <div class="tool-card">
+          <div class="tool-hdr">顯示設定</div>
+          <div class="set-inner">
+            <div class="set-row"><div class="set-lb">模式</div>
+              <div class="seg" role="group" aria-label="顯示模式">
+                <button type="button" id="seg-mom" onclick="setMode('mom')">媽媽模式</button>
+                <button type="button" id="seg-full" onclick="setMode('full')">完整模式</button>
+              </div>
+            </div>
+            <div class="set-row"><div class="set-lb">字級</div><div class="fs-slot"></div></div>
+            <p class="set-note">媽媽模式：只顯示時間、地點、交通和導航，字比較大、沒有動畫。完整模式：顯示全部細節。</p>
+          </div>
+        </div>
         <div class="tool-card">
           <div class="tool-hdr">天氣</div>
           <div class="w-inner">
@@ -90,9 +115,7 @@
         <div class="tool-card">
           <div class="tool-hdr" id="fx-hdr">匯率換算</div>
           <div class="fx-inner">
-            <div class="sec-lb" style="margin-top:0">目的地幣別</div>
-            <div class="currency-picker" id="currency-picker"></div>
-            <div class="fx-row" style="margin-top:12px">
+            <div class="fx-row">
               <div class="fx-lb" id="fx-lb-from">-</div><input class="fx-inp" id="fx-j" type="number" placeholder="0"
                 oninput="calcFx('j')">
             </div>
@@ -109,20 +132,12 @@
       </div>
     </div>
   </div>
-  <div id="bnav">
-    <div class="ni active" id="ni-home" onclick="goPg('home')">
-      <div class="ni-icon">🗾</div>
-      <div class="ni-lb">行程</div>
-    </div>
-    <div class="ni" id="ni-chk" onclick="goPg('chk')">
-      <div class="ni-icon">📋</div>
-      <div class="ni-lb">待辦</div>
-    </div>
-    <div class="ni" id="ni-tools" onclick="goPg('tools')">
-      <div class="ni-icon">🛠</div>
-      <div class="ni-lb">工具</div>
-    </div>
-  </div>
+  <nav id="bnav" aria-label="主要導覽">
+    <button class="ni" id="ni-today" type="button" onclick="goPg('today')"><svg class="ni-icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-today"/></svg><span class="ni-lb">今天</span></button>
+    <button class="ni" id="ni-home" type="button" onclick="goPg('home')"><svg class="ni-icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-all"/></svg><span class="ni-lb">全部行程</span></button>
+    <button class="ni" id="ni-chk" type="button" onclick="goPg('chk')"><svg class="ni-icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-list"/></svg><span class="ni-lb">清單</span></button>
+    <button class="ni" id="ni-tools" type="button" onclick="goPg('tools')"><svg class="ni-icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-info"/></svg><span class="ni-lb">資訊</span></button>
+  </nav>
 
   <script>
     // ── DATA ─────────────────────────────────────────────────────────────────────
@@ -135,7 +150,7 @@
     let CONFIG = {};
     let CITIES = {};
     const SHOP_KEY = 'jp-shop';
-    const SW_CACHE_NAME = 'kansai-walks-v2'; // 要跟 sw.js 裡的 CACHE_NAME 保持一致
+    const SW_CACHE_NAME = 'kansai-walks-v3'; // 要跟 sw.js 裡的 CACHE_NAME 保持一致
 
     async function loadData() {
       // 天數放在 config.json 的 days，不寫死在程式裡；先抓 config 才知道要抓幾天
@@ -167,13 +182,11 @@
       document.getElementById('wcity-tabs').innerHTML = Object.keys(CITIES)
         .map((c, i) => `<div class="wct${i === 0 ? ' active' : ''}" onclick="selCity('${c}')">${CITIES[c].label}</div>`)
         .join('');
-      const configuredFrom = CONFIG.currency.from; // referenceRate 是針對 config.json 設定的這個幣別給的
-      CONFIG.currency.from = load(CURRENCY_KEY, null) || CONFIG.currency.from;
-      document.getElementById('fx-hdr').textContent = `> 匯率換算 ${CONFIG.currency.from} ↔ ${CONFIG.currency.to}`;
+      // 只換算 config.json 設定的幣別（日幣 → 台幣），不再提供其他幣別
+      document.getElementById('fx-hdr').textContent = `匯率換算 ${CONFIG.currency.from} ↔ ${CONFIG.currency.to}`;
       document.getElementById('fx-lb-from').textContent = fxLabel(CONFIG.currency.from);
       document.getElementById('fx-lb-to').textContent = fxLabel(CONFIG.currency.to);
-      renderCurrencyPicker();
-      liveRate = CONFIG.currency.from === configuredFrom ? (CONFIG.currency.referenceRate || null) : null;
+      liveRate = CONFIG.currency.referenceRate || null;
     }
 
     // ── STATE ─────────────────────────────────────────────────────────────────────
@@ -212,26 +225,117 @@
       const n = jst(), hh = String(n.getHours()).padStart(2, '0'), mm = String(n.getMinutes()).padStart(2, '0');
       const ce = document.getElementById('h-clk'); if (ce) ce.textContent = '日本 ' + hh + ':' + mm;
       if (curPage === 'home') renderCountdown();
-      const r = document.getElementById('tbr'); if (r && curPage === 'home') r.textContent = hh + ':' + mm + '\nJST';
+      if (curPage === 'today') renderNow(); // 「現在／下一站」隨時間更新
     }
 
     // ── NAV ───────────────────────────────────────────────────────────────────────
+    // 頁面：today（今天）／home（全部行程）／day（某一天）／chk（清單）／tools（資訊）
+    // today 與 day 共用 #pg-day，差別只在 today 會多一張「現在／下一站」
+    const PAGE_EL = { today: 'pg-day', day: 'pg-day', home: 'pg-home', chk: 'pg-chk', tools: 'pg-tools' };
+    const NAV_EL = { today: 'ni-today', day: 'ni-home', home: 'ni-home', chk: 'ni-chk', tools: 'ni-tools' };
     function goPg(name) {
       curPage = name;
+      if (name === 'today') curDay = todayTarget();
       document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-      document.querySelectorAll('.ni').forEach(n => n.classList.remove('active'));
+      document.querySelectorAll('.ni').forEach(n => { n.classList.remove('active'); n.removeAttribute('aria-current'); });
       document.getElementById('scroll').scrollTop = 0;
-      const map = { home: 'pg-home', day: 'pg-day', chk: 'pg-chk', tools: 'pg-tools' };
-      document.getElementById(map[name]).classList.add('active');
-      const nim = { home: 'ni-home', day: 'ni-home', chk: 'ni-chk', tools: 'ni-tools' };
-      document.getElementById(nim[name]).classList.add('active');
-      const tl = document.getElementById('tbl'), tt = document.getElementById('tbt'), tr = document.getElementById('tbr');
-      if (name === 'home') { tl.innerHTML = ''; tt.textContent = CONFIG.title; tr.textContent = ''; tick(); renderHome(); }
-      else if (name === 'day') { const d = DAYS[curDay - 1]; tl.innerHTML = '<div class="tb-back" onclick="goPg(\'home\')">‹ 返回</div>'; tt.textContent = 'DAY ' + d.day + ' · ' + d.date; tr.textContent = ''; renderDay(); }
-      else if (name === 'chk') { tl.innerHTML = ''; tt.textContent = '待辦清單'; tr.textContent = ''; renderChk(); }
-      else if (name === 'tools') { tl.innerHTML = ''; tt.textContent = '小工具'; tr.textContent = ''; renderQFx(); fetchRate(); loadWx(Object.keys(CITIES)[0]); }
+      document.getElementById(PAGE_EL[name]).classList.add('active');
+      const cur = document.getElementById(NAV_EL[name]); cur.classList.add('active'); cur.setAttribute('aria-current', 'page');
+      const tl = document.getElementById('tbl'), tt = document.getElementById('tbt');
+      if (name === 'home') { tl.innerHTML = ''; tt.textContent = CONFIG.title; tick(); renderHome(); }
+      else if (name === 'today') { tl.innerHTML = ''; tt.textContent = tripDay() ? '今天' : '行程預覽'; renderDay(); }
+      else if (name === 'day') { const d = DAYS[curDay - 1]; tl.innerHTML = '<button class="tb-back" type="button" onclick="goPg(\'home\')">‹ 返回</button>'; tt.textContent = 'DAY ' + d.day + ' · ' + d.date; renderDay(); }
+      else if (name === 'chk') { tl.innerHTML = ''; tt.textContent = '清單'; renderChk(); }
+      else if (name === 'tools') { tl.innerHTML = ''; tt.textContent = '資訊'; renderQFx(); fetchRate(); loadWx(Object.keys(CITIES)[0]); }
+      applyDisplay();
     }
     function openDay(n) { curDay = n; goPg('day'); }
+
+    // ── DISPLAY（媽媽模式／完整模式、字級）─────────────────────────────────────────
+    // 狀態放在 <html data-mode data-fs>，由 CSS 決定顯示什麼，所以切換時不用重畫內容
+    const MODE_KEY = 'kw-mode', FS_KEY = 'kw-fs', FS_MAX = 3;
+    const FS_LABEL = ['標準', '大', '特大', '超大'];
+    function getMode() { return load(MODE_KEY, 'mom') === 'full' ? 'full' : 'mom'; }
+    function getFs() { const n = load(FS_KEY, 0); return Number.isInteger(n) && n >= 0 && n <= FS_MAX ? n : 0; }
+    function fsCtrlHtml() {
+      return `<div class="fs-ctrl"><button type="button" class="fs-btn" aria-label="字變小" onclick="setFs(-1)">A－</button><span class="fs-val" aria-live="polite"></span><button type="button" class="fs-btn" aria-label="字變大" onclick="setFs(1)">A＋</button></div>`;
+    }
+    function applyDisplay() {
+      const m = getMode(), f = getFs(), h = document.documentElement;
+      h.dataset.mode = m; h.dataset.fs = f;
+      const b = document.getElementById('mode-btn');
+      if (b) { b.textContent = m === 'mom' ? '媽媽模式' : '完整模式'; b.setAttribute('aria-label', `目前是${b.textContent}，點一下切換`); }
+      ['mom', 'full'].forEach(k => { const e = document.getElementById('seg-' + k); if (e) e.setAttribute('aria-pressed', String(k === m)); });
+      document.querySelectorAll('.fs-slot').forEach(e => { if (!e.firstChild) e.innerHTML = fsCtrlHtml(); });
+      document.querySelectorAll('.fs-val').forEach(e => { e.textContent = FS_LABEL[f]; });
+      document.querySelectorAll('.fs-btn').forEach((e, i) => { e.disabled = (i % 2 === 0) ? f === 0 : f === FS_MAX; });
+    }
+    function rerender() { const sc = document.getElementById('scroll'), y = sc.scrollTop; goPg(curPage); sc.scrollTop = y; }
+    function setMode(m) { store(MODE_KEY, m); applyDisplay(); rerender(); }
+    function toggleMode() { setMode(getMode() === 'mom' ? 'full' : 'mom'); }
+    function setFs(delta) { store(FS_KEY, Math.min(FS_MAX, Math.max(0, getFs() + delta))); applyDisplay(); }
+
+    // ── NOW / NEXT（現在、下一站）─────────────────────────────────────────────────
+    // "08:00–08:15" → {s: 480, e: 495}；只有 "20:25" 時 e 為 null
+    function parseTimes(t) {
+      const ms = (t || '').match(/\d{1,2}:\d{2}/g) || [];
+      const toMin = x => { const [h, m] = x.split(':'); return +h * 60 + +m; };
+      return { s: ms[0] != null ? toMin(ms[0]) : null, e: ms[1] != null ? toMin(ms[1]) : null };
+    }
+    function tripEnded() { return jst() > new Date(CONFIG.tripEndDate + 'T23:59:59'); }
+    // 今天頁要顯示哪一天：旅行中＝今天；還沒開始＝第一天；已結束＝最後一天
+    function todayTarget() { return tripDay() || (tripEnded() ? DAYS.length : 1); }
+    function nowNextState() {
+      const td = tripDay();
+      if (!td) return tripEnded() ? { kind: 'ended' } : { kind: 'before', day: DAYS[0], next: DAYS[0].items[0] };
+      const d = DAYS[td - 1], n = jst(), mins = n.getHours() * 60 + n.getMinutes();
+      const slots = d.items.map(it => ({ it, ...parseTimes(it.time) })).filter(x => x.s != null);
+      // 只有開始時間的項目：到下一項開始前都算「現在」，最後一項到午夜
+      slots.forEach((x, i) => { if (x.e == null) x.e = slots[i + 1] ? slots[i + 1].s : 24 * 60; });
+      const cur = slots.find(x => x.s <= mins && mins < x.e), nxt = slots.find(x => x.s > mins);
+      if (!cur && !nxt) return { kind: 'done', day: d };
+      return { kind: 'live', day: d, cur: cur && cur.it, next: nxt && nxt.it };
+    }
+    function ncCard(label, it, day, cls) {
+      const meta = [it.time, it.area].filter(Boolean).map(X).join(' ・ ');
+      return `<div class="nc ${cls}"><div class="nc-lb">${label}</div><div class="nc-t">${X(it.title)}</div><div class="nc-m">${meta}</div>${goBtn(it, day, 'big')}</div>`;
+    }
+    function ncMsg(label, text, cls) { return `<div class="nc ${cls || ''}"><div class="nc-lb">${label}</div><div class="nc-t">${text}</div></div>`; }
+    function nowHtml() {
+      const st = nowNextState();
+      let h = '';
+      if (st.kind === 'before') {
+        const diff = Math.max(0, Math.ceil((new Date(CONFIG.tripStartDate + 'T00:00:00') - jst()) / 86400000));
+        h = ncMsg('旅行還沒開始', diff > 0 ? `還有 ${diff} 天出發` : '今天出發', 'nc-msg') + ncCard('第一站（DAY 1）', st.next, st.day, 'nc-next');
+      } else if (st.kind === 'ended') {
+        h = ncMsg('旅程結束', '下次再一起去 🍁', 'nc-msg');
+      } else if (st.kind === 'done') {
+        h = ncMsg('今天的行程結束了', '好好休息', 'nc-msg');
+      } else {
+        h = (st.cur ? ncCard('現在', st.cur, st.day, 'nc-now') : ncMsg('現在', '空檔，休息一下', 'nc-msg'))
+          + (st.next ? ncCard('下一站', st.next, st.day, 'nc-next') : ncMsg('下一站', '今天沒有下一站了', 'nc-msg'));
+      }
+      return `<div class="fs-slot"></div>${h}`;
+    }
+    function renderNow() {
+      const el = document.getElementById('now-wrap'); if (!el) return;
+      const html = curPage === 'today' ? nowHtml() : '';
+      if (el.dataset.html === html) return; // 沒變就不重畫，避免每 15 秒閃一下或打斷點擊
+      el.dataset.html = html; el.innerHTML = html; applyDisplay();
+    }
+
+    // ── 導航按鈕 ─────────────────────────────────────────────────────────────────
+    const PIN = '<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pin"/></svg>';
+    // 有 mapUrl 用 mapUrl；旅館沒有 mapUrl，就用當天旅館名稱搜尋 Google Maps
+    function mapHref(item, day) {
+      if (item.mapUrl && /^https:\/\//.test(item.mapUrl)) return item.mapUrl;
+      if (item.type === 'hotel' && day && day.hotel) return 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(day.hotel);
+      return '';
+    }
+    function goBtn(item, day, cls) {
+      const h = mapHref(item, day);
+      return h ? `<a class="go-btn ${cls || ''}" href="${X(h)}" target="_blank" rel="noopener" onclick="event.stopPropagation()">${PIN}導航</a>` : '';
+    }
 
     // ── HOME ─────────────────────────────────────────────────────────────────────
     function renderHome() {
@@ -311,6 +415,7 @@
     function renderDay() {
       const d = DAYS[curDay - 1];
       document.getElementById('day-hdr').innerHTML = `<div class="dh-top"><span class="dh-daytag">DAY ${d.day}</span>${d.highlight ? `<span class="dh-theme">${d.highlight}</span>` : ''}</div><div class="dh-sub">${d.date} ${d.wd}</div><div class="dh-t">${d.cities.join(' → ')}</div><div class="dh-h">🏨 ${d.hotel}</div>`;
+      renderNow();
       const tasks = getTasks();
       let html = '';
       const trsHtml = s => {
@@ -321,13 +426,14 @@
       };
       d.items.forEach((item, i) => {
         const isOpen = expanded.has(item.id);
+        const mh = mapHref(item, d);
         const hasBody = !!(
           item.desc ||
           item.memo ||
           item.mustEat ||
           item.tasks ||
           item.reservation ||
-          item.mapUrl ||
+          mh ||
           (item.trs && item.trs.length > 40)
         );
         let body = '';
@@ -374,10 +480,10 @@
         if (item.mustEat && item.mustEat.length) body += `<div class="blk"><div class="blk-lb">必吃推薦</div><div class="must-list" style="margin-top:4px">${item.mustEat.map(miHtml).join('')}</div></div>`;
         if (item.reservation) { const r = item.reservation; const tcHref = r.tcUrl || 'https://www.tablecheck.com/zh-TW/account/reservations/upcoming'; body += `<div class="blk bl"><div class="blk-lb">訂位資訊</div><div class="rg"><div class="rc"><div class="rc-lb">ID</div><div class="rc-vl">${X(r.id)}</div></div>${r.time ? `<div class="rc"><div class="rc-lb">時間</div><div class="rc-vl">${X(r.time)}</div></div>` : ''} ${r.menu ? `<div class="rc" style="grid-column:1/-1"><div class="rc-lb">內容</div><div class="rc-vl">${X(r.menu)}</div></div>` : ''}</div><a class="tc-btn" href="${tcHref}" target="_blank"><span>📋 TableCheck 查看訂位</span></a></div>`; }
         if (item.tasks && item.tasks.length) { const tRows = item.tasks.map(t => { const tid = item.id + '-' + btoa(encodeURIComponent(t)).slice(0, 8); const dn = tasks[tid] ? 'done' : ''; const tHtml = X(t).replace(/\(([^)]+)\)/g, (_, h) => `<span class="ic-hours">${h}</span>`); return `<div class="tr ${dn}" onclick="togTask('${tid}',this)"><div class="tcb"></div><div class="t-text">${tHtml}</div></div>`; }).join(''); body += `<div class="blk"><div class="blk-lb">tasks</div><div class="task-list">${tRows}</div></div>`; }
-        if (item.mapUrl) body += `<a class="map-btn" href="${item.mapUrl}" target="_blank" rel="noopener"><span>📍 Google Maps 導航</span></a>`;
+        if (mh) body += `<a class="map-btn" href="${X(mh)}" target="_blank" rel="noopener">${PIN}Google Maps 導航</a>`;
         // 有 tags 就用彩色標籤，不再重複顯示 trs 文字；沒有 tags 才退回顯示 trs
         const shortTrs = !item.tags && item.trs && item.trs.length <= 40 ? `<div class="ic-trs">${trsHtml(item.trs)}</div>` : '';
-        html += `<div class="ic${item.optional ? ' optional' : ''}" id="ic-${item.id}" data-type="${X(item.type || '')}" style="animation-delay:${Math.min(i * .04, .3)}s"><div class="ic-top" onclick="togCard('${item.id}',${hasBody})"><div class="ic-r1"><div class="ic-time">${X(item.time || '')}</div>${hasBody ? `<div class="ic-arr${isOpen ? ' open' : ''}" id="arr-${item.id}">▼</div>` : ''}</div><div class="ic-tr"><span class="ic-title">${item.icon || ''} ${X(item.title)}${item.optional ? '<span class="opt-chip">選配</span>' : ''}</span>${item.hours ? `<span class="ic-hours">${X(item.hours)}</span>` : ''}${item.area ? `<div class="atag">${X(item.area)}</div>` : ''}</div>${shortTrs}${chipsHtml(item)}</div>${hasBody ? `<div class="ic-body${isOpen ? '' : ' hidden'}" id="ib-${item.id}">${body}</div>` : ''}</div>`;
+        html += `<div class="ic${item.optional ? ' optional' : ''}" id="ic-${item.id}" data-type="${X(item.type || '')}" style="animation-delay:${Math.min(i * .04, .3)}s"><div class="ic-top" onclick="togCard('${item.id}',${hasBody})"><div class="ic-r1"><div class="ic-time">${X(item.time || '')}</div>${hasBody ? `<div class="ic-arr${isOpen ? ' open' : ''}" id="arr-${item.id}">▼</div>` : ''}</div><div class="ic-tr"><span class="ic-title">${item.icon || ''} ${X(item.title)}${item.optional ? '<span class="opt-chip">選配</span>' : ''}</span>${item.hours ? `<span class="ic-hours">${X(item.hours)}</span>` : ''}${item.area ? `<div class="atag">${X(item.area)}</div>` : ''}</div>${shortTrs}${chipsHtml(item)}${goBtn(item, d)}</div>${hasBody ? `<div class="ic-body${isOpen ? '' : ' hidden'}" id="ib-${item.id}">${body}</div>` : ''}</div>`;
       });
       document.getElementById('items-wrap').innerHTML = html;
     }
@@ -403,52 +509,12 @@
     function addShop() { const inp = document.getElementById('si'), txt = (inp.value || '').trim(); if (!txt) return; const l = getShop(); l.push({ id: 'u' + Date.now(), text: txt, done: false }); saveShop(l); inp.value = ''; renderChk(); }
 
     // ── FX ────────────────────────────────────────────────────────────────────────
-    const CURRENCY_SYMBOLS = {
-      TWD: 'NT$', JPY: '¥', KRW: '₩', HKD: 'HK$', MOP: 'MOP$', CNY: '¥',
-      THB: '฿', VND: '₫', SGD: 'S$', MYR: 'RM', PHP: '₱', USD: 'US$',
-      EUR: '€', GBP: '£', AUD: 'A$', IDR: 'Rp',
-    };
-    // 快速換算的面額依幣別的實際單位大小給，不然像 VND/IDR 用 500 幾乎不算錢，USD/EUR 用 30000 又太誇張
-    const QUICK_AMOUNTS = {
-      JPY: [500, 1000, 3000, 5000, 10000, 30000],
-      KRW: [1000, 5000, 10000, 30000, 50000, 100000],
-      HKD: [50, 100, 200, 500, 1000, 2000],
-      CNY: [10, 50, 100, 200, 500, 1000],
-      THB: [50, 100, 200, 500, 1000, 2000],
-      VND: [10000, 50000, 100000, 200000, 500000, 1000000],
-      PHP: [50, 100, 200, 500, 1000, 2000],
-      IDR: [10000, 50000, 100000, 200000, 500000, 1000000],
-      USD: [10, 20, 50, 100, 200, 500],
-      EUR: [10, 20, 50, 100, 200, 500],
-      GBP: [10, 20, 50, 100, 200, 500],
-      AUD: [10, 20, 50, 100, 200, 500],
-    };
-    const CURRENCY_OPTIONS = [
-      { code: 'JPY', label: '日本' }, { code: 'KRW', label: '韓國' }, { code: 'HKD', label: '香港' },
-      { code: 'CNY', label: '中國' }, { code: 'THB', label: '泰國' }, { code: 'VND', label: '越南' },
-      { code: 'PHP', label: '菲律賓' }, { code: 'IDR', label: '印尼' }, { code: 'USD', label: '美國' },
-      { code: 'EUR', label: '歐元區' }, { code: 'GBP', label: '英國' }, { code: 'AUD', label: '澳洲' },
-    ];
-    const CURRENCY_KEY = 'jp-currency';
+    const CURRENCY_SYMBOLS = { TWD: 'NT$', JPY: '¥' };
+    // 快速換算的日幣面額
+    const QUICK_AMOUNTS = { JPY: [500, 1000, 3000, 5000, 10000, 30000] };
     let liveRate = null;
 
     function fxLabel(code) { return `${code} ${CURRENCY_SYMBOLS[code] || ''}`.trim(); }
-    function renderCurrencyPicker() {
-      const el = document.getElementById('currency-picker'); if (!el) return;
-      const current = CONFIG.currency.from;
-      el.innerHTML = CURRENCY_OPTIONS.map(o => `<div class="wct${o.code === current ? ' active' : ''}" onclick="setCurrency('${o.code}')">${o.label} ${o.code}</div>`).join('');
-    }
-    function setCurrency(code) {
-      store(CURRENCY_KEY, code);
-      CONFIG.currency.from = code;
-      liveRate = null;
-      document.getElementById('fx-hdr').textContent = `> 匯率換算 ${CONFIG.currency.from} ↔ ${CONFIG.currency.to}`;
-      document.getElementById('fx-lb-from').textContent = fxLabel(CONFIG.currency.from);
-      renderCurrencyPicker();
-      renderQFx();
-      fetchRate();
-    }
-
     async function fetchRate() {
       const rateEl = document.getElementById('fx-rate');
       const { from, to, referenceRate } = CONFIG.currency;
@@ -559,7 +625,8 @@
       tick(); setInterval(tick, 15000);
       try {
         await loadData();
-        renderHome();
+        applyDisplay();
+        goPg(getMode() === 'mom' ? 'today' : 'home');
       } catch (e) {
         showLoadError(e);
       }

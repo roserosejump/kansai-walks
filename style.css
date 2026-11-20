@@ -81,7 +81,7 @@ a { color: inherit; }
 }
 
 /* ── 頁面容器 ─────────────────────────────────────────────── */
-#scroll { flex: 1; overflow-y: auto; overscroll-behavior: contain; }
+#scroll { flex: 1; overflow-y: auto; overflow-x: hidden; overscroll-behavior: contain; } /* x 軸：避免小數像素進位出現假的水平捲軸 */
 .page { display: none; max-width: 600px; margin: 0 auto; padding: 16px 16px 28px; }
 .page.active { display: block; }
 
@@ -393,4 +393,96 @@ a { color: inherit; }
   .fall-3 { animation-duration: 8s;  animation-delay: -3s; }
   .fall-4 { animation-duration: 10s; animation-delay: -7s; }
   .fall-5 { animation-duration: 12s; animation-delay: -2s; }
+}
+
+/* ═════ 階段 3：媽媽模式／完整模式 ═════════════════════════════════
+   模式與字級存在 <html data-mode="mom|full" data-fs="0..3">。
+   用百分比縮放根字體，所有 rem 尺寸會一起放大；
+   媽媽模式基準 106%（= 18px），完整模式 100%（= 17px 內文）。 */
+html { --fsm: 1; font-size: calc(100% * var(--fsm)); }
+html[data-fs="1"] { --fsm: 1.11; }
+html[data-fs="2"] { --fsm: 1.22; }
+html[data-fs="3"] { --fsm: 1.33; }
+html[data-mode="mom"] { font-size: calc(106% * var(--fsm)); }
+html[data-mode="mom"] body { line-height: 1.7; }
+
+/* ── 線條圖示 ── */
+.ico, .ni-icon {
+  fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; flex: none;
+}
+.ico { width: 1.2em; height: 1.2em; }
+.ni-icon { width: 26px; height: 26px; }
+
+/* ── 頂欄：左（返回）｜標題｜右（模式切換） ── */
+#topbar { grid-template-columns: auto minmax(0, 1fr) auto; }
+.tb-title { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+#tbr { white-space: normal; }
+.tb-back { border: 0; background: transparent; font-family: inherit; font-size: 1rem; }
+.mode-btn {
+  min-height: 44px; padding: 0 14px; border: 1px solid var(--line-strong); border-radius: 999px;
+  background: var(--maple-tint); color: var(--ink); font-weight: 700; font-size: .85rem; cursor: pointer;
+}
+html[data-mode="full"] .mode-btn { background: var(--card); }
+
+/* ── 底部導覽：按鈕、至少 48×48、一定有文字 ── */
+.ni { border: 0; background: transparent; font-family: inherit; font-size: inherit; min-height: 60px; }
+.ni-lb { font-size: .85rem; }
+.ni[aria-current="page"] { background: var(--maple-tint); color: var(--maple); font-weight: 700; }
+
+/* ── 字級控制、顯示設定 ── */
+.fs-ctrl { display: flex; align-items: center; gap: 10px; }
+.fs-btn {
+  min-width: var(--tap); min-height: var(--tap); border: 1px solid var(--line-strong); border-radius: var(--r-sm);
+  background: var(--card); font-weight: 700; font-size: 1.05rem; cursor: pointer;
+}
+.fs-btn:disabled { opacity: .4; cursor: default; }
+.fs-val { min-width: 3.2em; text-align: center; color: var(--ink-2); font-size: .9rem; }
+#now-wrap > .fs-slot { display: flex; justify-content: flex-end; margin-bottom: 10px; }
+.set-inner { padding: 12px 18px 18px; }
+.set-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 12px; }
+.set-lb { font-weight: 700; }
+.seg { display: flex; gap: 6px; }
+.seg button {
+  min-height: var(--tap); padding: 0 14px; border: 1px solid var(--line-strong); border-radius: 999px;
+  background: var(--card); font-weight: 500; cursor: pointer;
+}
+.seg button[aria-pressed="true"] { background: var(--maple); border-color: var(--maple); color: var(--paper); font-weight: 700; }
+.set-note { margin: 14px 0 0; color: var(--ink-2); font-size: .85rem; }
+.fx-row:first-child { margin-top: 0; }
+
+/* ── 現在／下一站 ── */
+.nc { margin-bottom: 12px; padding: 16px 18px; background: var(--card); border-radius: var(--r); box-shadow: var(--shadow); }
+.nc-lb { font-weight: 700; font-size: .95rem; letter-spacing: .08em; color: var(--maple); }
+.nc-t { margin-top: 2px; font-family: var(--serif); font-weight: 900; font-size: 1.45rem; line-height: 1.35; }
+.nc-m { margin-top: 2px; color: var(--ink-2); }
+.nc-now { background: var(--maple); color: var(--paper); }
+.nc-now .nc-lb, .nc-now .nc-m { color: var(--paper); }
+.nc-msg .nc-t { font-size: 1.2rem; }
+.go-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: var(--tap); margin-top: 12px; padding: 0 20px;
+  background: var(--maple); color: var(--paper); border-radius: var(--r-sm);
+  font-weight: 700; text-decoration: none;
+}
+.go-btn.big { display: flex; min-height: 56px; font-size: 1.15rem; }
+.nc-now .go-btn { background: var(--paper); color: var(--maple); }
+.map-btn { gap: 8px; }
+/* 單日頁卡片裡的導航按鈕只在媽媽模式出現（完整模式的導航在展開內容裡） */
+html[data-mode="full"] .ic .go-btn { display: none; }
+
+/* ── 媽媽模式：只留時間、標題、地點、交通標籤、導航 ── */
+html[data-mode="mom"] .ic-body,
+html[data-mode="mom"] .ic-arr,
+html[data-mode="mom"] .ic .st,
+html[data-mode="mom"] .ic .ic-hours,
+html[data-mode="mom"] .h-leaves { display: none; }
+html[data-mode="mom"] .ic-top { cursor: default; }
+html[data-mode="mom"] .ic-time { font-size: 1.05rem; }
+html[data-mode="mom"] .ic-title { font-size: 1.2rem; }
+html[data-mode="mom"] .atag { font-size: 1rem; }
+html[data-mode="mom"] .tag { font-size: .95rem; min-height: 32px; }
+html[data-mode="mom"] .ic .go-btn { display: flex; min-height: 52px; font-size: 1.05rem; }
+/* 動畫全部關掉 */
+html[data-mode="mom"] *, html[data-mode="mom"] *::before, html[data-mode="mom"] *::after {
+  animation: none !important; transition: none !important; scroll-behavior: auto !important;
 }

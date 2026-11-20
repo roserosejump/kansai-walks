@@ -5,7 +5,7 @@
 //     字型檔不會變，先用快取最快；離線時才不會跑版。
 // 想強制所有人更新（例如大幅改了資料結構），把 CACHE_NAME 的版本號 +1 即可。
 // CACHE_NAME 要跟 index.html 裡的 SW_CACHE_NAME 保持一致
-const CACHE_NAME = 'kansai-walks-v2';
+const CACHE_NAME = 'kansai-walks-v3';
 const FONT_CACHE = 'kansai-fonts-v1';
 const NETWORK_TIMEOUT_MS = 3000;
 // 只放固定不太會變的外殼；data/*.json 由 index.html 的 loadData() 直接寫入快取
