@@ -59,6 +59,7 @@ body {
 button, input, textarea { font: inherit; color: inherit; }
 a { color: inherit; }
 :focus-visible { outline: 3px solid var(--maple); outline-offset: 2px; }
+[data-kb]:focus-visible { outline: 3px solid var(--maple); outline-offset: -3px; border-radius: var(--r-sm); }
 
 /* ── 頂欄：紙色底＋細線，標題用明體 ─────────────────────────── */
 #topbar {
@@ -290,6 +291,11 @@ a { color: inherit; }
 .chk-sec-t { padding: 14px 0 6px; }
 .cr { border-bottom: 1px solid var(--line); }
 .cr:last-of-type { border-bottom: 0; }
+/* 購物清單：每列＝勾選區＋（自己新增的才有）刪除鈕 */
+.cr-row { display: flex; align-items: center; border-bottom: 1px solid var(--line); }
+.cr-row:last-child { border-bottom: 0; }
+.cr-row .cr { flex: 1; min-width: 0; border-bottom: 0; }
+.cr-del { flex: none; width: var(--tap); min-height: var(--tap); border: 0; background: transparent; color: var(--ink-2); font-size: 1rem; cursor: pointer; }
 .cr-body { min-width: 0; }
 .cr-date, .cr-area {
   display: inline-block; margin: 0 6px 2px 0; padding: 0 9px;
@@ -302,7 +308,7 @@ a { color: inherit; }
 .add-btn {
   display: grid; place-items: center; width: var(--tap); min-height: var(--tap);
   background: var(--maple); color: var(--paper); border-radius: var(--r-sm);
-  font-size: 1.4rem; cursor: pointer;
+  font-size: 1.4rem; cursor: pointer; border: 0; font-family: inherit;
 }
 
 /* ── 工具頁 ──────────────────────────────────────────────── */
@@ -313,7 +319,7 @@ a { color: inherit; }
 .wct {
   display: inline-flex; align-items: center; min-height: 40px; padding: 0 16px;
   background: var(--paper); border-radius: 999px;
-  font-weight: 500; cursor: pointer;
+  font: inherit; font-weight: 500; color: inherit; border: 0; cursor: pointer;
 }
 .wct.active { background: var(--maple); color: var(--paper); }
 .w-msg { padding: 16px 0; text-align: center; color: var(--ink-2); }
@@ -354,7 +360,7 @@ a { color: inherit; }
 .ni.active { background: var(--maple-tint); color: var(--maple); font-weight: 700; }
 
 /* ── SVG 插圖 ───────────────────────────────────────────── */
-.lf { stroke: #F3E9D6; stroke-width: 6; paint-order: stroke; }
+.lf { stroke: var(--paper); stroke-width: 6; paint-order: stroke; }
 .lf-a { fill: #B3261E; }
 .lf-b { fill: #861A13; }
 .lf-c { fill: #C23A2B; }
