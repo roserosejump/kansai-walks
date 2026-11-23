@@ -773,9 +773,9 @@
     function ic(name, cls) { return `<svg class="ico${cls ? ' ' + cls : ''}" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#i-${name}"/></svg>`; }
     // 畫面上不顯示 emoji：資料裡零星有 📸 🛍 等，統一拿掉，只留文字（不改資料檔）
     function noEmoji(s) { return String(s == null ? '' : s).replace(/[\p{Extended_Pictographic}\uFE0F\u200D]/gu, '').replace(/[ \t]{2,}/g, ' ').trim(); }
-    // 資料裡的預約編號都遮成「●●●」（真編號存在 LINE 記事本，不放進公開網站）。畫面上改顯示成「LINE 記事本」小標籤
-    function maskNote(s) { return String(s == null ? '' : s).replace(/●+/g, '【LINE 記事本】'); }
-    function lineHtml(escapedHtml) { return escapedHtml.replace(/【LINE 記事本】/g, '<span class="ln">LINE 記事本</span>'); }
+    // 資料裡的預約編號都遮成「●●●」（真編號存在 LINE，不放進公開網站）。畫面上改顯示成「LINE」小標籤
+    function maskNote(s) { return String(s == null ? '' : s).replace(/●+/g, '【LINE】'); }
+    function lineHtml(escapedHtml) { return escapedHtml.replace(/【LINE】/g, '<span class="ln">LINE</span>'); }
     // 行程類型 → 圖示（飛機另外判斷）
     const TYPE_ICON = { transport: 'train', food: 'food', sight: 'camera', hotel: 'bed', shopping: 'bag', activity: 'star' };
     // 景點再細分：看資料裡每個行程的 icon 欄位（emoji）。沒有對到的景點一律用相機（通用的「景點」圖示）

@@ -129,7 +129,7 @@
       "status": "booked",
       "payment": "paid",
       "cost": 9600,
-      "booking": "門票 ●●●（點此開啟）",
+      "booking": "門票 ●●●",
       "desc": "1. 17:00–17:30 入場，玩約 2.5 小時；館內 21:00 關門\n2. 入場前 2 小時可自行改時間（最多 3 次）；入境或 HARUKA 延誤 → 改到 18:00 場次（最晚 18:00）\n3. 穿運動鞋",
       "mapUrl": "https://www.google.com/maps/search/?api=1&query=teamLab%20Biovortex%20%E4%BA%AC%E9%83%BD%20%E4%BA%AC%E9%83%BD%E7%AB%99",
       "isTicket": true

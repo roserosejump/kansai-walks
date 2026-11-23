@@ -141,7 +141,7 @@ for path in glob.glob('data/*.json') + ['index.html', 'README.md', 'HOW-TO.md']:
     except FileNotFoundError:
         continue
     for m in SECRET_RE.finditer(text):
-        err(f'{path} 疑似含有預約編號：「{m.group(0)[:6]}…」（真編號請存在 LINE 記事本，資料裡用 ●●●）')
+        err(f'{path} 疑似含有預約編號：「{m.group(0)[:6]}…」（真編號請存在 LINE，資料裡用 ●●●）')
 
 # ── 結果 ──────────────────────────────────────────────
 total = sum(len(d.get('items', [])) for d in days)

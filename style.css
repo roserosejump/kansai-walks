@@ -567,7 +567,7 @@ html[data-fs="3"] { --fsm: 1.33; }
 .tl-row.mark .tl-ic { color: var(--maple); }
 .tl-row.mark button.tl-head { cursor: pointer; } /* 帶內容的出發列（D8 退房）仍然可以點開 */
 
-/* 預約編號的位置：資料裡遮成 ●●●，畫面上顯示「LINE 記事本」小標籤 */
+/* 預約編號的位置：資料裡遮成 ●●●，畫面上顯示「LINE」小標籤 */
 .ln { display: inline-block; padding: 0 9px; border-radius: 999px; background: var(--maple-tint); color: var(--maple-deep); font-size: .88em; font-weight: 700; white-space: nowrap; }
 
 /* 交通：收合列右邊的小標籤（搭車淡楓紅、步行淡灰），步行那一列整體比較淡 */
