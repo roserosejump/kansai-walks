@@ -553,7 +553,7 @@
         const tid = taskId(item, i);
         return `<div class="tr${tasks[tid] ? ' done' : ''}" role="checkbox" tabindex="0" aria-checked="${!!tasks[tid]}" onclick="togTask('${X(tid)}','${X(item.id)}',this)" onkeydown="if(event.key===' '||event.key==='Enter'){event.preventDefault();togTask('${X(tid)}','${X(item.id)}',this)}"><div class="tcb"></div><div class="t-text">${X(noEmoji(t))}</div></div>`;
       }).join('');
-      return `<div class="todo"><div class="todo-lb">${ic('check')}待辦（做完請打勾）</div>${rows}</div>`;
+      return `<div class="todo"><div class="todo-lb">${ic('check')}任務清單</div>${rows}</div>`;
     }
     // 收合列上的「待辦 1/2」小標：沒做完是楓紅色，全做完變灰
     function todoChip(item, tasks) {

@@ -22,7 +22,7 @@
       "tags": [
         "JR"
       ],
-      "desc": "1. 約 25–30 分\n2. 出發前下載 USJ 官方 App，先把門票和快通綁進去"
+      "desc": "1. 約 25–30 分"
     },
     {
       "id": "5-2",
@@ -35,9 +35,12 @@
       "payment": "paid",
       "hours": "9-21",
       "booking": "Klook 查詢編號 ●●●",
-      "desc": "1. 官方 9:00 開園，通常 8:00–8:30 提早開放\n2. 預測人潮「普通」\n3. 快通一人一張，入園門票另外需要\n4. 先截圖存手機（園內網路可能不穩）",
+      "desc": "1. 官方 9:00 開園，通常 8:00–8:30 提早開放\n2. 預測人潮「普通」\n3. 快通一人一張，入園門票另外需要",
       "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E6%8E%92%E9%9A%8A%E5%85%A5%E5%9C%92%20USJ",
-      "isTicket": true
+      "isTicket": true,
+      "tasks": [
+        "截圖存好 Klook 憑證與快速通關"
+      ]
     },
     {
       "id": "5-3",
@@ -49,7 +52,7 @@
       "status": "none",
       "payment": "onSite",
       "cost": 4800,
-      "desc": "1. 週年紀念版超級星星爆米花桶 ¥4,800\n2. 好萊塢區就在入口：Beverly Hills Gift 門口推車（焦糖、鹽味）、Stage 18 門口推車（鹽味）\n3. 推車還沒開 → 10:50 在任天堂世界「ピットストップ・ポップコーン」買（水果、焦糖桃子口味）\n4. 口味常換，問現場店員\n5. 早上人最少，先玩沒有快通的",
+      "desc": "1. 週年紀念版星星爆米花桶 ¥4,800，好萊塢區入口推車（Beverly Hills Gift、Stage 18）\n2. 推車沒開 → 10:50 去任天堂世界「ピットストップ・ポップコーン」\n3. 口味常換，問店員；早上人最少，先玩沒有快通的",
       "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E5%85%A5%E5%9C%92%E5%85%88%E5%9C%A8%E5%A5%BD%E8%90%8A%E5%A1%A2%E5%8D%80%E8%B2%B7%E6%98%9F%E6%98%9F%E7%88%86%E7%B1%B3%E8%8A%B1%E6%A1%B6%20USJ"
     },
     {
@@ -64,7 +67,9 @@
       "tags": [
         "步行"
       ],
-      "desc": "一進任天堂世界先用 App 拿奇諾比奧咖啡館號碼牌"
+      "tasks": [
+        "用 App 拿奇諾比奧咖啡館號碼牌"
+      ]
     },
     {
       "id": "5-5",
@@ -74,7 +79,7 @@
       "area": "超級任天堂世界",
       "type": "sight",
       "status": "booked",
-      "desc": "1. 快通指定時間以 App 顯示為準\n2. 進區先用 App 拿奇諾比奧咖啡館號碼牌\n3. 區內拍照、逛周邊",
+      "desc": "1. 快通指定時間以 App 顯示為準\n2. 區內拍照、逛周邊",
       "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E8%B6%85%E7%B4%9A%E4%BB%BB%E5%A4%A9%E5%A0%82%E4%B8%96%E7%95%8C%20%E8%B6%85%E7%B4%9A%E4%BB%BB%E5%A4%A9%E5%A0%82%E4%B8%96%E7%95%8C",
       "isTicket": true
     },
@@ -87,7 +92,7 @@
       "type": "food",
       "status": "queue",
       "booking": "USJ App 拿號碼牌",
-      "desc": "1. 用 App 拿號碼牌，叫到號再去\n2. 號碼牌拿不到 → 改吃別區餐廳，不要硬等",
+      "desc": "1. 叫到號再去；號碼牌拿不到 → 改吃別區餐廳，不要硬等",
       "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E5%A5%87%E8%AB%BE%E6%AF%94%E5%A5%A7%E5%92%96%E5%95%A1%E9%A4%A8%20%E5%8D%88%E9%A4%90%20%E8%B6%85%E7%B4%9A%E4%BB%BB%E5%A4%A9%E5%A0%82%E4%B8%96%E7%95%8C"
     },
     {
