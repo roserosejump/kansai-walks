@@ -48,6 +48,7 @@ access = load('data/access.json', False) or {}
 themes = load('data/day-themes.json', False) or {}
 cities = load('data/day-cities.json', False) or {}
 flights = load('data/flights.json', False) or {}
+hotels = load('data/hotels.json', False) or {}
 
 day_files = sorted(glob.glob('data/day[0-9]*.json'), key=lambda p: int(re.search(r'day(\d+)\.json', p).group(1)))
 days = [load(p) for p in day_files]
@@ -69,7 +70,7 @@ if days and config.get('tripEndDate') != days[-1].get('isoDate'):
 
 # ── 行程 ──────────────────────────────────────────────
 TIME_RE = re.compile(r'^\d{1,2}:\d{2}([–-]\d{1,2}:\d{2})?$')
-KNOWN_TAGS = {'步行', 'JR', '地鐵', '巴士', '京阪', '阪急', '近鐵', '南海', 'HARUKA', '✈️ 飛機', '計程車', '纜車', '嵯峨野小火車', '開車'}
+KNOWN_TAGS = {'步行', 'JR', '地鐵', '巴士', '京阪', '阪急', '近鐵', '南海', 'HARUKA', '✈️ 飛機', '計程車', '纜車', '嵯峨野小火車', '開車', '嵐電'}
 TYPES = {'transport', 'sight', 'food', 'hotel', 'shopping', 'activity'}
 ids, titles, descs = set(), {}, {}
 for d in days:
@@ -109,6 +110,15 @@ for i in range(1, n + 1):
 for k in list(themes) + list(cities):
     if not k.isdigit() or not 1 <= int(k) <= n:
         err(f'day-themes／day-cities 有不存在的天數：{k}')
+
+# ── 旅館 ──────────────────────────────────────────────
+real_hotels = {d.get('hotel') for d in days if d.get('hotel') and '機上' not in d['hotel']}
+for h in sorted(real_hotels):
+    if h not in hotels:
+        warn(f'旅館「{h}」在 hotels.json 沒有資料（地圖會直接用旅館名稱搜尋，緊急頁不會顯示日文名與地址）')
+for k in hotels:
+    if k not in real_hotels:
+        warn(f'hotels.json 的「{k}」沒有任何一天用到（名稱要跟 dayN.json 的 hotel 欄位一模一樣）')
 
 # ── 航班 ──────────────────────────────────────────────
 for d in days:

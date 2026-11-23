@@ -591,3 +591,5 @@ html[data-fs="3"] { --fsm: 1.33; }
 .tl-todo { flex: none; display: inline-flex; align-items: center; gap: 3px; padding: 0 8px; border-radius: 6px; background: var(--maple); color: var(--paper); font-size: .76rem; font-weight: 700; line-height: 1.7; }
 .tl-todo .ico { width: .95em; height: .95em; }
 .tl-todo.all { background: rgba(58, 46, 42, .1); color: var(--ink-2); }
+
+.stay-s { margin-top: 2px; font-size: .85rem; color: var(--ink-2); line-height: 1.5; }

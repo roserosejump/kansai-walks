@@ -182,6 +182,7 @@
     let CITIES = {};
     let ACCESS = {};  // data/access.json：行程 id → 「怎麼去」的句子（手動挑出來，和備註分開顯示）
     let CITYROUTE = {}; // data/day-cities.json：第幾天 → 當天經過的城市（依順序，手動維護）
+    let HOTELS = {};  // data/hotels.json：旅館顯示名稱 → 地圖搜尋名稱、日文名、地址、電話（手動維護）
     let THEMES = {};  // data/day-themes.json：第幾天 → 今日一句話（手動維護）
     let SHORT = {};   // data/short-titles.json：行程 id → 一句話短標題（手動維護）
     let FLIGHTS = {}; // data/flights.json：以航班編號為 key 的行李、餐點等資訊
@@ -194,7 +195,7 @@
       const dayCount = (await configRes.clone().json()).days;
       const dayFiles = Array.from({ length: dayCount }, (_, i) => `data/day${i + 1}.json`);
       // 選配檔（缺了不影響行程）：每天一句話主題、短標題、航班資訊
-      const OPTIONAL = ['data/day-cities.json', 'data/day-themes.json', 'data/short-titles.json', 'data/flights.json', 'data/access.json'];
+      const OPTIONAL = ['data/day-cities.json', 'data/day-themes.json', 'data/short-titles.json', 'data/flights.json', 'data/access.json', 'data/hotels.json'];
       const dataFiles = [...dayFiles, ...OPTIONAL, 'data/checklist.json', 'data/config.json'];
       const responses = await Promise.all(dataFiles.map(f => f === 'data/config.json' ? configRes
         : OPTIONAL.includes(f) ? fetch(f).then(r => r.ok ? r : new Response('{}')) // 選配檔缺了不要讓整個 App 打不開
@@ -211,6 +212,7 @@
       const days = dayFiles.map(f => byFile[f]);
       CITYROUTE = byFile['data/day-cities.json'];
       THEMES = byFile['data/day-themes.json'];
+      HOTELS = byFile['data/hotels.json'];
       ACCESS = byFile['data/access.json'];
       SHORT = byFile['data/short-titles.json'];
       FLIGHTS = byFile['data/flights.json'];
@@ -397,18 +399,22 @@
       // 只顯示號碼，不做成可撥打的按鈕（避免誤觸）；需要時自己撥
       { label: '台北駐大阪經濟文化辦事處（急難救助）', tel: '090-8794-4568', note: '日本境內直撥 090-8794-4568；海外或漫遊撥打 +81-90-8794-4568', jp: ['この番号に電話してください。台北駐大阪経済文化弁事処です。'] },
     ];
-    function hotelSearchHref(name) { return 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(name); }
+    // 地圖搜尋用 hotels.json 的 query（Google 上登記的名稱，例如日文／英文名）；沒有就用畫面上的旅館名稱
+    function hotelSearchHref(name) { return 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent((HOTELS[name] && HOTELS[name].query) || name); }
+    // 給司機／路人看的日文名稱與地址、電話（hotels.json 有填才顯示）
+    const hotelJpLines = h => HOTELS[h] ? [HOTELS[h].jp, HOTELS[h].address].filter(Boolean) : [];
+    const hotelTel = h => HOTELS[h] && HOTELS[h].tel ? `<div class="nc-m">電話 ${X(HOTELS[h].tel)}${HOTELS[h].telIntl ? `（海外撥 ${X(HOTELS[h].telIntl)}）` : ''}</div>` : '';
     // 「請給日本人看」：日文一句話，讓旁邊的人看了就知道要幫什麼
     const jpBlock = lines => lines && lines.length ? `<div class="jp"><div class="jp-lb">請給日本人看</div>${lines.map(l => `<div class="jp-t" lang="ja">${X(l)}</div>`).join('')}</div>` : '';
     function renderSos() {
       const td = tripDay() || 1, d = DAYS[td - 1];
-      // 連續幾天住同一間旅館就合併成一列，例如「D1–D2 Tune Stay Kyoto」
+      // 連續幾天住同一間旅館就合併成一列，例如「D1–D3 四条大宮風雅酒店」
       const stays = [];
       DAYS.forEach(x => { if (!isRealHotel(x.hotel)) return; const last = stays[stays.length - 1]; if (last && last.hotel === x.hotel) last.to = x.day; else stays.push({ hotel: x.hotel, from: x.day, to: x.day }); });
       const hotel = hotelOf(d);
-      const home = hotel ? `<div class="nc nc-now"><div class="nc-lb">迷路了？回旅館</div><div class="nc-t">${X(hotel)}</div><a class="go-btn big" href="${X(hotelSearchHref(hotel))}" target="_blank" rel="noopener">${PIN}導航回旅館</a>${jpBlock(['道に迷いました。このホテルまで行きたいです。'])}</div>` : '';
+      const home = hotel ? `<div class="nc nc-now"><div class="nc-lb">迷路了？回旅館</div><div class="nc-t">${X(hotel)}</div>${hotelTel(hotel)}<a class="go-btn big" href="${X(hotelSearchHref(hotel))}" target="_blank" rel="noopener">${PIN}導航回旅館</a>${jpBlock(['道に迷いました。このホテルまで行きたいです。', ...hotelJpLines(hotel)])}</div>` : '';
       const tels = EMERGENCY.map(e => `<div class="nc"><div class="nc-lb">${X(e.label)}</div><div class="nc-m">${X(e.note || '')}</div><div class="sos-num">${X(e.tel)}</div>${jpBlock(e.jp)}</div>`).join('');
-      const stayRows = stays.map(x => `<div class="stay"><div><div class="stay-d">${x.from === x.to ? 'D' + x.from : 'D' + x.from + '–D' + x.to}</div><div class="stay-n">${X(x.hotel)}</div></div><a class="go-btn" href="${X(hotelSearchHref(x.hotel))}" target="_blank" rel="noopener">${PIN}導航</a></div>`).join('');
+      const stayRows = stays.map(x => `<div class="stay"><div><div class="stay-d">${x.from === x.to ? 'D' + x.from : 'D' + x.from + '–D' + x.to}</div><div class="stay-n">${X(x.hotel)}</div>${hotelJpLines(x.hotel).length ? `<div class="stay-s" lang="ja">${hotelJpLines(x.hotel).map(X).join('<br>')}</div>` : ''}</div><a class="go-btn" href="${X(hotelSearchHref(x.hotel))}" target="_blank" rel="noopener">${PIN}導航</a></div>`).join('');
       document.getElementById('sos-page').innerHTML = home + tels + `<div class="nc"><div class="nc-lb">這趟住的旅館</div>${stayRows}${jpBlock(['このホテルに泊まっています。'])}</div>`;
     }
 
@@ -427,7 +433,7 @@
     // 有 mapUrl 用 mapUrl；旅館沒有 mapUrl，就用當天旅館名稱搜尋 Google Maps
     function mapHref(item, day) {
       if (item.mapUrl && /^https:\/\//.test(item.mapUrl)) return item.mapUrl;
-      if (item.type === 'hotel' && day && hotelOf(day)) return 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(hotelOf(day));
+      if (item.type === 'hotel' && day && hotelOf(day)) return hotelSearchHref(hotelOf(day));
       return '';
     }
     function goBtn(item, day, cls) {
@@ -513,7 +519,7 @@
     const TAG_CLASS = {
       '步行': 'walk', 'JR': 'jr', '地鐵': 'metro', '巴士': 'bus', '京阪': 'keihan', '阪急': 'hankyu',
       '近鐵': 'kintetsu', '南海': 'nankai', 'HARUKA': 'haruka', '✈️ 飛機': 'plane', '計程車': 'taxi',
-      '纜車': 'cable', '嵯峨野小火車': 'sagano', '開車': 'car',
+      '纜車': 'cable', '嵯峨野小火車': 'sagano', '開車': 'car', '嵐電': 'randen',
     };
     // status → 徽章文字；none 不顯示
     const STATUS_BADGE = { booked: ['check', '已預約'], todo: ['clock', '待預約'], buyOnSite: ['ticket', '現場購票'], queue: ['users', '現場排隊'], unconfirmed: ['help', '待確認'] };
