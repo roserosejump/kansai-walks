@@ -178,6 +178,7 @@
     let DAYS = [];
     let GTASKS = {};
     let SHOP_DEF = [];
+    let BOOKED = [];
     let CONFIG = {};
     let CITIES = {};
     let ACCESS = {};  // data/access.json：行程 id → 「怎麼去」的句子（手動挑出來，和備註分開顯示）
@@ -226,6 +227,7 @@
       DAYS = days;
       GTASKS = checklist.GTASKS;
       SHOP_DEF = checklist.SHOP_DEF;
+      BOOKED = checklist.BOOKED || [];
       CONFIG = config;
       CITIES = config.cities;
       document.title = CONFIG.title;
@@ -689,6 +691,8 @@
         items.forEach(item => { const dn = tasks[item.id] ? 'done' : ''; const dateBadge = item.date ? `<div class="cr-date">${item.date}</div>` : ''; const am = item.text.match(/^\[([^\]]+)\]\s*/); const area = am ? am[1] : ''; const txt = am ? item.text.slice(am[0].length) : item.text; const areaBadge = area ? `<div class="cr-area">${X(area)}</div>` : ''; html += `<div class="cr ${dn}" role="checkbox" tabindex="0" data-kb aria-checked="${!!tasks[item.id]}" onclick="togChk('${item.id}',this)"><div class="ccb"></div><div class="cr-body">${dateBadge}${areaBadge}<div class="cr-text">${X(noEmoji(txt))}</div></div></div>`; });
         html += '</div>';
       });
+      // 已預約：只供查看，沒有勾選框（資料在 checklist.json 的 BOOKED）
+      if (BOOKED.length) html += `<div class="chk-sec"><div class="chk-sec-t">已預約</div>${BOOKED.map(b => `<div class="cr bk">${ic('check')}<div class="cr-body"><div class="cr-date">${X(b.date)}</div><div class="cr-text">${X(b.text)}</div></div></div>`).join('')}</div>`;
       html += `<div class="chk-sec"><div class="chk-sec-t">購物清單</div><div id="shop-list">${shopRowsHtml()}</div>`;
       html += `<div class="add-row"><input class="add-inp" id="si" aria-label="新增購物項目" placeholder="新增購物項目..." onkeydown="if(event.key==='Enter')addShop()"><button type="button" class="add-btn" aria-label="新增" onclick="addShop()">＋</button></div></div>`;
       document.getElementById('chk-page').innerHTML = html;

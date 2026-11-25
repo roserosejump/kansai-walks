@@ -291,6 +291,8 @@ a { color: inherit; }
 .chk-sec-t { padding: 14px 0 6px; }
 .cr { border-bottom: 1px solid var(--line); }
 .cr:last-of-type { border-bottom: 0; }
+.cr.bk { cursor: default; }
+.cr.bk > svg { flex: none; width: 1.1rem; height: 1.1rem; color: var(--maple); }
 /* 購物清單：每列＝勾選區＋（自己新增的才有）刪除鈕 */
 .cr-row { display: flex; align-items: center; border-bottom: 1px solid var(--line); }
 .cr-row:last-child { border-bottom: 0; }

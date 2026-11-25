@@ -21,7 +21,7 @@ python3 scripts/check-data.py        # 改完資料先跑；有「錯誤」就�
 | 某個行程**怎麼去**（交通說明） | `data/access.json` |
 | **航班**的行李、餐點、報到截止 | `data/flights.json` |
 | **旅館**的日文名、地址、電話（緊急頁、導航用） | `data/hotels.json` |
-| 待辦事項、購物清單 | `data/checklist.json` |
+| 待辦事項、已預約、購物清單 | `data/checklist.json` |
 | 標題、天數、日期、天氣城市 | `data/config.json` |
 
 行程之間靠每個行程的 **`id`**（例如 `3-7`）對應：短標題、交通說明都用 `id` 當 key。
