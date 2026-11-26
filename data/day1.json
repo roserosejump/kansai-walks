@@ -45,8 +45,8 @@
       "icon": "🛂",
       "title": "HARUKA 劃位",
       "area": "關西國際機場Kix",
-      "status": "todo",
-      "booking": "HARUKA 單程優惠票",
+      "status": "booked",
+      "booking": "已在 Klook 買好 HARUKA 單程優惠票 ×2",
       "type": "activity",
       "tasks": [
         "入境：出示 Visit Japan Web 的 QR code",
@@ -60,7 +60,7 @@
       "title": "HARUKA → 京都站",
       "area": "機場→京都",
       "type": "transport",
-      "status": "todo",
+      "status": "booked",
       "trs": "HARUKA",
       "tags": [
         "HARUKA"
